@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://195.80.51.63:5432/organizillamain
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+authentication:
+  jwt:
+    secret: jsonwebtokensecretphrasepneumonoultramicroscopicsilicovolcanoconiosisantidisestablishmentarianism
+    issuer: organizilla
+    access-token-lifetime-seconds: 120
+    refresh-token-lifetime-seconds: 2700000
+    refresh-token-cookie-name: organizilla_refreshtoken
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
