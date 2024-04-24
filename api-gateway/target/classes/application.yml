@@ -12,8 +12,6 @@ spring:
             - Path=/api/v1/stub/**
           filters:
             - CustomGatewayFilter
-
-
 server:
   port: 8082
 custom-properties:

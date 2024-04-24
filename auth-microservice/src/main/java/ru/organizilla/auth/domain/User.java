@@ -2,10 +2,13 @@ package ru.organizilla.auth.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.organizilla.auth.domain.enums.AccountStatus;
 import ru.organizilla.auth.domain.enums.Role;
 
+import java.util.List;
+
 @Entity
-@Table(name = "uzer")
+@Table(name = "\"user\"")
 @Data
 public class User {
 
@@ -31,11 +34,18 @@ public class User {
     @Column(name = "salt", nullable = false, length = 60)
     private String salt;
 
-    @Column(name = "refresh_token", length = 200)
+    @Column(name = "refresh_token", length = 300)
     private String refreshToken;
 
     @Column(name = "role", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.ROLE_USER;
+
+    @Column(name = "account_status", nullable = false, length = 30)
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus = AccountStatus.EMAIL_UNVERIFIED;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private ConfirmationCode confirmationCode;
 
 }

@@ -17,12 +17,12 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender sender;
 
     @Override
-    public void sendRegistrationMail(String to, String code) {
-        sendHtmlEmail(to, MailSubject.REGISTRATION.toString(), "<h1>hello</h1>");
+    public void sendRegistrationMail(String to, String username, String code) {
+        sendHtmlEmail(to, MailSubject.REGISTRATION.toString(), username, code);
     }
 
     @SneakyThrows
-    private void sendHtmlEmail(String recipientAddress, String subject, String htmlContent) {
+    private void sendHtmlEmail(String recipientAddress, String subject, String username, String code) {
         MimeMessage message = sender.createMimeMessage();
 
         message.setSubject(subject);
@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService {
         helper = new MimeMessageHelper(message, true);
         helper.setTo(recipientAddress);
 
-        helper.setText(htmlContent, true);
+        helper.setText("<h1>wassup " + username +  " code " + code + "</h1>", true);
         sender.send(message);
     }
 

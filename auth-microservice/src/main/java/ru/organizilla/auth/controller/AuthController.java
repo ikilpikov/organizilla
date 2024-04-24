@@ -9,11 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import ru.organizilla.auth.dto.AccessTokenDto;
-import ru.organizilla.auth.dto.AuthEmailDto;
-import ru.organizilla.auth.dto.AuthUsernameDto;
-import ru.organizilla.auth.dto.RegisterUserDto;
+import ru.organizilla.auth.dto.*;
+import ru.organizilla.auth.exception.AccountConfirmationException;
 import ru.organizilla.auth.service.AuthService;
+import ru.organizilla.auth.service.EmailService;
 import ru.organizilla.auth.util.CookieUtil;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
@@ -54,14 +53,26 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AccessTokenDto> registerUser(@RequestBody @Valid RegisterUserDto registerUserDto) {
-        var tokens = authService.registerUser(registerUserDto);
+    public ResponseEntity<String> registerUser(@RequestBody @Valid RegisterUserDto registerUserDto) {
+        authService.registerUser(registerUserDto);
+        return ok().body("Account registered. Needed email confirmation");
+    }
+
+    @PostMapping("/send-confirmation-email")
+    public ResponseEntity<String> sendConfirmationEmail(@RequestBody @Valid SendEmailDto sendEmailDto) {
+        authService.sendRegisterEmail(sendEmailDto);
+        return ok().body("Email sent");
+    }
+
+    @PostMapping("/confirm-email")
+    public ResponseEntity<AccessTokenDto> confirmEmail(@RequestBody @Valid EmailConfirmationDto emailConfirmationDto) {
+        var tokens = authService.confirmRegistration(emailConfirmationDto);
         var accessToken = new AccessTokenDto();
         accessToken.setAccessToken(tokens.getAccessToken());
 
         HttpHeaders headers = new HttpHeaders();
-
         headers.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(tokens.getRefreshToken()).toString());
+
         return ok().headers(headers).body(accessToken);
     }
 
@@ -93,6 +104,12 @@ public class AuthController {
     public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(AccountConfirmationException.class)
+    public ResponseEntity<String> handleAccountConfirmationException(AccountConfirmationException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<String> handleJwtException(JwtException ex) {

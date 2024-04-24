@@ -8,8 +8,12 @@ public interface AuthService {
 
     TokenPairDto authenticateEmail(AuthEmailDto authEmailDto);
 
-    TokenPairDto registerUser(RegisterUserDto registerUserDTO);
+    void registerUser(RegisterUserDto registerUserDTO);
+
+    void sendRegisterEmail(SendEmailDto sendEmailDto);
 
     TokenPairDto refreshToken(String refreshToken);
+
+    TokenPairDto confirmRegistration(EmailConfirmationDto emailConfirmationDto);
 
 }

@@ -1,5 +1,6 @@
 package ru.organizilla.auth.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,29 +10,41 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.organizilla.auth.domain.ConfirmationCode;
 import ru.organizilla.auth.domain.User;
-import ru.organizilla.auth.domain.enums.Role;
-import ru.organizilla.auth.dto.AuthEmailDto;
-import ru.organizilla.auth.dto.AuthUsernameDto;
-import ru.organizilla.auth.dto.RegisterUserDto;
-import ru.organizilla.auth.dto.TokenPairDto;
+import ru.organizilla.auth.domain.enums.AccountStatus;
+import ru.organizilla.auth.dto.*;
+import ru.organizilla.auth.exception.AccountConfirmationException;
+import ru.organizilla.auth.repository.ConfirmationCodeRepository;
 import ru.organizilla.auth.repository.UserRepository;
+import ru.organizilla.auth.service.EmailService;
 import ru.organizilla.auth.util.JwtUtil;
 import ru.organizilla.auth.service.AuthService;
+import ru.organizilla.auth.util.SecretCodeUtil;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
+    private final EmailService emailService;
+
     private final UserRepository userRepository;
+
+    private final ConfirmationCodeRepository confirmationCodeRepository;
 
     private final JwtUtil jwtUtil;
 
     private final AuthenticationManager authenticationManager;
 
     private final PasswordEncoder encoder;
+
+    private final SecretCodeUtil secretCodeUtil;
+
+    private final int confirmationCodeLifetime = 3;
 
     @Override
     public TokenPairDto authenticateUsername(AuthUsernameDto authUsernameDto) {
@@ -52,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public TokenPairDto registerUser(RegisterUserDto registerUserDTO) {
+    public void registerUser(RegisterUserDto registerUserDTO) {
         if (userRepository.existsByEmail(registerUserDTO.getEmail())) {
             throw new KeyAlreadyExistsException("Email " + registerUserDTO.getEmail() + " already taken");
         }
@@ -63,7 +76,6 @@ public class AuthServiceImpl implements AuthService {
 
         User user = new User();
         user.setUsername(registerUserDTO.getUsername());
-        user.setRole(Role.ROLE_USER);
         user.setEmail(registerUserDTO.getEmail());
 
         String salt = BCrypt.gensalt();
@@ -73,10 +85,60 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
+    }
 
-        var username = user.getUsername();
+    @Override
+    @Transactional
+    public TokenPairDto confirmRegistration(EmailConfirmationDto emailConfirmationDto) {
+        var user = userRepository
+                .findByEmail(emailConfirmationDto.getEmail())
+                .orElseThrow(() -> new BadCredentialsException("User not found by email" +
+                        emailConfirmationDto.getEmail()));
+
+        if (user.getAccountStatus() != AccountStatus.EMAIL_UNVERIFIED) {
+            throw new AccountConfirmationException("User already verified");
+        }
+
+        var actualSecretCode = Optional
+                .ofNullable(user.getConfirmationCode())
+                .orElseThrow(() -> new AccountConfirmationException("Secret code not found"));
+
+        /*if (actualSecretCode.getCodeCreationDate().isAfter(LocalDateTime.now().plusMinutes(confirmationCodeLifetime))) {
+            throw new AccountConfirmationException("Code expired");
+        }*/
+
+        if(!actualSecretCode.getCode().equals(emailConfirmationDto.getSecretCode())) {
+            throw new AccountConfirmationException("Wrong secret code");
+        }
+
+        user.setAccountStatus(AccountStatus.ACTIVE);
+        userRepository.save(user);
+        confirmationCodeRepository.deleteById(actualSecretCode.getId());
+
         var authority = AuthorityUtils.createAuthorityList(user.getRole().name()).get(0);
-        return createTokenPair(username, authority);
+        return createTokenPair(user.getUsername(), authority);
+    }
+
+    @Override
+    public void sendRegisterEmail(SendEmailDto sendEmailDto) {
+        var user = userRepository.findByEmail(sendEmailDto.getEmail())
+                .orElseThrow(() -> new BadCredentialsException("User not found by email" +
+                        sendEmailDto.getEmail()));
+
+        var secretCode = secretCodeUtil.generateSecretCode();
+
+        var confirmationCodeEntity = new ConfirmationCode();
+        confirmationCodeEntity.setCode(secretCode);
+        confirmationCodeEntity.setUser(user);
+        confirmationCodeEntity.setCodeCreationDate(LocalDateTime.now());
+        confirmationCodeRepository.save(confirmationCodeEntity);
+
+        ActionEmailDto actionEmailDto = new ActionEmailDto();
+        actionEmailDto.setTo(user.getEmail());
+        actionEmailDto.setUsername(user.getUsername());
+        actionEmailDto.setSecretCode(secretCode);
+
+        emailService.sendRegisterEmail(actionEmailDto);
     }
 
     @Override

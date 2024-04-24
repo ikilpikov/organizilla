@@ -10,3 +10,7 @@ spring:
             enable: true
     username: ${EMAIL_USERNAME}
     password: ${EMAIL_PASSWORD}
+server:
+  port: 8083
+  servlet:
+    context-path: /api
