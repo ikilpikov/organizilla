@@ -107,7 +107,7 @@ public class AuthServiceImpl implements AuthService {
             throw new AccountConfirmationException("Code expired");
         }*/
 
-        if(!actualSecretCode.getCode().equals(emailConfirmationDto.getSecretCode())) {
+        if (!actualSecretCode.getCode().equals(emailConfirmationDto.getSecretCode())) {
             throw new AccountConfirmationException("Wrong secret code");
         }
 
@@ -127,7 +127,8 @@ public class AuthServiceImpl implements AuthService {
 
         var secretCode = secretCodeUtil.generateSecretCode();
 
-        var confirmationCodeEntity = new ConfirmationCode();
+        var confirmationCodeEntity = user.getConfirmationCode() == null ? new ConfirmationCode() : user.getConfirmationCode();
+
         confirmationCodeEntity.setCode(secretCode);
         confirmationCodeEntity.setUser(user);
         confirmationCodeEntity.setCodeCreationDate(LocalDateTime.now());
