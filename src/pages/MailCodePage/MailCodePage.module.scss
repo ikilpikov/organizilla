@@ -1,0 +1,36 @@
+.mailCode {
+  padding: 10px;
+  background-color: aquamarine;
+  box-shadow: 1px 0px 6px 0px #000000;
+  height: 50vh;
+  width: 50%;
+  margin: 20vh auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  .button {
+    border-radius: 10px;
+    height: 2em;
+    margin: 0 auto;
+    width: 50%;
+    color: black;
+    background-color: rgb(188, 188, 187);
+    font-size: 1.1em;
+    border: 1px solid black;
+    &.active {
+      background-color: rgb(241, 181, 69);
+      &:hover {
+        background-color: rgb(247, 196, 102);
+      }
+    }
+  }
+  &__header {
+    text-align: center;
+    position: relative;
+    img {
+      position: absolute;
+      left: 5%;
+    }
+  }
+}

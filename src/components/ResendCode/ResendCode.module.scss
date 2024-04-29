@@ -1,0 +1,7 @@
+.resendCode {
+  border: none;
+  background-color: transparent;
+  &.active {
+    color: blue;
+  }
+}
