@@ -15,6 +15,8 @@ import ru.organizilla.auth.domain.User;
 import ru.organizilla.auth.domain.enums.AccountStatus;
 import ru.organizilla.auth.dto.*;
 import ru.organizilla.auth.exception.AccountConfirmationException;
+import ru.organizilla.auth.exception.AccountStatusException;
+import ru.organizilla.auth.exception.UserNotFoundException;
 import ru.organizilla.auth.repository.ConfirmationCodeRepository;
 import ru.organizilla.auth.repository.UserRepository;
 import ru.organizilla.auth.service.EmailService;
@@ -33,35 +35,42 @@ public class AuthServiceImpl implements AuthService {
     private final EmailService emailService;
 
     private final UserRepository userRepository;
-
     private final ConfirmationCodeRepository confirmationCodeRepository;
 
-    private final JwtUtil jwtUtil;
-
     private final AuthenticationManager authenticationManager;
-
     private final PasswordEncoder encoder;
 
     private final SecretCodeUtil secretCodeUtil;
+    private final JwtUtil jwtUtil;
 
     private final int confirmationCodeLifetime = 3;
 
     @Override
     public TokenPairDto authenticateUsername(AuthUsernameDto authUsernameDto) {
-        return authenticateUser(authUsernameDto.getUsername(),
-                authUsernameDto.getPassword(),
-                getSalt(authUsernameDto.getUsername()));
+        var user = userRepository
+                .findByUsername(authUsernameDto.getUsername())
+                .orElseThrow(() -> new UserNotFoundException("User not found by username" +
+                        authUsernameDto.getUsername()));
+
+        if (user.getAccountStatus() != AccountStatus.ACTIVE) {
+            throw new AccountStatusException("User is not active");
+        }
+
+        return authenticateUser(user.getUsername(), authUsernameDto.getPassword(), getSalt(user.getUsername()));
     }
 
     @Override
     public TokenPairDto authenticateEmail(AuthEmailDto authEmailDto) {
-        var username = userRepository
+        var user = userRepository
                 .findByEmail(authEmailDto.getEmail())
-                .orElseThrow(() -> new BadCredentialsException("User not found by email" +
-                        authEmailDto.getEmail()))
-                .getUsername();
+                .orElseThrow(() -> new UserNotFoundException("User not found by email " +
+                        authEmailDto.getEmail()));
 
-        return authenticateUser(username, authEmailDto.getPassword(), getSalt(username));
+        if (user.getAccountStatus() != AccountStatus.ACTIVE) {
+            throw new AccountStatusException("User is not active");
+        }
+
+        return authenticateUser(user.getUsername(), authEmailDto.getPassword(), getSalt(user.getUsername()));
     }
 
     @Override
@@ -92,7 +101,7 @@ public class AuthServiceImpl implements AuthService {
     public TokenPairDto confirmRegistration(EmailConfirmationDto emailConfirmationDto) {
         var user = userRepository
                 .findByEmail(emailConfirmationDto.getEmail())
-                .orElseThrow(() -> new BadCredentialsException("User not found by email" +
+                .orElseThrow(() -> new UserNotFoundException("User not found by email" +
                         emailConfirmationDto.getEmail()));
 
         if (user.getAccountStatus() != AccountStatus.EMAIL_UNVERIFIED) {
@@ -148,7 +157,7 @@ public class AuthServiceImpl implements AuthService {
 
         var user = userRepository
                 .findByUsername(username)
-                .orElseThrow(() -> new BadCredentialsException(username));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         if (!user.getRefreshToken().equals(expiredRefreshToken)) {
             throw new BadCredentialsException("Invalid refresh token");

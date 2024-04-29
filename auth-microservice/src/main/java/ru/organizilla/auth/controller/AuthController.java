@@ -3,20 +3,18 @@ package ru.organizilla.auth.controller;
 import io.jsonwebtoken.JwtException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import ru.organizilla.auth.dto.*;
 import ru.organizilla.auth.exception.AccountConfirmationException;
+import ru.organizilla.auth.exception.AccountStatusException;
 import ru.organizilla.auth.service.AuthService;
-import ru.organizilla.auth.service.EmailService;
 import ru.organizilla.auth.util.CookieUtil;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 
+import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -25,7 +23,6 @@ import static org.springframework.http.ResponseEntity.ok;
 public class AuthController {
 
     private final AuthService authService;
-
     private final CookieUtil cookieUtil;
 
     @PostMapping("/login/username")
@@ -92,28 +89,27 @@ public class AuthController {
 
     @ExceptionHandler(KeyAlreadyExistsException.class)
     public ResponseEntity<String> handleKeyAlreadyExistsException(KeyAlreadyExistsException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return badRequest().body(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        return new ResponseEntity<>("Invalid credentials", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return badRequest().body("Invalid credentials");
     }
 
     @ExceptionHandler(AccountConfirmationException.class)
     public ResponseEntity<String> handleAccountConfirmationException(AccountConfirmationException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(AccountStatusException.class)
+    public ResponseEntity<String> handleAccountStatusException(AccountStatusException ex) {
+        return badRequest().body(ex.getMessage());
+    }
 
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<String> handleJwtException(JwtException ex) {
-        return new ResponseEntity<>("Invalid JWT", HttpStatus.BAD_REQUEST);
+        return badRequest().body("Invalid token");
     }
 
 }
