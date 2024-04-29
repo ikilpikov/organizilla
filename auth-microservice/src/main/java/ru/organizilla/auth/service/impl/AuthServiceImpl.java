@@ -112,9 +112,9 @@ public class AuthServiceImpl implements AuthService {
                 .ofNullable(user.getConfirmationCode())
                 .orElseThrow(() -> new AccountConfirmationException("Secret code not found"));
 
-        /*if (actualSecretCode.getCodeCreationDate().isAfter(LocalDateTime.now().plusMinutes(confirmationCodeLifetime))) {
+        if (LocalDateTime.now().isAfter(user.getConfirmationCode().getCodeCreationDate().plusMinutes(3))) {
             throw new AccountConfirmationException("Code expired");
-        }*/
+        }
 
         if (!actualSecretCode.getCode().equals(emailConfirmationDto.getSecretCode())) {
             throw new AccountConfirmationException("Wrong secret code");
