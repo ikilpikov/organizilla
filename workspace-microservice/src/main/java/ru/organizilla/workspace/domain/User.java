@@ -1,9 +1,10 @@
-package ru.organizilla.auth.domain;
+package ru.organizilla.workspace.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.organizilla.auth.domain.enums.AccountStatus;
-import ru.organizilla.auth.domain.enums.Role;
+import ru.organizilla.workspace.domain.enums.AccountStatus;
+import ru.organizilla.workspace.domain.enums.Role;
+
 
 @Entity
 @Table(name = "\"user\"")

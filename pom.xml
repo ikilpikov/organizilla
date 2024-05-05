@@ -25,7 +25,7 @@
         <module>api-gateway</module>
 		<module>auth-microservice</module>
 		<module>stub</module>
-        <module>board-microservice</module>
+        <module>workspace-microservice</module>
         <module>mail-microservice</module>
     </modules>
 </project>

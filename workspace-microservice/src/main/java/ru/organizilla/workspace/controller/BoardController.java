@@ -1,0 +1,32 @@
+package ru.organizilla.workspace.controller;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+import ru.organizilla.workspace.dto.CreateBoardDto;
+import ru.organizilla.workspace.service.BoardService;
+
+import static org.springframework.http.ResponseEntity.badRequest;
+import static org.springframework.http.ResponseEntity.ok;
+
+@RestController
+@RequestMapping("/v1/workspace/board")
+@RequiredArgsConstructor
+public class BoardController {
+
+    private final BoardService boardService;
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createBoard(@RequestBody @Valid CreateBoardDto boardDto, @RequestHeader("X-Username") String username) {
+        boardService.createBoard(boardDto, username);
+        return ok().body("Board created");
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        return badRequest().body("Invalid data");
+    }
+
+}

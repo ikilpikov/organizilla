@@ -12,6 +12,12 @@ spring:
             - Path=/api/v1/stub/**
           filters:
             - CustomGatewayFilter
+        - id: board-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/v1/workspace/**
+          filters:
+            - CustomGatewayFilter
 server:
   port: 8082
 custom-properties:

@@ -1,6 +1,7 @@
 package ru.organizilla.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
     @GetMapping("/hello")
-    public String hello() {
-        return "hello";
+    public String hello(@RequestHeader("X-Username") String username) {
+        return username;
     }
 }

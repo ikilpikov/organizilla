@@ -1,11 +1,12 @@
-package ru.organizilla.board;
+package ru.organizilla.workspace;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BoardApplication {
+public class WorkspaceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BoardApplication.class, args);
+        SpringApplication.run(WorkspaceApplication.class, args);
     }
 }
