@@ -15,7 +15,6 @@ authentication:
     access-token-lifetime-seconds: 120
     refresh-token-lifetime-seconds: 2700000
     refresh-token-cookie-name: organizilla_refreshtoken
-
 server:
   port: 8080
   servlet:

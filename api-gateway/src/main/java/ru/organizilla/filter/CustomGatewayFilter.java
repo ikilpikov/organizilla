@@ -25,23 +25,23 @@ public class CustomGatewayFilter extends AbstractGatewayFilterFactory<CustomGate
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
-            ServerHttpRequest request = null;
-                if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                    return onError(exchange, "Missing authorization token", HttpStatus.UNAUTHORIZED);
-                }
+            ServerHttpRequest request = exchange.getRequest();
 
-                String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                    authHeader = authHeader.substring(7);
-                }
+            String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                return onError(exchange, "Missing authorization token", HttpStatus.UNAUTHORIZED);
+            }
 
-                if (!jwtUtil.validateToken(authHeader)) {
-                    return onError(exchange, "Invalid token", HttpStatus.UNAUTHORIZED);
-                }
+            String token = authHeader.substring(7);
+            if (!jwtUtil.validateToken(token)) {
+                return onError(exchange, "Invalid token", HttpStatus.UNAUTHORIZED);
+            }
 
-                request = exchange.getRequest()
-                        .mutate()
-                        .build();
+            String username = jwtUtil.getSubject(token);
+            request = exchange.getRequest()
+                    .mutate()
+                    .header("X-Username", username)
+                    .build();
 
             return chain.filter(exchange.mutate().request(request).build());
         });
