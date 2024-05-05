@@ -1,0 +1,14 @@
+server:
+  port: 8084
+  servlet:
+    context-path: /api
+spring:
+  datasource:
+    url: jdbc:postgresql://77.232.130.183:5432/organizillatest
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
