@@ -20,7 +20,7 @@ public class JwtUtil {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
+            Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
             return true;
         } catch (JwtException e) {
             return false;

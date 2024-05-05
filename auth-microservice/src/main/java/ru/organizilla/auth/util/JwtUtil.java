@@ -1,6 +1,5 @@
 package ru.organizilla.auth.util;
 
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Map;
@@ -57,15 +55,6 @@ public class JwtUtil {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(tokenExpirationDate)
                 .compact();
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
-            return true;
-        } catch (JwtException e) {
-            return false;
-        }
     }
 
     public String getSubject(String token) {
