@@ -6,10 +6,14 @@ import Search from '../../Search/Search';
 import question from '../../../assets/icons/question.svg';
 import profile from '../../../assets/icons/profile.svg';
 import styles from './Header.module.scss';
+import { FC } from 'react';
 
-const Header = () => {
+interface IHeaderProps {
+    fullWidth?: boolean;
+}
+const Header: FC<IHeaderProps> = ({ fullWidth }) => {
     return (
-        <header className={styles.header}>
+        <header className={`${styles.header} ${fullWidth ? '' : styles.fullWidth}`}>
             <BurgerMenu />
 
             <Search />

@@ -9,3 +9,7 @@ export const createBoard = async ({ name, backgroundImage, isPublic }: IBoardPos
     });
     return response;
 };
+export const getAllBoards = async () => {
+    const response = await axiosInstanceWithToken.get('/workspace/board/all');
+    return response;
+};

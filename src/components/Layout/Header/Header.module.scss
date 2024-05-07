@@ -1,8 +1,4 @@
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
     margin: 0 auto;
     background-color: var(--background-color);
     color: var(--color);
@@ -13,6 +9,12 @@
     justify-content: space-around;
     p {
         cursor: pointer;
+    }
+    &__fullWidth {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
     }
 }
 .question__icon {

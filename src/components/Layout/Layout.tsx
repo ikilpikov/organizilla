@@ -12,9 +12,10 @@ const Layout: FC<ILayoutProps> = ({ children, fullWidth }) => {
     const sideMenuIsVisible = useSideMenuVisibleStore(state => state.sideMenuIsVisible);
     return (
         <div className={`${styles.layoutContainer} ${fullWidth ? styles.fullHeight : ''}`}>
-            <Header />
+            {fullWidth ? <Header fullWidth /> : <Header />}
+            {/*для корректно отображения экземпляра доски */}
             <div className={styles.mainContainer}>
-                <SideMenu />
+                {fullWidth ? <SideMenu fullWidth /> : <SideMenu />}
                 <main className={`${styles.mainContent} ${!sideMenuIsVisible && styles.fullWidth}`}>
                     {children}
                 </main>

@@ -3,7 +3,7 @@ import styles from './BoardCover.module.scss';
 interface IBoardCoverProps {
     background: string;
     name: string;
-    id: string;
+    id: number;
 }
 const BoardCover: FC<IBoardCoverProps> = ({ background, name, id }) => {
     const openBoard = () => {
