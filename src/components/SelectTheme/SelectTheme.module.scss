@@ -2,4 +2,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    &__icon {
+        filter: var(--icon-color);
+    }
 }

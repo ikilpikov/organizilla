@@ -16,13 +16,20 @@ const SelectBackground = React.memo(() => {
     const { data, isError } = useBackgroundImages(backgroundImagePageNumber);
     useEffect(() => {
         if (data) {
-            console.log(data);
-            setBackgroundImages([
-                ...backgroundImages,
-                ...data.data.results.map((item: IBackgroundImage) => {
-                    return { urls: item.urls };
-                }),
-            ]);
+            if (backgroundImagePageNumber > 1) {
+                setBackgroundImages([
+                    ...backgroundImages,
+                    ...data.data.results.map((item: IBackgroundImage) => {
+                        return { urls: item.urls };
+                    }),
+                ]);
+            } else {
+                setBackgroundImages([
+                    ...data.data.results.map((item: IBackgroundImage) => {
+                        return { urls: item.urls };
+                    }),
+                ]);
+            }
         }
     }, [data, backgroundImagePageNumber]);
     console.log(backgroundImages);

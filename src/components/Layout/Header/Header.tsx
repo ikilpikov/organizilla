@@ -16,10 +16,10 @@ const Header = () => {
             <SelectLangugage />
             <SelectTheme />
             <NotificationsComponent />
-            <img src={question} alt="question" width={20} />
+            <img src={question} alt="question" width={20} className={styles.question__icon} />
             <h2>Hot keys</h2>
             <h2>UserPageIcon</h2>
-            <img src={profile} alt="profile" width={20} />
+            <img src={profile} alt="profile" width={20} className={styles.profile__icon} />
         </header>
     );
 };

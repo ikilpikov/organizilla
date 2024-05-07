@@ -5,6 +5,7 @@ import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { authorizationByEmail, authorizationByLogin } from '../services/auth.service';
 import { useRegisterErrorsStore } from '../store';
 import { UserAuth } from '../schemas/authSchema';
+import { setAccessToken } from '../utils/accessTokenActions';
 
 const useAuth = () => {
     const navigator = useNavigate();
@@ -21,8 +22,8 @@ const useAuth = () => {
         onSuccess: response => {
             const decoded = jwtDecode(response.data.accessToken) as JwtPayload;
             if (decoded.sub) localStorage.setItem('username', decoded.sub);
-
-            localStorage.setItem('token', response.data.accessToken);
+            setAccessToken(response.data.accessToken);
+            //localStorage.setItem('token', response.data.accessToken);
             navigator('/');
         },
         onError: (error: AxiosError) => {

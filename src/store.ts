@@ -110,8 +110,9 @@ interface ISelectedBackround {
 interface IBackgroundImage {
     backgroundImagePageNumber: number;
     selectedBackground: ISelectedBackround;
-    setBackgroundImagePageNumber: () => void;
+    setBackgroundImagePageNumber: (isStart?: boolean) => void;
     setSelectedBackground: (urls: string[]) => void;
+    resetSelectedBackground: () => void;
 }
 
 export const useBackgroundImageStore = create<IBackgroundImage>(set => ({
@@ -122,8 +123,13 @@ export const useBackgroundImageStore = create<IBackgroundImage>(set => ({
         full: 'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1OTgwNjF8MHwxfHNlYXJjaHwxfHxwaG90byUyMGJhY2tncm91bmR8ZW58MHwwfHx8MTcxNDk4NzA2N3ww&ixlib=rb-4.0.3&q=85',
     },
 
-    setBackgroundImagePageNumber: () => {
-        set(state => ({ backgroundImagePageNumber: state.backgroundImagePageNumber + 1 }));
+    setBackgroundImagePageNumber: (isStart?: boolean) => {
+        if (isStart) {
+            set(() => ({ backgroundImagePageNumber: 1 }));
+            return;
+        } else {
+            set(state => ({ backgroundImagePageNumber: state.backgroundImagePageNumber + 1 }));
+        }
     },
     setSelectedBackground(urls: string[]) {
         if (urls.length === 2) {
@@ -133,5 +139,13 @@ export const useBackgroundImageStore = create<IBackgroundImage>(set => ({
             };
             set(() => ({ selectedBackground: newSelectedBackground }));
         }
+    },
+    resetSelectedBackground: () => {
+        const defaultSelectedBackground = {
+            regular:
+                'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTgwNjF8MHwxfHNlYXJjaHwxfHxwaG90byUyMGJhY2tncm91bmR8ZW58MHwwfHx8MTcxNDk5MjE3MXww&ixlib=rb-4.0.3&q=80&w=700&quot;',
+            full: 'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1OTgwNjF8MHwxfHNlYXJjaHwxfHxwaG90byUyMGJhY2tncm91bmR8ZW58MHwwfHx8MTcxNDk4NzA2N3ww&ixlib=rb-4.0.3&q=85',
+        };
+        set(() => ({ selectedBackground: defaultSelectedBackground }));
     },
 }));

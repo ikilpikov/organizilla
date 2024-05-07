@@ -1,0 +1,12 @@
+.boardCover {
+    &__name {
+        margin-left: 10%;
+        margin-top: 5%;
+        color: white;
+        font-weight: 700;
+    }
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}

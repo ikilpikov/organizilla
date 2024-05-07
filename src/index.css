@@ -31,6 +31,8 @@ a:hover {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background-color);
+    color: var(--color);
 }
 html[app-theme='light'] {
     --button-text-color: #ffffff;
@@ -39,7 +41,8 @@ html[app-theme='light'] {
 
     --background-color: rgb(254, 255, 239);
     --color: black;
-    --icon-color: #ba8fc2;
+    --icon-color: invert(0%) sepia(100%) saturate(15%) hue-rotate(246deg) brightness(105%)
+        contrast(105%);
 }
 
 html[app-theme='dark'] {
@@ -49,5 +52,6 @@ html[app-theme='dark'] {
 
     --background-color: rgb(65, 65, 64);
     --color: white;
-    --icon-color: #4e005c;
+    --icon-color: invert(52%) sepia(29%) saturate(6881%) hue-rotate(163deg) brightness(97%)
+        contrast(101%);
 }
