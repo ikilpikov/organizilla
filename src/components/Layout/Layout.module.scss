@@ -6,11 +6,12 @@
         flex: 1;
         display: flex;
         .mainContent {
-            //padding-left: 10px;
+            margin-left: 11%;
             flex: 1;
         }
         .fullWidth {
             width: 100%;
+            margin-left: 1%;
         }
     }
 }
