@@ -1,0 +1,19 @@
+.layoutContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    .mainContainer {
+        flex: 1;
+        display: flex;
+        .mainContent {
+            //padding-left: 10px;
+            flex: 1;
+        }
+        .fullWidth {
+            width: 100%;
+        }
+    }
+}
+.fullHeight {
+    height: 100%;
+}

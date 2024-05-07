@@ -1,17 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { sendConfirmationEmail } from "../services/mail.service";
-import { AxiosError } from "axios";
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { sendConfirmationEmail } from '../services/mail.service';
+import { useEmailDataStore } from '../store';
 const useSendConfirmationEmail = () => {
-  const navigator = useNavigate();
-  return useMutation({
-    mutationFn: (email: string) => sendConfirmationEmail(email),
-    onSuccess: () => {
-      //navigator("/import");
-    },
-    onError: (error: AxiosError) => {
-      console.log(error);
-    },
-  });
+    const setEmailError = useEmailDataStore(state => state.setEmailError);
+    return useMutation({
+        mutationFn: (email: string) => sendConfirmationEmail(email),
+        onSuccess: () => {},
+        onError: (_: AxiosError, variables) => {
+            if (variables == '') setEmailError('Произошла ошибка! Укажите заново данные');
+        },
+    });
 };
 export default useSendConfirmationEmail;

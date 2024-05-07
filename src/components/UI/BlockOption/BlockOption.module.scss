@@ -1,0 +1,38 @@
+.externalWrapper {
+    position: relative;
+    width: 15%;
+    transition: transform 0.3s ease;
+    &:hover {
+        transform: translateY(-10px); // поднимает блок на 5 пикселей при наведении
+    }
+    .blockOption {
+        // width: 100%;
+
+        &__wrapper {
+            overflow: hidden;
+            position: relative;
+            // width: 100%;
+            padding-bottom: 100%; // пропорции блока определяются здесь
+        }
+        &__content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(254, 254, 254);
+            border-radius: 15px;
+            border: 1px solid black;
+            & img {
+                width: 5em;
+                height: auto;
+            }
+        }
+        &__text {
+            text-align: center;
+        }
+    }
+}

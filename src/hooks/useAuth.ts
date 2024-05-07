@@ -1,30 +1,36 @@
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import {
-  authorizationByEmail,
-  authorizationByLogin,
-} from "../services/auth.service";
-import { UserAuth } from "../schemas/authSchema";
-import { AxiosError } from "axios";
-import { useRegisterErrorsStore } from "../store";
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { authorizationByEmail, authorizationByLogin } from '../services/auth.service';
+import { useRegisterErrorsStore } from '../store';
+import { UserAuth } from '../schemas/authSchema';
 
 const useAuth = () => {
-  const navigator = useNavigate();
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const setError = useRegisterErrorsStore((state) => state.setError);
-  return useMutation({
-    mutationFn: (data: UserAuth) => {
-      if (emailRegex.test(data.login)) return authorizationByEmail(data);
-      return authorizationByLogin(data);
-    },
-    onSuccess: (response) => {
-      //логика для рефреш и acess
+    const navigator = useNavigate();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const setError = useRegisterErrorsStore(state => state.setError);
 
-      navigator("/");
-    },
-    onError: (error: AxiosError) => {
-      if (error.response?.status == 400) setError("Неверный логин или пароль");
-    },
-  });
+    return useMutation({
+        mutationFn: (data: UserAuth) => {
+            console.log(data);
+
+            if (emailRegex.test(data.login)) return authorizationByEmail(data);
+            return authorizationByLogin(data);
+        },
+        onSuccess: response => {
+            const decoded = jwtDecode(response.data.accessToken) as JwtPayload;
+            if (decoded.sub) localStorage.setItem('username', decoded.sub);
+
+            localStorage.setItem('token', response.data.accessToken);
+            navigator('/');
+        },
+        onError: (error: AxiosError) => {
+            console.log(error);
+
+            if (error.response?.status == 403) setError('Неверный логин или пароль');
+            else if (error.response?.status === 400) setError(error.response.data as string);
+        },
+    });
 };
 export default useAuth;

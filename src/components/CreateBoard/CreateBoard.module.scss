@@ -1,0 +1,25 @@
+.createBoard {
+    display: flex;
+    flex-direction: row;
+    gap: 15%;
+    &__addData {
+        input {
+            margin-left: 20px;
+            border: none;
+            border-bottom: 1px solid black;
+        }
+        h3 {
+            margin-top: 40px;
+        }
+        flex: 0 0 30%;
+    }
+    &__boardView {
+        top: 20px;
+        position: fixed;
+        left: 40%;
+        height: 400px;
+        &__create {
+            margin-left: 50%;
+        }
+    }
+}

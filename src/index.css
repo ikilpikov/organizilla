@@ -1,33 +1,53 @@
 /* Reset and base styles  */
 * {
-  padding: 0px;
-  margin: 0px;
-  /* border: none; */
+    padding: 0px;
+    margin: 0px;
+    /* border: none; */
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 a,
 a:link,
 a:visited {
-  text-decoration: none;
+    text-decoration: none;
+    color: var(--color);
 }
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+html[app-theme='light'] {
+    --button-text-color: #ffffff;
+    --button-background-color: #4e005c;
+    --button-border-color: #ba8fc2;
+
+    --background-color: rgb(254, 255, 239);
+    --color: black;
+    --icon-color: #ba8fc2;
+}
+
+html[app-theme='dark'] {
+    --button-text-color: #545252;
+    --button-background-color: #f9d4ff;
+    --button-border-color: #4e005c;
+
+    --background-color: rgb(65, 65, 64);
+    --color: white;
+    --icon-color: #4e005c;
 }

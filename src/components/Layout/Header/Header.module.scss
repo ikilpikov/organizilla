@@ -1,0 +1,13 @@
+.header {
+    margin: 0 auto;
+    background-color: var(--background-color);
+    color: var(--color);
+    display: flex;
+    border-bottom: 1px solid black;
+    height: 10vh;
+    width: 100%;
+    justify-content: space-around;
+    p {
+        cursor: pointer;
+    }
+}
