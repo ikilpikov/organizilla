@@ -17,6 +17,7 @@ const BoardCover: FC<IBoardCoverProps> = ({ background, name, id }) => {
                     backgroundImage: `url(${background})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                 }}
                 onClick={() => openBoard()}
             >

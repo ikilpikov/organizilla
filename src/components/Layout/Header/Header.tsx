@@ -13,7 +13,7 @@ interface IHeaderProps {
 }
 const Header: FC<IHeaderProps> = ({ fullWidth }) => {
     return (
-        <header className={`${styles.header} ${fullWidth ? '' : styles.fullWidth}`}>
+        <header className={`${styles.header} ${fullWidth ? '' : styles.header__fullWidth}`}>
             <BurgerMenu />
 
             <Search />

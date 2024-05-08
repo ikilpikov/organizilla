@@ -8,6 +8,8 @@ interface IBoardViewProps {
 }
 
 const BoardView: FC<IBoardViewProps> = ({ background }) => {
+    console.log(background);
+
     return (
         <div className={styles.boardView}>
             <Layout fullWidth={true}>

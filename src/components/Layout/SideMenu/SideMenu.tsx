@@ -8,10 +8,11 @@ interface ISideMenuProps {
 }
 const SideMenu: FC<ISideMenuProps> = ({ fullWidth }) => {
     const sideMenuIsVisible = useSideMenuVisibleStore(state => state.sideMenuIsVisible);
+    console.log(fullWidth, 'sidemenu');
 
     return (
         <aside
-            className={`${styles.sideMenu} ${sideMenuIsVisible ? styles.sideMenu__visible : styles.sideMenu__hide} ${fullWidth ? styles.fullWidth : ''}`}
+            className={`${styles.sideMenu} ${sideMenuIsVisible ? styles.sideMenu__visible : styles.sideMenu__hide}  ${fullWidth ? '' : styles.sideMenu__fullWidth}`}
         >
             <NavLink to={'/'}>Главная</NavLink>
             <NavLink to={'/create-board'}>Create</NavLink>

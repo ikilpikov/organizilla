@@ -13,7 +13,6 @@ const MainPage = () => {
     useEffect(() => {
         if (data) {
             console.log('uaa');
-
             setBoards(data.data);
         }
     }, [data]);
@@ -29,12 +28,12 @@ const MainPage = () => {
                         <WorkSpaces boards={boards} isRecent={true} />
                     </>
                 )}
-                {/*     {isSuccess && (
+                {isSuccess && (
                     <>
                         <div>Ваши рабочие пространства</div>
                         <WorkSpaces boards={data?.data} isRecent={false} />
                     </>
-                )} */}
+                )}
 
                 {successRegisterVisible && <SuccessRegister />}
             </Layout>
