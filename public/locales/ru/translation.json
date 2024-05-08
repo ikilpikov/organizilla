@@ -1,0 +1,102 @@
+{
+    "registration": {
+        "login": "Логин",
+        "email": "Электронная почта",
+        "password": "Пароль",
+        "password_confirmation": "Повторите пароль",
+        "register": "Зарегистрироваться",
+        "haveAccount": "Есть аккаунт?"
+    },
+    "registrationValidate": {
+        "email": {
+            "required": "Введите электронную почту",
+            "format": "Неверный формат электронной почты"
+        },
+        "username": {
+            "required": "Имя должно быть указано",
+            "format": "Неверный формат имени пользователя"
+        },
+        "password": {
+            "minSize": "Минимальный размер пароля 8 символов",
+            "validation": "Пароль должен содержать хотя бы одну заглавную букву, одну строчную букву, одну цифру и один символ"
+        },
+        "confirmPassword": {
+            "required": "Повторите пароль",
+            "match": "Пароли не совпадают"
+        }
+    },
+    "authValidate": {
+        "login": "Укажите имя или email",
+        "password": "Минимальный размер пароля 8 символов"
+    },
+    "auth": {
+        "login": "Логин",
+        "password": "Пароль",
+        "enter": "Войти",
+        "haveAccount": "Нет аккаунта? Зарегистрируйтесь!",
+        "authEror": "Неверный логин или пароль"
+    },
+    "mailCode": {
+        "inputCode": "Введите код",
+        "sendCode": "Отправить код",
+        "resendCode": "Отправить повторно",
+        "resendCodePrompt": "Не пришел код? Отправить повторно через {{timer}} секунд",
+        "emailEror": "Произошла ошибка! Укажите заново данные"
+    },
+    "header": {
+        "search": "Поиск"
+    },
+    "sideMenu": {
+        "main": "Главная",
+        "create": "Создать",
+        "templates": "Шаблоны",
+        "projects": "Проекты",
+        "calendar": "Календарь",
+        "pomodoro": "Помодоро",
+        "import": "Импорт",
+        "settings": "Настройки"
+    },
+    "createBoard": {
+        "createTitle": "Создание доски",
+        "createBlank": "Создать новую доску",
+        "createTemplate": "Использовать шаблон",
+        "importBoard": "Импортировать доску"
+    },
+    "import": {
+        "title": "Импорт данных",
+        "step1": "Шаг 1. Авторизация и получение токена",
+        "step1-description": "Для импорта данных Вам необходимо авторизоваться в Trello и получить токен доступа,который необходимо вставить в поле ниже",
+        "auth": " Авторизоваться в Trello",
+        "inputToken": "Введите токен",
+        "invalidToken": "Неверный токен",
+        "step2": "Шаг 2. Выбор досок для импорта",
+        "importData": "Импортировать данные",
+        "selectAll": "Выбрать все"
+    },
+    "successRegister": {
+        "emailConfirmed": "Почта подтверждена успешно!",
+        "wish": "Приятной работы с Organizilla",
+        "continue": "Продолжить"
+    },
+    "createBlankBoard": {
+        "title": "Создание доски",
+        "boardName": "Название доски",
+        "boardNamePlaceholder": "Введите название доски",
+        "selectBackground": "Выберите фон",
+        "moreBackgrounds": "Больше изображений",
+        "create": "Создать",
+        "options": {
+            "public": "Публичная",
+            "private": "Приватная"
+        }
+    },
+    "main": {
+        "recentBoard": "Недавно просмотренные",
+        "allBoards": "Ваши рабочие пространства"
+    },
+    "greeting": {
+        "morning": "Доброе утро",
+        "afternoon": "Добрый день",
+        "evening": "Добрый вечер"
+    }
+}

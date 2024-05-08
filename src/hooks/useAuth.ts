@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { authorizationByEmail, authorizationByLogin } from '../services/auth.service';
 import { useRegisterErrorsStore } from '../store';
@@ -9,6 +10,7 @@ import { setAccessToken } from '../utils/accessTokenActions';
 
 const useAuth = () => {
     const navigator = useNavigate();
+    const { t } = useTranslation();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const setError = useRegisterErrorsStore(state => state.setError);
 
@@ -29,7 +31,7 @@ const useAuth = () => {
         onError: (error: AxiosError) => {
             console.log(error);
 
-            if (error.response?.status == 403) setError('Неверный логин или пароль');
+            if (error.response?.status == 403) setError(t('auth.authError'));
             else if (error.response?.status === 400) setError(error.response.data as string);
         },
     });

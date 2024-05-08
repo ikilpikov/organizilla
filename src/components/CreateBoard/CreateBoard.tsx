@@ -6,16 +6,18 @@ import { useBackgroundImageStore } from '../../store';
 import BoardView from '../BoardView/BoardView';
 import styles from './CreateBoard.module.scss';
 import ArrowBack from '../UI/ArrowBack/ArrowBack';
+import { useTranslation } from 'react-i18next';
 
 const CreateBoard = () => {
+    const { t } = useTranslation();
     const setBackgroundImagePageNumber = useBackgroundImageStore(
         state => state.setBackgroundImagePageNumber,
     );
     const selectedBackground = useBackgroundImageStore(state => state.selectedBackground);
     const resetSelectedBackground = useBackgroundImageStore(state => state.resetSelectedBackground);
     const options = [
-        { value: true, label: 'Public' },
-        { value: false, label: 'Private' },
+        { value: true, label: t('createBlankBoard.options.public') },
+        { value: false, label: t('createBlankBoard.options.private') },
     ];
     const { mutate } = useBoard();
     const [name, setName] = useState('');
@@ -41,13 +43,19 @@ const CreateBoard = () => {
         <div className={styles.createBoard}>
             <div className={styles.createBoard__addData}>
                 <ArrowBack />
-                <h1>Create Board</h1>
-                <label>Board name</label>
-                <input value={name} onChange={event => setName(event.target.value)} />
+                <h1>{t('createBlankBoard.title')}</h1>
+                <label>{t('createBlankBoard.boardName')}</label>
+                <input
+                    value={name}
+                    onChange={event => setName(event.target.value)}
+                    placeholder={t('createBlankBoard.boardNamePlaceholder')}
+                />
                 <Select options={options} value={selectedOption} onChange={handleSelectChange} />
-                <h3>Select background</h3>
+                <h3>{t('createBlankBoard.selectBackground')}</h3>
                 <SelectBackground />
-                <button onClick={() => setBackgroundImagePageNumber()}>more backgrounds</button>
+                <button onClick={() => setBackgroundImagePageNumber()}>
+                    {t('createBlankBoard.moreBackgrounds')}
+                </button>
             </div>
             <div className={styles.createBoard__boardView}>
                 <BoardView background={selectedBackground.regular} />
@@ -56,7 +64,7 @@ const CreateBoard = () => {
                     className={styles.createBoard__boardView__create}
                     onClick={() => createBoard()}
                 >
-                    Create
+                    {t('createBlankBoard.create')}
                 </button>
             </div>
         </div>

@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 import useAuth from '../../hooks/useAuth';
 import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
 import { useRegisterErrorsStore } from '../../store';
@@ -11,6 +12,7 @@ import openEye from '../../assets/icons/openEye.svg';
 import closeEye from '../../assets/icons/closeEye.svg';
 import styles from '../../pages/RegistrationPage/RegistrationPage.module.scss';
 const AuthPage = () => {
+    const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState([false, false]);
     const error = useRegisterErrorsStore(state => state.error);
     const setError = useRegisterErrorsStore(state => state.setError);
@@ -26,18 +28,20 @@ const AuthPage = () => {
         const authData = getValues();
         mutate(authData);
     };
-    useEffect(() => setError(''), [setError]);
+    useEffect(() => {
+        setError('');
+    }, [setError]);
     return (
         <>
             <img src={logo} alt="logo" className={styles.logo} />
             <form className={styles.authForm} onSubmit={handleSubmit(formSubmit)}>
                 <ErrorMessage message={error} />
-                <input type="text" placeholder="Логин" {...register('login')} />
-                {errors.login?.message && <ErrorMessage message={errors.login?.message} />}
+                <input type="text" placeholder={t('auth.login')} {...register('login')} />
+                {errors.login?.message && <ErrorMessage message={t(errors.login?.message)} />}
                 <div className={styles.authForm__password}>
                     <input
                         type={showPassword[0] ? 'text' : 'password'}
-                        placeholder="Пароль"
+                        placeholder={t('auth.password')}
                         {...register('password')}
                     />
                     <img
@@ -46,10 +50,10 @@ const AuthPage = () => {
                         onClick={() => setShowPassword([!showPassword[0], showPassword[1]])}
                     />
                 </div>
-                {errors.password?.message && <ErrorMessage message={errors.password?.message} />}
-                <button>Войти</button>
+                {errors.password?.message && <ErrorMessage message={t(errors.password?.message)} />}
+                <button>{t('auth.enter')}</button>
                 <Link to={'/registration'} className={styles.authForm__navlink}>
-                    Нет аккаунта? Зарегистрируйтесь!
+                    {t('auth.haveAccount')}
                 </Link>
             </form>
         </>

@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTrelloBoards from '../../../hooks/useTrelloBoards';
 import { IBoard } from '../../../types/entityTypes';
 import CustomSelect from '../../UI/CustomSelect/CustomSelect';
 import ImportDataModal from '../../UI/Modals/ImportData/ImportDataModal';
+import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import { getSelectedData } from '../../../services/trelloAPI.service';
 import { useImportModalVisibleStore } from '../../../store';
 import styles from './TrelloImport.module.scss';
 const TrelloImport = () => {
+    const { t } = useTranslation();
     const [tokenValue, setTokenValue] = useState('');
     const [boardsData, setBoardsData] = useState<IBoard[]>([]);
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
@@ -40,21 +43,21 @@ const TrelloImport = () => {
     return (
         <div>
             <input
-                placeholder="Введите токен"
+                placeholder={t('import.inputToken')}
                 onBlur={getAllBoards}
                 value={tokenValue}
                 onChange={event => setTokenValue(event.target.value)}
                 className={styles.trelloImport__token}
             />
-            {isError && <p>Неверный токен</p>}
-            <h3>Шаг 2. Выбор досок для импорта</h3>
+            {isError && <ErrorMessage message={t('import.invalidToken')} />}
+            <h3>{t('import.step2')}</h3>
             <CustomSelect
                 options={tokenValue ? options : []}
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions}
             />
             <button onClick={importData} disabled={!(selectedOptions.length > 0)}>
-                Импортировать данные
+                {t('import.importData')}
             </button>
             {importModalIsVisible && <ImportDataModal />}
         </div>

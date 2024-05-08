@@ -5,8 +5,10 @@ import { useSuccessRegisterStore } from '../../store';
 import WorkSpaces from '../../components/WorkSpaces/WorkSpaces';
 import useAllBoards from '../../hooks/useAllBoards';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IBoards } from '../../components/WorkSpaces/WorkSpaces';
 const MainPage = () => {
+    const { t } = useTranslation();
     const successRegisterVisible = useSuccessRegisterStore(state => state.successRegisterVisible);
     const [boards, setBoards] = useState<IBoards[]>([]);
     const { data, isSuccess } = useAllBoards();
@@ -24,13 +26,13 @@ const MainPage = () => {
 
                 {isSuccess && (
                     <>
-                        <div>Недавно просмотренные</div>
+                        <div>{t('main.recentBoard')}</div>
                         <WorkSpaces boards={boards} isRecent={true} />
                     </>
                 )}
                 {isSuccess && (
                     <>
-                        <div>Ваши рабочие пространства</div>
+                        <div>{t('main.allBoards')}</div>
                         <WorkSpaces boards={data?.data} isRecent={false} />
                     </>
                 )}

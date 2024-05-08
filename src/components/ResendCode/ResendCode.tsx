@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useSendConfirmationEmail from '../../hooks/useSendConfirmationEmail';
 import styles from './ResendCode.module.scss';
 const SendCode = () => {
+    const { t } = useTranslation();
     const [timer, setTimer] = useState(45);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const emailInStorage = localStorage.getItem('email-data');
@@ -42,8 +44,8 @@ const SendCode = () => {
             onClick={handleResendCode}
         >
             {isButtonDisabled
-                ? `Не пришел код? Отправить повторно через ${timer} с`
-                : 'Отправить повторно'}
+                ? t('mailCode.resendCodePrompt', { timer: timer })
+                : t('mailCode.resendCode')}
         </button>
     );
 };

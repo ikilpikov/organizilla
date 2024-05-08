@@ -1,0 +1,103 @@
+{
+    "registration": {
+        "login": "Login",
+        "email": "Email",
+        "password": "Password",
+        "password_confirmation": "Confirm Password",
+        "register": "Sign up",
+        "haveAccount": "Have an account?"
+    },
+    "registrationValidate": {
+        "email": {
+            "required": "Enter an email address",
+            "format": "Invalid email format"
+        },
+        "username": {
+            "required": "Username is required",
+            "format": "Invalid username format"
+        },
+        "password": {
+            "minSize": "Minimum password length is 8 characters",
+            "validation": "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
+        },
+        "confirmPassword": {
+            "required": "Confirm your password",
+            "match": "Passwords do not match"
+        }
+    },
+    "authValidate": {
+        "login": "Specify a username or email",
+        "password": "Minimum password length is 8 characters"
+    },
+
+    "auth": {
+        "login": "Username or Email",
+        "password": "Password",
+        "enter": "Log in",
+        "haveAccount": "Don't have an account? Register now!",
+        "authError": "Incorrect login or password"
+    },
+    "mailCode": {
+        "inputCode": "Enter code",
+        "sendCode": "Send code",
+        "resendCode": "Resend code",
+        "resendCodePrompt": "Didn't receive the code? Resend it in {{timer}} seconds",
+        "emailError": "An error occurred! Please re-enter your data"
+    },
+    "header": {
+        "search": "Search"
+    },
+    "sideMenu": {
+        "main": "Main",
+        "create": "Create",
+        "templates": "Templates",
+        "projects": "Projects",
+        "calendar": "Calendar",
+        "pomodoro": "Pomodoro",
+        "import": "Import",
+        "settings": "Settings"
+    },
+    "createBoard": {
+        "createTitle": "Create Board",
+        "createBlank": "Create New Board",
+        "createTemplate": "Use Template",
+        "importBoard": "Import Board"
+    },
+    "import": {
+        "title": "Data Import",
+        "step1": "Step 1. Authorization and Token Retrieval",
+        "step1-description": "To import data, you need to authenticate with Trello and retrieve an access token, which you should paste into the field below.",
+        "auth": "Authenticate with Trello",
+        "inputToken": "Enter token",
+        "invalidToken": "Invalid token",
+        "step2": "Step 2. Select Boards to Import",
+        "importData": "Import Data",
+        "selectAll": "Select All"
+    },
+    "successRegister": {
+        "emailConfirmed": "Email successfully confirmed!",
+        "wish": "Enjoy using Organizilla!",
+        "continue": "Continue"
+    },
+    "createBlankBoard": {
+        "title": "Board Creation",
+        "boardName": "Board Name",
+        "boardNamePlaceholder": "Enter board name",
+        "selectBackground": "Select Background",
+        "moreBackgrounds": "More Images",
+        "create": "Create",
+        "options": {
+            "public": "Public",
+            "private": "Private"
+        }
+    },
+    "main": {
+        "recentBoard": "Recently Viewed",
+        "allBoards": "Your Workspaces"
+    },
+    "greeting": {
+        "morning": "Good morning",
+        "afternoon": "Good afternoon",
+        "night": "Good evening"
+    }
+}

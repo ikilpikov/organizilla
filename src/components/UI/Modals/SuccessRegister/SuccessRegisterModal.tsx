@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import Confetti from '../../../Confetti/Confetti';
 import CheckMark from '../../CheckMark/CheckMark';
 import { useSuccessRegisterStore } from '../../../../store';
 import styles from './SuccessRegister.module.scss';
 const SuccessRegisterModal = () => {
+    const { t } = useTranslation();
     const setSuccessRegisterVisible = useSuccessRegisterStore(
         state => state.setSuccessRegisterVisible,
     );
@@ -11,9 +13,11 @@ const SuccessRegisterModal = () => {
             <Confetti />
             <div className={styles.successModal}>
                 <CheckMark />
-                <h2>Почта потверждена успешно!</h2>
-                <p>Приятной работы с Organizilla</p>
-                <button onClick={() => setSuccessRegisterVisible(false)}>Продолжить</button>
+                <h2>{t('successRegister.emailConfirmed')}</h2>
+                <p>{t('successRegister.wish')}</p>
+                <button onClick={() => setSuccessRegisterVisible(false)}>
+                    {t('successRegister.continue')}
+                </button>
             </div>
         </div>
     );

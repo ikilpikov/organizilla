@@ -5,7 +5,6 @@ const CreateBoardPage = () => {
     return (
         <>
             <Layout>
-                <h1>Создание доски</h1>
                 <CreateBoardOptions />
             </Layout>
         </>

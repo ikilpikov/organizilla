@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useSendConfirmCode from '../../hooks/useSendConfirmCode';
 import EmailCode from '../../components/EmailCode/EmailCode';
 import ResendCode from '../../components/ResendCode/ResendCode';
@@ -7,6 +8,7 @@ import ArrowBack from '../../components/UI/ArrowBack/ArrowBack';
 import { useEmailDataStore } from '../../store';
 import styles from './MailCodePage.module.scss';
 const MailCodePage = () => {
+    const { t } = useTranslation();
     const { mutate } = useSendConfirmCode();
     const emailCode = useEmailDataStore(state => state.emailCode);
     const email = useEmailDataStore(state => state.email);
@@ -25,7 +27,7 @@ const MailCodePage = () => {
         <div className={styles.mailCode}>
             <div className={styles.mailCode__header}>
                 <ArrowBack />
-                <h2>Введите код</h2>
+                <h2>{t('mailCode.inputCode')}</h2>
             </div>
             {emailError && <ErrorMessage message={emailError}></ErrorMessage>}
             <EmailCode />
@@ -34,7 +36,7 @@ const MailCodePage = () => {
                 className={`${styles.button} ${emailCode.length == 4 ? styles.active : ''}`}
                 onClick={() => sendCode()}
             >
-                Отправить код
+                {t('mailCode.sendCode')}
             </button>
             <ResendCode />
         </div>

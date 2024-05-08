@@ -1,15 +1,32 @@
+import { useTranslation } from 'react-i18next';
 import BlockOption from '../UI/BlockOption/BlockOption';
 import styles from './CreateBoardOptions.module.scss';
 import plus from '../../assets/icons/plus.svg';
 import importImg from '../../assets/import.png';
 import template from '../../assets/template.png';
 const CreateBoardOptions = () => {
+    const { t } = useTranslation();
     return (
-        <div className={styles.createBoardOptions}>
-            <BlockOption text="Create new board" link="/create-board/blank" imageLink={plus} />
-            <BlockOption text="Use a template" link="/create-board/template" imageLink={template} />
-            <BlockOption text="Import board" link="/import" imageLink={importImg} />
-        </div>
+        <>
+            <h1>{t('createBoard.createTitle')}</h1>
+            <div className={styles.createBoardOptions}>
+                <BlockOption
+                    text={t('createBoard.createBlank')}
+                    link="/create-board/blank"
+                    imageLink={plus}
+                />
+                <BlockOption
+                    text={t('createBoard.createTemplate')}
+                    link="/create-board/template"
+                    imageLink={template}
+                />
+                <BlockOption
+                    text={t('createBoard.importBoard')}
+                    link="/import"
+                    imageLink={importImg}
+                />
+            </div>
+        </>
     );
 };
 

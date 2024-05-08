@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Select, { MultiValue } from 'react-select';
+import { useTranslation } from 'react-i18next';
 import { IOptions } from '../../../types/basicTypes';
 
 interface ICustomSelectProps {
@@ -9,6 +10,7 @@ interface ICustomSelectProps {
 }
 
 const CustomSelect: FC<ICustomSelectProps> = ({ options, selectedOptions, setSelectedOptions }) => {
+    const { t } = useTranslation();
     const handleSelectAll = () => {
         const allOptionValues = options.map(option => option.value);
         setSelectedOptions(allOptionValues);
@@ -26,7 +28,7 @@ const CustomSelect: FC<ICustomSelectProps> = ({ options, selectedOptions, setSel
                 onChange={handleOnChange}
                 value={options.filter(option => selectedOptions.includes(option.value))}
             />
-            <label>Выбрать все</label>
+            <label>{t('import.selectAll')}</label>
             <input
                 onClick={handleSelectAll}
                 disabled={!options.length}

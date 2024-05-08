@@ -10,7 +10,9 @@ import logo from '../../assets/logo.png';
 import openEye from '../../assets/icons/openEye.svg';
 import closeEye from '../../assets/icons/closeEye.svg';
 import styles from './RegistrationPage.module.scss';
+import { useTranslation } from 'react-i18next';
 const RegistrationPage = () => {
+    const { t } = useTranslation();
     const error = useRegisterErrorsStore(state => state.error);
     const setError = useRegisterErrorsStore(state => state.setError);
     const { mutate } = useReg();
@@ -27,21 +29,27 @@ const RegistrationPage = () => {
         console.log(registrationData);
         mutate(registrationData);
     };
-    useEffect(() => setError(''), [setError]);
+    useEffect(() => {
+        setError('');
+    }, [setError]);
     return (
         <>
             <img src={logo} alt="logo" className={styles.logo} />
 
             <form className={styles.authForm} onSubmit={handleSubmit(formSubmit)}>
                 <ErrorMessage message={error} />
-                <input type="text" placeholder="Логин" {...register('username')} />
-                {errors.username?.message && <ErrorMessage message={errors.username?.message} />}
-                <input type="text" placeholder="Электронная почта" {...register('email')} />
-                {errors.email?.message && <ErrorMessage message={errors.email?.message} />}
+                <input
+                    type="text"
+                    placeholder={t('registration.login')}
+                    {...register('username')}
+                />
+                {errors.username?.message && <ErrorMessage message={t(errors.username?.message)} />}
+                <input type="text" placeholder={t('registration.email')} {...register('email')} />
+                {errors.email?.message && <ErrorMessage message={t(errors.email?.message)} />}
                 <div className={styles.authForm__password}>
                     <input
                         type={showPassword[0] ? 'text' : 'password'}
-                        placeholder="Пароль"
+                        placeholder={t('registration.password')}
                         {...register('password')}
                     />
                     <img
@@ -50,11 +58,11 @@ const RegistrationPage = () => {
                         onClick={() => setShowPassword([!showPassword[0], showPassword[1]])}
                     />
                 </div>
-                {errors.password?.message && <ErrorMessage message={errors.password?.message} />}
+                {errors.password?.message && <ErrorMessage message={t(errors.password?.message)} />}
                 <div className={styles.authForm__password}>
                     <input
                         type={showPassword[1] ? 'text' : 'password'}
-                        placeholder="Повторите пароль"
+                        placeholder={t('registration.password_confirmation')}
                         {...register('confirmPassword')}
                     />
                     <img
@@ -64,11 +72,11 @@ const RegistrationPage = () => {
                     />
                 </div>
                 {errors.confirmPassword?.message && (
-                    <ErrorMessage message={errors.confirmPassword?.message} />
+                    <ErrorMessage message={t(errors.confirmPassword?.message)} />
                 )}
-                <button>Зарегистрироваться</button>
+                <button>{t('registration.register')}</button>
                 <Link to={'/auth'} className={styles.authForm__navlink}>
-                    Есть аккаунт?
+                    {t('registration.haveAccount')}
                 </Link>
             </form>
         </>
