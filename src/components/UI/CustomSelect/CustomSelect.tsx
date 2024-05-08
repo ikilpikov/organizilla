@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Select, { MultiValue } from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { IOptions } from '../../../types/basicTypes';
-
+import styles from './CustomSelect.module.scss';
 interface ICustomSelectProps {
     options: IOptions[];
     selectedOptions: string[];
@@ -27,6 +27,7 @@ const CustomSelect: FC<ICustomSelectProps> = ({ options, selectedOptions, setSel
                 isMulti
                 onChange={handleOnChange}
                 value={options.filter(option => selectedOptions.includes(option.value))}
+                className={styles.customSelect}
             />
             <label>{t('import.selectAll')}</label>
             <input

@@ -40,6 +40,7 @@ html[app-theme='light'] {
     --button-border-color: #ba8fc2;
 
     --background-color: rgb(254, 255, 239);
+    -background--color-lighter: rgb(116, 192, 236);
     --color: black;
     --icon-color: invert(0%) sepia(100%) saturate(15%) hue-rotate(246deg) brightness(105%)
         contrast(105%);
@@ -51,6 +52,7 @@ html[app-theme='dark'] {
     --button-border-color: #4e005c;
 
     --background-color: rgb(65, 65, 64);
+    --background--color-lighter: rgb(90, 90, 89);
     --color: white;
     --icon-color: invert(52%) sepia(29%) saturate(6881%) hue-rotate(163deg) brightness(97%)
         contrast(101%);

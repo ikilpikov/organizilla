@@ -50,7 +50,12 @@ const CreateBoard = () => {
                     onChange={event => setName(event.target.value)}
                     placeholder={t('createBlankBoard.boardNamePlaceholder')}
                 />
-                <Select options={options} value={selectedOption} onChange={handleSelectChange} />
+                <Select
+                    options={options}
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    className={styles.customSelect}
+                />
                 <h3>{t('createBlankBoard.selectBackground')}</h3>
                 <SelectBackground />
                 <button onClick={() => setBackgroundImagePageNumber()}>
