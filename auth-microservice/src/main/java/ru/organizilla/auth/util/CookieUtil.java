@@ -24,6 +24,7 @@ public class CookieUtil {
                 .httpOnly(true)
                 .path("/")
                 .secure(true)
+                .sameSite("Strict")
                 .build();
     }
 
