@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
     private final SecretCodeUtil secretCodeUtil;
     private final JwtUtil jwtUtil;
 
-    private final int confirmationCodeLifetime = 3;
+    private final int confirmationCodeLifetime = 3; //todo remove
 
     @Override
     public TokenPairDto authenticateUsername(AuthUsernameDto authUsernameDto) {
@@ -120,12 +120,15 @@ public class AuthServiceImpl implements AuthService {
             throw new AccountConfirmationException("Wrong secret code");
         }
 
+        var authority = AuthorityUtils.createAuthorityList(user.getRole().name()).get(0);
+        var tokenPair = createTokenPair(user.getUsername(), authority);
+
         user.setAccountStatus(AccountStatus.ACTIVE);
+        user.setRefreshToken(tokenPair.getRefreshToken());
         userRepository.save(user);
         confirmationCodeRepository.deleteById(actualSecretCode.getId());
 
-        var authority = AuthorityUtils.createAuthorityList(user.getRole().name()).get(0);
-        return createTokenPair(user.getUsername(), authority);
+        return tokenPair;
     }
 
     @Override
