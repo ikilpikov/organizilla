@@ -7,6 +7,7 @@ import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.domain.User;
 import ru.organizilla.workspace.dto.CreateBoardDto;
 import ru.organizilla.workspace.dto.GetAllBoardsDto;
+import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.repository.BoardRepository;
 import ru.organizilla.workspace.repository.UserRepository;
 
@@ -42,7 +43,23 @@ public class BoardServiceImpl implements BoardService {
         }).toList();
     }
 
+    @Override
+    public void deleteBoard(Long boardId, String username) {
+        var user = getUserByUsername(username);
+        var board = getBoardById(boardId);
+
+        if (!board.getCreatedBy().equals(user)) {
+            throw new NotAllowedException("Deletion not allowed");
+        }
+
+        boardRepository.delete(board);
+    }
+
     private User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(username));
+        return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+    }
+
+    private Board getBoardById(Long id) {
+        return boardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Board not found: " + id));
     }
 }

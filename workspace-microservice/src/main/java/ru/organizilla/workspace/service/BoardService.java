@@ -10,4 +10,7 @@ public interface BoardService {
     Long createBoard(CreateBoardDto boardDto, String username);
 
     List<GetAllBoardsDto> getAllBoards(String username);
+
+    void deleteBoard(Long boardId, String username);
+
 }
