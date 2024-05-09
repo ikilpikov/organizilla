@@ -25,8 +25,8 @@ public class BoardController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createBoard(@RequestBody @Valid CreateBoardDto boardDto, @RequestHeader(USERNAME_HEADER) String username) {
-        boardService.createBoard(boardDto, username);
-        return ok().body("Board created");
+        var boardId = boardService.createBoard(boardDto, username);
+        return ok().body("BoardId: " + boardId);
     }
 
     @GetMapping("/all")
@@ -36,7 +36,7 @@ public class BoardController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        return badRequest().body("Invalid data");
+        return badRequest().body(ex.getMessage());
     }
 
 }

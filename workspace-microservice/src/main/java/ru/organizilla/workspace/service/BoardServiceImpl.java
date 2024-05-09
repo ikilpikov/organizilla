@@ -19,14 +19,14 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
-    public void createBoard(CreateBoardDto boardDto, String username) {
+    public Long createBoard(CreateBoardDto boardDto, String username) {
         var user = getUserByUsername(username);
         var board = new Board();
         board.setCreatedBy(user);
         board.setName(boardDto.getName());
-        board.setPublic(boardDto.isPublic());
+        board.setPublic(boardDto.getIsPublic());
         board.setBackgroundImage(boardDto.getBackgroundImage());
-        boardRepository.save(board);
+        return boardRepository.save(board).getId();
     }
 
     public List<GetAllBoardsDto> getAllBoards(String username) {
