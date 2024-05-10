@@ -2,6 +2,7 @@ package ru.organizilla.workspace.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import ru.organizilla.workspace.domain.enums.BoardAuthority;
 
 @Entity
 @Table(name = "board_colab")
@@ -20,6 +21,7 @@ public class BoardColab {
     private Board board;
 
     @Column(nullable = false, length = 50)
-    private String authority;
+    @Enumerated(EnumType.STRING)
+    private BoardAuthority authority;
 
 }

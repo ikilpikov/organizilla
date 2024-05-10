@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "board")
@@ -32,4 +33,6 @@ public class Board {
     @JoinColumn(name = "created_by")
     private User createdBy;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<BoardColab> boardColab;
 }

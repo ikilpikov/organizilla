@@ -3,6 +3,7 @@ package ru.organizilla.workspace.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.organizilla.workspace.util.AccessCheckUtil;
 import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.domain.User;
 import ru.organizilla.workspace.dto.board.CreateBoardDto;
@@ -22,6 +23,9 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
+    private final AccessCheckUtil accessCheckUtil;
+
+    @Override
     public CreatedBoardInfoDto createBoard(CreateBoardDto boardDto, String username) {
         var user = getUserByUsername(username);
         var board = new Board();
@@ -32,6 +36,7 @@ public class BoardServiceImpl implements BoardService {
         return new CreatedBoardInfoDto(boardRepository.save(board).getId());
     }
 
+    @Override
     public List<GetAllBoardsDto> getAllBoards(String username) {
         var user = getUserByUsername(username);
 
@@ -50,7 +55,7 @@ public class BoardServiceImpl implements BoardService {
         var user = getUserByUsername(username);
         var board = getBoardById(boardId);
 
-        if (!board.getCreatedBy().equals(user)) {
+        if (!accessCheckUtil.canCreateUpdateDeleteBoard(user, board)) {
             throw new NotAllowedException("Deletion not allowed");
         }
 
@@ -58,10 +63,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     private User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+        return userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
     }
 
     private Board getBoardById(Long id) {
-        return boardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Board not found: " + id));
+        return boardRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Board not found: " + id));
     }
 }
