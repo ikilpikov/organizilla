@@ -6,43 +6,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import ru.organizilla.workspace.dto.board.CreateBoardDto;
-import ru.organizilla.workspace.dto.board.CreatedBoardInfoDto;
-import ru.organizilla.workspace.dto.board.GetAllBoardsDto;
+import ru.organizilla.workspace.dto.list.CreateListDto;
+import ru.organizilla.workspace.dto.list.CreatedListInfoDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
-import ru.organizilla.workspace.service.BoardService;
-
-import java.util.List;
+import ru.organizilla.workspace.service.ListService;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 import static ru.organizilla.workspace.constant.RequestHeaderConstants.USERNAME_HEADER;
 
 @RestController
-@RequestMapping("/v1/workspace/board")
+@RequestMapping("/v1/workspace/list")
 @RequiredArgsConstructor
-public class BoardController {
+public class ListController {
 
-    private final BoardService boardService;
+    private final ListService listService;
 
     @PostMapping("/create")
-    public ResponseEntity<CreatedBoardInfoDto> createBoard(@RequestBody @Valid CreateBoardDto boardDto,
-                                                           @RequestHeader(USERNAME_HEADER) String username) {
-        var boardInfo = boardService.createBoard(boardDto, username);
-        return ok().body(boardInfo);
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<GetAllBoardsDto>> getAllBoards(@RequestHeader(USERNAME_HEADER) String username) {
-
-        return ok().body(boardService.getAllBoards(username));
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBoard(@PathVariable("id") Long id,
-                                              @RequestHeader(USERNAME_HEADER) String username) {
-        boardService.deleteBoard(id, username);
-        return ok().body("Board deleted");
+    public ResponseEntity<CreatedListInfoDto> createBoard(@RequestBody @Valid CreateListDto listDto,
+                                                          @RequestHeader(USERNAME_HEADER) String username) {
+        var listInfo = listService.createList(listDto, username);
+        return ok().body(listInfo);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

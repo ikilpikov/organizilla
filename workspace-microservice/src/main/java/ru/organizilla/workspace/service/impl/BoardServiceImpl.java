@@ -1,15 +1,17 @@
-package ru.organizilla.workspace.service;
+package ru.organizilla.workspace.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.domain.User;
-import ru.organizilla.workspace.dto.CreateBoardDto;
-import ru.organizilla.workspace.dto.GetAllBoardsDto;
+import ru.organizilla.workspace.dto.board.CreateBoardDto;
+import ru.organizilla.workspace.dto.board.CreatedBoardInfoDto;
+import ru.organizilla.workspace.dto.board.GetAllBoardsDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.repository.BoardRepository;
 import ru.organizilla.workspace.repository.UserRepository;
+import ru.organizilla.workspace.service.BoardService;
 
 import java.util.List;
 
@@ -20,14 +22,14 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
-    public Long createBoard(CreateBoardDto boardDto, String username) {
+    public CreatedBoardInfoDto createBoard(CreateBoardDto boardDto, String username) {
         var user = getUserByUsername(username);
         var board = new Board();
         board.setCreatedBy(user);
         board.setName(boardDto.getName());
         board.setPublic(boardDto.getIsPublic());
         board.setBackgroundImage(boardDto.getBackgroundImage());
-        return boardRepository.save(board).getId();
+        return new CreatedBoardInfoDto(boardRepository.save(board).getId());
     }
 
     public List<GetAllBoardsDto> getAllBoards(String username) {

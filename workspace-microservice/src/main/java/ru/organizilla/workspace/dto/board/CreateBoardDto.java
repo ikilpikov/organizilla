@@ -1,4 +1,4 @@
-package ru.organizilla.workspace.dto;
+package ru.organizilla.workspace.dto.board;
 
 
 import jakarta.validation.constraints.NotBlank;

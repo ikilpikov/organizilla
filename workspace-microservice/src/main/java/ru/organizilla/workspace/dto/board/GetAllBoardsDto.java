@@ -1,4 +1,4 @@
-package ru.organizilla.workspace.dto;
+package ru.organizilla.workspace.dto.board;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +16,4 @@ public class GetAllBoardsDto {
     private String backgroundImage;
 
     private Timestamp lastActivity;
-
 }

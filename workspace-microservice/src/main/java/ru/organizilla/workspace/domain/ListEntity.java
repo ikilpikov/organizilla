@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Table(name = "list")
 @Data
-public class List {
+public class ListEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,5 +26,8 @@ public class List {
 
     @Column
     private Boolean subscribed;
+
+    @Column
+    private int position;
 
 }
