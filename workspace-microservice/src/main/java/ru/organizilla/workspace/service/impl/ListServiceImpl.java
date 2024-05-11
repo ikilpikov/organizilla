@@ -32,7 +32,7 @@ public class ListServiceImpl implements ListService {
         var board = getBoardById(listDto.getBoardId());
         var user = getUserByUsername(username);
 
-        if (accessCheckUtil.canCreateUpdateDeleteCardAndList(user, board)) {
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, board)) {
             throw new NotAllowedException("Creation not allowed");
         }
 
