@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.organizilla.workspace.dto.board.CreateBoardDto;
 import ru.organizilla.workspace.dto.board.CreatedBoardInfoDto;
 import ru.organizilla.workspace.dto.board.GetAllBoardsDto;
+import ru.organizilla.workspace.dto.board.GetBoardDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.BoardService;
 
@@ -36,6 +37,13 @@ public class BoardController {
     public ResponseEntity<List<GetAllBoardsDto>> getAllBoards(@RequestHeader(USERNAME_HEADER) String username) {
 
         return ok().body(boardService.getAllBoards(username));
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<GetBoardDto> getBoard(@PathVariable("id") Long id,
+                                                @RequestHeader(USERNAME_HEADER) String username) {
+        var board = boardService.getBoard(id, username);
+        return ok().body(board);
     }
 
     @DeleteMapping("/delete/{id}")

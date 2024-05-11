@@ -15,7 +15,7 @@ public class Card {
 
     @ManyToOne
     @JoinColumn(name = "list")
-    private ListEntity listEntity;
+    private ListEntity list;
 
     @Column(nullable = false, length = 255)
     private String name;
@@ -41,5 +41,4 @@ public class Card {
     @ManyToOne
     @JoinColumn(name = "assigned_to")
     private User assignedTo;
-
 }

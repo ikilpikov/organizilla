@@ -3,6 +3,9 @@ package ru.organizilla.workspace.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.organizilla.workspace.dto.board.GetBoardDto;
+import ru.organizilla.workspace.dto.card.GetCardDto;
+import ru.organizilla.workspace.dto.list.GetListDto;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.domain.User;
@@ -51,6 +54,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public GetBoardDto getBoard(Long boardId, String username) {
+        var user = getUserByUsername(username);
+        var board = getBoardById(boardId);
+
+        if (!accessCheckUtil.canReadBoardEntities(user, board)) {
+            throw new NotAllowedException("Cannot read board");
+        }
+
+        return buildGetBoardDto(board);
+    }
+
+    @Override
     public void deleteBoard(Long boardId, String username) {
         var user = getUserByUsername(username);
         var board = getBoardById(boardId);
@@ -72,5 +87,30 @@ public class BoardServiceImpl implements BoardService {
         return boardRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Board not found: " + id));
+    }
+
+    private GetBoardDto buildGetBoardDto(Board board) {
+        var listDtos = board.getLists()
+                .stream().map(list -> GetListDto.builder()
+                        .name(list.getName())
+                        .closed(list.isClosed())
+                        .color(list.getColor())
+                        .subscribed(list.getSubscribed())
+                        .cards(list.getCards().stream().map(card -> GetCardDto.builder()
+                                .name(card.getName())
+                                .closed(card.isClosed())
+                                .lastActivity(card.getLastActivity())
+                                .deadline(card.getDeadline())
+                                .isTemplate(card.isTemplate())
+                                .isSubscribed(card.isSubscribed()).build()).toList()).build()).toList();
+
+        return GetBoardDto.builder()
+                .name(board.getName())
+                .lastActivity(board.getLastActivity())
+                .isClosed(board.isClosed())
+                .backgroundImage(board.getBackgroundImage())
+                .isPublic(board.isPublic())
+                .lists(listDtos)
+                .build();
     }
 }

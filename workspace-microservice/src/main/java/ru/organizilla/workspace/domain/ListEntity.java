@@ -3,6 +3,8 @@ package ru.organizilla.workspace.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "list")
 @Data
@@ -30,4 +32,6 @@ public class ListEntity {
     @Column
     private int position;
 
+    @OneToMany(mappedBy = "list", cascade = CascadeType.ALL)
+    private List<Card> cards;
 }
