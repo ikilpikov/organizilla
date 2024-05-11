@@ -45,6 +45,18 @@ public class ListServiceImpl implements ListService {
         return new CreatedListInfoDto(listRepository.save(list).getId());
     }
 
+    @Override
+    public void deleteList(Long listId, String username) {
+        var user = getUserByUsername(username);
+        var list = getListById(listId);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
+            throw new NotAllowedException("Deletion not allowed");
+        }
+
+        listRepository.delete(list);
+    }
+
     private User getUserByUsername(String username) {
         return userRepository
                 .findByUsername(username)
@@ -55,5 +67,11 @@ public class ListServiceImpl implements ListService {
         return boardRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Board not found: " + id));
+    }
+
+    private ListEntity getListById(Long id) {
+        return listRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("List not found: " + id));
     }
 }

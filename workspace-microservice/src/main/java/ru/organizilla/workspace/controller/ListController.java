@@ -29,6 +29,13 @@ public class ListController {
         return ok().body(listInfo);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteBoard(@PathVariable("id") Long id,
+                                              @RequestHeader(USERNAME_HEADER) String username) {
+        listService.deleteList(id, username);
+        return ok().body("List deleted");
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         return badRequest().body("Invalid data");

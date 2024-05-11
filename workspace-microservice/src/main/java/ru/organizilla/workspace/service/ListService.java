@@ -6,4 +6,6 @@ import ru.organizilla.workspace.dto.list.CreatedListInfoDto;
 public interface ListService {
 
     CreatedListInfoDto createList(CreateListDto listDto, String username);
+
+    void deleteList(Long listId, String username);
 }
