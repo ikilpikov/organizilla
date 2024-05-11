@@ -6,6 +6,7 @@ import MainPage from './pages/MainPage/MainPage';
 import ImportDataPage from './pages/ImportDataPage/ImportDataPage';
 import CreateBoardPage from './pages/CreateBoardPage/CreateBoardPage';
 import CreateNewBoardPage from './pages/CreateNewBoardPage/CreateNewBoardPage';
+import BoardPage from './pages/BoardPage/BoardPage';
 
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/import" element={<ImportDataPage />} />
                 <Route path="/create-board" element={<CreateBoardPage />} />
                 <Route path="/create-board/blank" element={<CreateNewBoardPage />} />
+                <Route path="/board/:id" element={<BoardPage />} />
             </Routes>
         </>
     );

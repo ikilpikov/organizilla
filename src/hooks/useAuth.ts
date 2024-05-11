@@ -24,13 +24,12 @@ const useAuth = () => {
         onSuccess: response => {
             const decoded = jwtDecode(response.data.accessToken) as JwtPayload;
             if (decoded.sub) localStorage.setItem('username', decoded.sub);
+            console.log(response.data);
+
             setAccessToken(response.data.accessToken);
-            //localStorage.setItem('token', response.data.accessToken);
             navigator('/');
         },
         onError: (error: AxiosError) => {
-            console.log(error);
-
             if (error.response?.status == 403) setError(t('auth.authError'));
             else if (error.response?.status === 400) setError(error.response.data as string);
         },

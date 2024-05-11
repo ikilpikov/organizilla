@@ -99,5 +99,9 @@
         "morning": "Good morning",
         "afternoon": "Good afternoon",
         "night": "Good evening"
+    },
+    "importModal": {
+        "importTitle": "Import Data",
+        "description": "Please wait a moment, the loading process may take some time."
     }
 }

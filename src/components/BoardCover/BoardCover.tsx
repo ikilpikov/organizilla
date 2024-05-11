@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './BoardCover.module.scss';
 interface IBoardCoverProps {
     background: string;
@@ -6,8 +7,9 @@ interface IBoardCoverProps {
     id: number;
 }
 const BoardCover: FC<IBoardCoverProps> = ({ background, name, id }) => {
+    const navigator = useNavigate();
     const openBoard = () => {
-        console.log(id);
+        navigator(`/board/${id}`);
     };
     return (
         <>

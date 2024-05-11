@@ -7,3 +7,7 @@ export interface IBoardPost {
     backgroundImage: string;
     isPublic: boolean;
 }
+export interface IListPost {
+    name: string;
+    boardId: string;
+}

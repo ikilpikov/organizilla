@@ -10,7 +10,6 @@ export const registration = async ({ username, email, password }: UserReg) => {
     });
     return response;
 };
-
 export const authorizationByLogin = async ({ login, password }: UserAuth) => {
     const response = await axiosInstance.post('/login/username', {
         username: login,

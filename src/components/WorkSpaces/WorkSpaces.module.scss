@@ -1,13 +1,10 @@
 .workSpaces {
     margin-left: 20px;
     margin-right: 20px;
-    height: 100%;
+    height: 50%;
     display: grid;
-    grid-template-columns: repeat(
-        4,
-        minmax(200px, 1fr)
-    ); // Установите здесь количество элементов в строке
-    grid-gap: 20px; // Отступы между элементами
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    grid-gap: 20px;
     &__recent {
         height: 40%;
     }

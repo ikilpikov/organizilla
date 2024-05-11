@@ -1,102 +1,103 @@
 $stark-med-blue: #000000;
 @keyframes form-entry {
-  0% {
-    height: 0;
-    width: 0;
-    opacity: 0;
-    padding: 0;
-  }
-  20% {
-    height: 0;
-    border: 1px solid $stark-med-blue;
-    width: 0;
-    opacity: 0;
-    padding: 0;
-  }
+    0% {
+        height: 0;
+        width: 0;
+        opacity: 0;
+        padding: 0;
+    }
+    20% {
+        height: 0;
+        border: 1px solid $stark-med-blue;
+        width: 0;
+        opacity: 0;
+        padding: 0;
+    }
 
-  40% {
-    width: 0;
-    height: 30vh;
-    border: 2px solid $stark-med-blue;
-    opacity: 1;
-    padding: 0;
-  }
+    40% {
+        width: 0;
+        height: 30vh;
+        border: 2px solid $stark-med-blue;
+        opacity: 1;
+        padding: 0;
+    }
 
-  100% {
-    height: 50vh;
-    width: 35%;
-  }
+    100% {
+        height: 50vh;
+        width: 35%;
+    }
 }
 @keyframes input-logo-entry {
-  0% {
-    opacity: 0;
-  }
-  90% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+    }
+    90% {
+        opacity: 0;
+    }
 
-  100% {
-    opacity: 1;
-  }
+    100% {
+        opacity: 1;
+    }
 }
 .logo {
-  width: 200px;
-  display: block;
-  margin: 20px auto;
-  animation: input-logo-entry 1.5s ease-in-out;
+    width: 200px;
+    display: block;
+    margin: 20px auto;
+    animation: input-logo-entry 1.5s ease-in-out;
 }
 .authForm {
-  animation: form-entry 2s ease-in-out;
-  transition: 1s all;
-  margin: 0 auto;
-  padding: 10px;
-  height: 50vh;
-  width: 35%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 20px;
-  box-shadow: 1px 0px 6px 0px #000000;
-  input,
-  button,
-  .authForm__password {
-    animation: input-logo-entry 2s ease-in;
+    background-color: var(--background-color);
+    animation: form-entry 2s ease-in-out;
+    transition: 1s all;
     margin: 0 auto;
-    width: 50%;
-    height: 2em;
-  }
-  .authForm__navlink {
-    animation: input-logo-entry 2s ease-in;
-    &:visited {
-      color: blue;
+    padding: 10px;
+    height: 50vh;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 1px 0px 6px 0px #000000;
+    input,
+    button,
+    .authForm__password {
+        animation: input-logo-entry 2s ease-in;
+        margin: 0 auto;
+        width: 50%;
+        height: 2em;
     }
-  }
-  button {
-    border: none;
-    color: white;
-    background-color: rgb(86, 86, 250);
-    font-size: 1.1em;
-    &:hover {
-      background-color: rgb(40, 40, 251);
+    .authForm__navlink {
+        animation: input-logo-entry 2s ease-in;
+        &:visited {
+            color: blue;
+        }
     }
-  }
-  input {
-    border: none;
-    border-bottom: 1px solid black;
-  }
-
-  .authForm__password {
-    position: relative;
+    button {
+        border: none;
+        color: white;
+        background-color: rgb(86, 86, 250);
+        font-size: 1.1em;
+        &:hover {
+            background-color: rgb(40, 40, 251);
+        }
+    }
     input {
-      width: 100%;
+        border: none;
+        border-bottom: 1px solid black;
     }
-    .eyeIcon {
-      width: 20px;
-      position: absolute;
-      right: 6px; /* отступ справа для позиционирования изображения */
-      top: 50%;
-      transform: translateY(-50%);
+
+    .authForm__password {
+        position: relative;
+        input {
+            width: 100%;
+        }
+        .eyeIcon {
+            width: 20px;
+            position: absolute;
+            right: 6px; /* отступ справа для позиционирования изображения */
+            top: 50%;
+            transform: translateY(-50%);
+        }
     }
-  }
 }

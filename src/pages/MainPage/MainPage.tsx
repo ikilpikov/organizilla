@@ -18,19 +18,20 @@ const MainPage = () => {
             setBoards(data.data);
         }
     }, [data]);
+    console.log(data);
 
     return (
         <>
             <Layout>
                 <CurrentDate />
 
-                {isSuccess && (
+                {isSuccess && boards.length > 0 && (
                     <>
                         <div>{t('main.recentBoard')}</div>
                         <WorkSpaces boards={boards} isRecent={true} />
                     </>
                 )}
-                {isSuccess && (
+                {isSuccess && boards.length > 0 && (
                     <>
                         <div>{t('main.allBoards')}</div>
                         <WorkSpaces boards={data?.data} isRecent={false} />

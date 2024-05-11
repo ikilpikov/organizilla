@@ -5,6 +5,7 @@ const AUTHBASE = import.meta.env.VITE_API_GETWAY_URL;
 
 export const axiosInstance = axios.create({
     baseURL: AUTHBASE + '/api/v1/auth',
+    withCredentials: true,
 });
 
 const TRELLO_API_KEY = import.meta.env.VITE_TRELLO_API_KEY;
@@ -18,9 +19,12 @@ export const axiosTrelloInstance = axios.create({
 export const axiosInstanceWithToken = axios.create({
     baseURL: AUTHBASE + '/api/v1',
 });
+
 axiosInstanceWithToken.interceptors.request.use(
     config => {
         const token = getAccessToken();
+        console.log(token);
+
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -35,14 +39,14 @@ axiosInstanceWithToken.interceptors.response.use(
         return response;
     },
     async error => {
-        console.log(`Bearer ${localStorage.getItem('token')}`);
-
+        console.log(error.response.status);
         if (error.response.status === 401) {
-            const refreshedToken = await refreshToken();
+            console.log('ku');
+            const accessToken = await refreshToken();
+            console.log(accessToken, 'accessToken');
 
-            //localStorage.setItem('token', refreshedToken);
-            setAccessToken(refreshedToken);
-            error.config.headers.Authorization = `Bearer ${refreshedToken}`;
+            setAccessToken(accessToken);
+            error.config.headers.Authorization = `Bearer ${accessToken}`;
             return axios.request(error.config);
         }
 
@@ -52,8 +56,15 @@ axiosInstanceWithToken.interceptors.response.use(
 );
 
 const refreshToken = async () => {
-    const response = await axiosInstance.post('/refresh', null, {
-        withCredentials: true,
-    });
-    return response.data.accessToken;
+    console.log('refresh');
+    try {
+        const response = await axiosInstance.post('/refresh', null, {
+            withCredentials: true,
+        });
+        console.log(response);
+
+        return response.data.accessToken;
+    } catch (error) {
+        console.log(error);
+    }
 };

@@ -5,6 +5,7 @@ import useSendConfirmationEmail from './useSendConfirmationEmail';
 import { registration } from '../services/auth.service';
 import { useRegisterErrorsStore, useEmailDataStore } from '../store';
 import { UserReg } from '../schemas/registrationSchema';
+
 const useReg = () => {
     const navigator = useNavigate();
     const setError = useRegisterErrorsStore(state => state.setError);
@@ -19,7 +20,6 @@ const useReg = () => {
         },
         onError: (error: AxiosError) => {
             console.log(error);
-
             setError(String(error.response?.data));
         },
     });

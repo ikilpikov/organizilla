@@ -23,34 +23,35 @@ export const filterTrelloData = (
         })),
     }));
 
-    const lists = list
-        .map((list: IList) => ({
+    const lists = list.map((list: IList) => {
+        const cardsInCurrentList = cards
+            .filter((card: ICard) => card.idList === list.id)
+            .map((filteredCard: ICard) => ({
+                closed: filteredCard.closed,
+                name: filteredCard.name,
+                dateLastActivity: filteredCard.dateLastActivity,
+                isTemplate: filteredCard.isTemplate,
+                subscribed: filteredCard.subscribed,
+                idCheckLists: filteredCard.idCheckLists,
+                labels: filteredCard.labels.map((label: ILabel) => ({
+                    color: label.color,
+                    name: label.name,
+                })),
+                idList: filteredCard.idList,
+            }));
+        return {
             id: list.id,
             color: list.color,
             closed: list.closed,
             name: list.name,
             subscribed: list.subscribed,
-            cards: list.cards,
-        }))
-        .forEach((list: IList) => {
-            const cardsInCurrentList = cards
-                .filter((card: ICard) => card.idList === list.id)
-                .map((filteredCard: ICard) => ({
-                    closed: filteredCard.closed,
-                    name: filteredCard.name,
-                    dateLastActivity: filteredCard.dateLastActivity,
-                    isTemplate: filteredCard.isTemplate,
-                    subscribed: filteredCard.subscribed,
-                    idCheckLists: filteredCard.idCheckLists,
-                    labels: filteredCard.labels.map((label: ILabel) => ({
-                        color: label.color,
-                        name: label.name,
-                    })),
-                    idList: filteredCard.idList,
-                }));
-            list.cards = cardsInCurrentList;
-        });
+            cards: cardsInCurrentList,
+        };
+    });
+
     const { id, name, closed, labelNames } = board;
+    console.log(list);
+
     Object.assign(boardObject, { id, name, closed, labelNames, checkLists, lists });
     return boardObject;
 };
