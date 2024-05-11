@@ -10,21 +10,19 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { IListReorder } from '../../types/entityTypes';
 import useReorderList from '../../hooks/useReorderList';
 const BoardPage = () => {
-    console.log('render');
-
     const { id } = useParams();
     const { data, isSuccess } = useBoardData(id || '');
+
     const [listData, setListData] = useState<IList[]>([]);
     const { mutate } = useReorderList();
     useEffect(() => {
         if (data) {
-            console.log(data);
+            console.log(data, 'DATA');
             setListData(data.data.lists);
         }
     }, [data]);
     const handleDragDrop = results => {
         const { source, destination, type, draggableId } = results;
-        console.log(results);
 
         if (!destination) return;
         if (source.droppableId === destination.droppableId && source.index === destination.index)
@@ -32,7 +30,6 @@ const BoardPage = () => {
         if (type === 'group') {
             const listReorder: IListReorder = {
                 id: draggableId,
-                boardId: id!,
                 previousListId: null,
                 nextListId: null,
             };
@@ -46,6 +43,7 @@ const BoardPage = () => {
                 listReorder.previousListId = listData[destinationIndex - 1].id;
             if (destinationIndex != reorderedLists.length - 1)
                 listReorder.nextListId = listData[destinationIndex].id;
+
             setListData(reorderedLists);
             console.log(listReorder);
 

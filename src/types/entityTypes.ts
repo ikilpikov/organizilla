@@ -54,7 +54,6 @@ export interface IURL {
 }
 export interface IListReorder {
     id: string;
-    boardId: string;
     previousListId: number | null;
     nextListId: number | null;
 }

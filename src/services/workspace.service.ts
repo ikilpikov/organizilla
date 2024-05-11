@@ -28,11 +28,7 @@ export const deleteList = async (id: string) => {
     const response = await axiosInstanceWithToken.delete(`/workspace/list/delete/${id}`);
     return response;
 };
-export const reorderList = async ({
-    id,
-    previousListId,
-    nextListId,
-}: Omit<IListReorder, 'boardId'>) => {
+export const reorderList = async ({ id, previousListId, nextListId }: IListReorder) => {
     const response = await axiosInstanceWithToken.patch(`/workspace/list/reorder/${id}`, {
         previousListId,
         nextListId,
