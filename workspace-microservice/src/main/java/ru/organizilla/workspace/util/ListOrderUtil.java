@@ -30,8 +30,8 @@ public class ListOrderUtil {
             throw new CannotChangePositionException("Both previous and next list ids cannot be null");
         }
 
-        if (previousListId != null && nextListId != null && Math.abs(previousListId - nextListId) != 1) {
-            throw new CannotChangePositionException("Previous and next list ids must be neighbours");
+        if (Objects.equals(previousListId, nextListId)) {
+            throw new CannotChangePositionException("Previous and next list ids must not be same");
         }
 
         Integer calculatedPosition;
