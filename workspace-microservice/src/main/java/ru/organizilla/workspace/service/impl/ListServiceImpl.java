@@ -8,12 +8,14 @@ import ru.organizilla.workspace.domain.ListEntity;
 import ru.organizilla.workspace.domain.User;
 import ru.organizilla.workspace.dto.list.CreateListDto;
 import ru.organizilla.workspace.dto.list.CreatedListInfoDto;
+import ru.organizilla.workspace.dto.list.ReorderListDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.repository.BoardRepository;
 import ru.organizilla.workspace.repository.ListRepository;
 import ru.organizilla.workspace.repository.UserRepository;
 import ru.organizilla.workspace.service.ListService;
 import ru.organizilla.workspace.util.AccessCheckUtil;
+import ru.organizilla.workspace.util.ListOrderUtil;
 
 import java.sql.Timestamp;
 
@@ -26,6 +28,7 @@ public class ListServiceImpl implements ListService {
     private final UserRepository userRepository;
 
     private final AccessCheckUtil accessCheckUtil;
+    private final ListOrderUtil listOrderUtil;
 
     private static final int POSITION_DELTA = 65_536;
 
@@ -59,6 +62,18 @@ public class ListServiceImpl implements ListService {
 
         updateBoardLastActivity(list.getBoard());
         listRepository.delete(list);
+    }
+
+    @Override
+    public void reorderList(Long listId, ReorderListDto reorderListDto, String username) {
+        var user = getUserByUsername(username);
+        var list = getListById(listId);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
+            throw new NotAllowedException("Creation not allowed");
+        }
+
+        listOrderUtil.changeListPosition(listId, reorderListDto.getPreviousListId(), reorderListDto.getNextListId());
     }
 
     private User getUserByUsername(String username) {
