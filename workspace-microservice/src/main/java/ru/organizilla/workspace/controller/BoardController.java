@@ -39,7 +39,7 @@ public class BoardController {
         return ok().body(boardService.getAllBoards(username));
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GetBoardDto> getBoard(@PathVariable("id") Long id,
                                                 @RequestHeader(USERNAME_HEADER) String username) {
         var board = boardService.getBoard(id, username);
