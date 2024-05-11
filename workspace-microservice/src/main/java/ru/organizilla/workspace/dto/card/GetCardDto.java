@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Getter
 public class GetCardDto {
 
+    private Long id;
     private String name;
     private Boolean closed;
     private Timestamp lastActivity;

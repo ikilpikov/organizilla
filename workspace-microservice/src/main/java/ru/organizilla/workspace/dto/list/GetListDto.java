@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 public class GetListDto {
 
+    private Long id;
     private String name;
     private Boolean closed;
     private String color;
