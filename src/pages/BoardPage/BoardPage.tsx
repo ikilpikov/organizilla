@@ -14,13 +14,21 @@ const BoardPage = () => {
     const { data, isSuccess } = useBoardData(id || '');
 
     const [listData, setListData] = useState<IList[]>([]);
-    const { mutate } = useReorderList();
+    const [listReorder, setListReorder] = useState<IListReorder>({
+        id: null,
+        previousListId: null,
+        nextListId: null,
+    });
+    const { mutate, isPaused } = useReorderList();
     useEffect(() => {
         if (data) {
-            console.log(data, 'DATA');
             setListData(data.data.lists);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (listReorder) mutate(listReorder);
+    }, [listReorder]);
     const handleDragDrop = results => {
         const { source, destination, type, draggableId } = results;
 
@@ -39,17 +47,21 @@ const BoardPage = () => {
             const [removedList] = reorderedLists.splice(sourceIndex, 1);
             reorderedLists.splice(destinationIndex, 0, removedList);
 
-            if (destinationIndex != 0)
-                listReorder.previousListId = listData[destinationIndex - 1].id;
-            if (destinationIndex != reorderedLists.length - 1)
-                listReorder.nextListId = listData[destinationIndex].id;
+            const previousListId =
+                destinationIndex > 0 ? reorderedLists[destinationIndex - 1].id : null;
+            const nextListId =
+                destinationIndex < reorderedLists.length - 1
+                    ? reorderedLists[destinationIndex + 1].id
+                    : null;
+
+            listReorder.previousListId = previousListId;
+            listReorder.nextListId = nextListId;
 
             setListData(reorderedLists);
-            console.log(listReorder);
-
-            mutate(listReorder);
+            setListReorder(listReorder);
         }
     };
+
     return (
         <Layout>
             {isSuccess && (
@@ -99,6 +111,7 @@ const BoardPage = () => {
                                 </Droppable>
                                 <div className={styles.addList}>
                                     <CreateListButton />
+                                    {isPaused && <h1>Pending</h1>}
                                 </div>
                             </div>
                         </DragDropContext>

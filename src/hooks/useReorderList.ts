@@ -8,8 +8,8 @@ const useReorderList = () => {
             const { id, nextListId, previousListId } = listReorderData;
             return reorderList({ id, nextListId, previousListId });
         },
-        onSuccess: response => {
-            console.log(response);
+        onSuccess: (response, variables) => {
+            console.log(variables, 'SUCCESS');
         },
         onError: (error: AxiosError) => {
             console.log(error);

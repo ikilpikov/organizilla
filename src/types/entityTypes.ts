@@ -53,7 +53,7 @@ export interface IURL {
     thumb: string;
 }
 export interface IListReorder {
-    id: string;
+    id: string | null;
     previousListId: number | null;
     nextListId: number | null;
 }
