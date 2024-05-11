@@ -3,6 +3,7 @@ package ru.organizilla.workspace.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.organizilla.workspace.domain.ListEntity;
 import ru.organizilla.workspace.dto.board.GetBoardDto;
 import ru.organizilla.workspace.dto.card.GetCardDto;
 import ru.organizilla.workspace.dto.list.GetListDto;
@@ -17,6 +18,7 @@ import ru.organizilla.workspace.repository.BoardRepository;
 import ru.organizilla.workspace.repository.UserRepository;
 import ru.organizilla.workspace.service.BoardService;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -91,7 +93,9 @@ public class BoardServiceImpl implements BoardService {
 
     private GetBoardDto buildGetBoardDto(Board board) {
         var listDtos = board.getLists()
-                .stream().map(list -> GetListDto.builder()
+                .stream()
+                .sorted(Comparator.comparingInt(ListEntity::getPosition))
+                .map(list -> GetListDto.builder()
                         .name(list.getName())
                         .closed(list.isClosed())
                         .color(list.getColor())
@@ -103,7 +107,6 @@ public class BoardServiceImpl implements BoardService {
                                 .deadline(card.getDeadline())
                                 .isTemplate(card.isTemplate())
                                 .isSubscribed(card.isSubscribed()).build()).toList()).build()).toList();
-
         return GetBoardDto.builder()
                 .name(board.getName())
                 .lastActivity(board.getLastActivity())
