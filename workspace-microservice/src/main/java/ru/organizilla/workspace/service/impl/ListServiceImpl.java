@@ -15,6 +15,8 @@ import ru.organizilla.workspace.repository.UserRepository;
 import ru.organizilla.workspace.service.ListService;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 
+import java.sql.Timestamp;
+
 @Service
 @RequiredArgsConstructor
 public class ListServiceImpl implements ListService {
@@ -41,6 +43,7 @@ public class ListServiceImpl implements ListService {
         list.setName(listDto.getName());
         var previousBoardPosition = listRepository.findMaximumPositionByBoard(board).orElse(0);
         list.setPosition(previousBoardPosition + POSITION_DELTA);
+        updateBoardLastActivity(board);
 
         return new CreatedListInfoDto(listRepository.save(list).getId());
     }
@@ -54,6 +57,7 @@ public class ListServiceImpl implements ListService {
             throw new NotAllowedException("Deletion not allowed");
         }
 
+        updateBoardLastActivity(list.getBoard());
         listRepository.delete(list);
     }
 
@@ -73,5 +77,10 @@ public class ListServiceImpl implements ListService {
         return listRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("List not found: " + id));
+    }
+
+    private void updateBoardLastActivity(Board board) {
+        board.setLastActivity(new Timestamp(System.currentTimeMillis()));
+        boardRepository.save(board);
     }
 }

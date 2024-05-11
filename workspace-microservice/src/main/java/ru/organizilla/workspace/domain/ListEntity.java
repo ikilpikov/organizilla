@@ -30,7 +30,7 @@ public class ListEntity {
     private Boolean subscribed;
 
     @Column
-    private int position;
+    private Integer position;
 
     @OneToMany(mappedBy = "list", cascade = CascadeType.ALL)
     private List<Card> cards;
