@@ -52,3 +52,9 @@ export interface IURL {
     small_s3: string;
     thumb: string;
 }
+export interface IListReorder {
+    id: string;
+    boardId: string;
+    previousListId: number | null;
+    nextListId: number | null;
+}

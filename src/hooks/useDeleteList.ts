@@ -1,13 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createList } from '../services/workspace.service';
-import { IListPost } from '../types/basicTypes';
+import { deleteList } from '../services/workspace.service';
 import { AxiosError } from 'axios';
-const useList = () => {
+import { IListDelete } from '../types/basicTypes';
+const useDeleteList = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (listData: IListPost) => createList(listData),
+        mutationFn: (listData: IListDelete) => {
+            const { id } = listData;
+            return deleteList(id);
+        },
         onSuccess: (_, variables) => {
             const id = variables.boardId;
+            console.log(id);
+
             queryClient.invalidateQueries({ queryKey: ['board', id] });
         },
         onError: (error: AxiosError) => {
@@ -15,4 +20,4 @@ const useList = () => {
         },
     });
 };
-export default useList;
+export default useDeleteList;

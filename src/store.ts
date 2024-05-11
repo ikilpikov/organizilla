@@ -149,3 +149,15 @@ export const useBackgroundImageStore = create<IBackgroundImage>(set => ({
         set(() => ({ selectedBackground: defaultSelectedBackground }));
     },
 }));
+
+interface IShowListActionStore {
+    showListActions: number;
+    setShowListActions: (id: number) => void;
+}
+export const useShowListActionStore = create<IShowListActionStore>((set, get) => ({
+    showListActions: -1,
+    setShowListActions: (id: number) => {
+        if (get().showListActions === id) set(() => ({ showListActions: -1 }));
+        else set(() => ({ showListActions: id }));
+    },
+}));

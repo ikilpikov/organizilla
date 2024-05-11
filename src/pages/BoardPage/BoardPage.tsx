@@ -7,31 +7,49 @@ import CreateListButton from '../../components/CreateList/CreateListButton/Creat
 import List from '../../components/List/List';
 import { IList } from '../../types/entityTypes';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+import { IListReorder } from '../../types/entityTypes';
+import useReorderList from '../../hooks/useReorderList';
 const BoardPage = () => {
+    console.log('render');
+
     const { id } = useParams();
     const { data, isSuccess } = useBoardData(id || '');
     const [listData, setListData] = useState<IList[]>([]);
+    const { mutate } = useReorderList();
     useEffect(() => {
         if (data) {
             console.log(data);
             setListData(data.data.lists);
         }
     }, [data]);
-
     const handleDragDrop = results => {
-        const { source, destination, type } = results;
+        const { source, destination, type, draggableId } = results;
+        console.log(results);
 
         if (!destination) return;
         if (source.droppableId === destination.droppableId && source.index === destination.index)
             return;
         if (type === 'group') {
+            const listReorder: IListReorder = {
+                id: draggableId,
+                boardId: id!,
+                previousListId: null,
+                nextListId: null,
+            };
             const reorderedLists = [...listData];
             const sourceIndex = source.index;
             const destinationIndex = destination.index;
             const [removedList] = reorderedLists.splice(sourceIndex, 1);
             reorderedLists.splice(destinationIndex, 0, removedList);
-            return setListData(reorderedLists);
+
+            if (destinationIndex != 0)
+                listReorder.previousListId = listData[destinationIndex - 1].id;
+            if (destinationIndex != reorderedLists.length - 1)
+                listReorder.nextListId = listData[destinationIndex].id;
+            setListData(reorderedLists);
+            console.log(listReorder);
+
+            mutate(listReorder);
         }
     };
     return (
@@ -48,51 +66,19 @@ const BoardPage = () => {
                 >
                     <div>
                         <DragDropContext onDragEnd={handleDragDrop}>
-                            <Droppable droppableId="ROOT" type="group" direction="horizontal">
-                                {provided => (
-                                    <div
-                                        className={styles.lists}
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                    >
-                                        {listData.map((list, index) => (
-                                            <Draggable
-                                                draggableId={list.id.toString()}
-                                                index={index}
-                                                key={list.id}
-                                            >
-                                                {provided => (
-                                                    <div
-                                                        {...provided.dragHandleProps}
-                                                        {...provided.draggableProps}
-                                                        ref={provided.innerRef}
-                                                    >
-                                                        <List key={list.id} list={list} />
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </DragDropContext>
-                        <div>
-                            <CreateListButton />
-                        </div>
-                    </div>
-
-                    {/*  <div>
-                        <DragDropContext onDragEnd={() => console.log('drag drop event occured')}>
-                            <Droppable droppableId="ROOT" type="group">
-                                {provided => (
-                                    <div className={styles.lists}>
-                                        {isSuccess &&
-                                            listData.map((list, index) => (
+                            <div className={styles.lists}>
+                                <Droppable droppableId="ROOT" type="group" direction="horizontal">
+                                    {provided => (
+                                        <div
+                                            className={styles.lists}
+                                            {...provided.droppableProps}
+                                            ref={provided.innerRef}
+                                        >
+                                            {listData.map((list, index) => (
                                                 <Draggable
-                                                    draggableId={index}
-                                                    key={list.id}
+                                                    draggableId={list.id.toString()}
                                                     index={index}
+                                                    key={list.id}
                                                 >
                                                     {provided => (
                                                         <div
@@ -100,20 +86,25 @@ const BoardPage = () => {
                                                             {...provided.draggableProps}
                                                             ref={provided.innerRef}
                                                         >
-                                                            <h3>{list.name}</h3>
+                                                            <List
+                                                                key={list.id}
+                                                                list={list}
+                                                                boardId={id!}
+                                                            />
                                                         </div>
                                                     )}
                                                 </Draggable>
                                             ))}
-                                    </div>
-                                )}
-                            </Droppable>
-
-                            <div>
-                                <CreateListButton />
+                                            {provided.placeholder}
+                                        </div>
+                                    )}
+                                </Droppable>
+                                <div className={styles.addList}>
+                                    <CreateListButton />
+                                </div>
                             </div>
                         </DragDropContext>
-                    </div> */}
+                    </div>
                 </div>
             )}
         </Layout>

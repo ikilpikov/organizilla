@@ -1,8 +1,28 @@
+.listContainer {
+    display: flex;
+    align-items: flex-start;
+}
 .list {
+    flex-grow: 1;
+    padding: 5px;
     margin-top: 10px;
     margin-left: 10px;
     width: 272px;
     background-color: var(--background-color);
     height: fit-content;
     border-radius: 5px;
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+            cursor: pointer;
+            filter: var(--icon-color);
+            border-radius: 5px;
+            height: fit-content;
+            &:hover {
+                background-color: var(--icon-hover);
+            }
+        }
+    }
 }

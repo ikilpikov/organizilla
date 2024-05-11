@@ -11,3 +11,7 @@ export interface IListPost {
     name: string;
     boardId: string;
 }
+export interface IListDelete {
+    id: string;
+    boardId: string;
+}

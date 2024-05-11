@@ -7,6 +7,7 @@ import useAllBoards from '../../hooks/useAllBoards';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IBoards } from '../../components/WorkSpaces/WorkSpaces';
+import styles from './MainPage.module.scss';
 const MainPage = () => {
     const { t } = useTranslation();
     const successRegisterVisible = useSuccessRegisterStore(state => state.successRegisterVisible);
@@ -14,11 +15,9 @@ const MainPage = () => {
     const { data, isSuccess } = useAllBoards();
     useEffect(() => {
         if (data) {
-            console.log('uaa');
             setBoards(data.data);
         }
     }, [data]);
-    console.log(data);
 
     return (
         <>
@@ -27,13 +26,13 @@ const MainPage = () => {
 
                 {isSuccess && boards.length > 0 && (
                     <>
-                        <div>{t('main.recentBoard')}</div>
+                        <div className={styles.workSpaces}>{t('main.recentBoard')}</div>
                         <WorkSpaces boards={boards} isRecent={true} />
                     </>
                 )}
                 {isSuccess && boards.length > 0 && (
                     <>
-                        <div>{t('main.allBoards')}</div>
+                        <div className={styles.workSpaces}>{t('main.allBoards')}</div>
                         <WorkSpaces boards={data?.data} isRecent={false} />
                     </>
                 )}

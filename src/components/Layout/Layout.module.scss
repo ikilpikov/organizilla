@@ -6,18 +6,19 @@
         flex: 1;
         display: flex;
         .mainContent {
-            margin-top: 5%;
-            margin-left: 11%;
+            margin-top: calc(5% - 2px);
+            margin-left: 10%;
             flex: 1;
         }
         .fullHeight {
             margin-top: 1%;
-            margin-left: 1%;
+            margin-left: 0%;
         }
         //когда закрываем боковое меню
         .fullWidth {
             width: 100%;
-            margin-left: 1%;
+            margin-left: 0%;
+            margin-top: calc(5% - 2px);
         }
     }
 }
