@@ -56,5 +56,4 @@ public class CustomGatewayFilter extends AbstractGatewayFilterFactory<CustomGate
 
     public static class Config {
     }
-
 }

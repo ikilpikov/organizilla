@@ -36,5 +36,4 @@ public class CORSConfiguration implements WebFluxConfigurer {
         corsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsWebFilter(corsConfigurationSource);
     }
-
 }

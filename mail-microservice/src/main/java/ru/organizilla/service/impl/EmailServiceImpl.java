@@ -38,5 +38,4 @@ public class EmailServiceImpl implements EmailService {
         helper.setText("<h1>wassup " + username +  " code " + code + "</h1>", true);
         sender.send(message);
     }
-
 }

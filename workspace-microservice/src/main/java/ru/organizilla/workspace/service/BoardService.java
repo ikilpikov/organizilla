@@ -12,9 +12,7 @@ public interface BoardService {
     CreatedBoardInfoDto createBoard(CreateBoardDto boardDto, String username);
 
     List<GetAllBoardsDto> getAllBoards(String username);
-
     GetBoardDto getBoard(Long boardId, String username);
 
     void deleteBoard(Long boardId, String username);
-
 }

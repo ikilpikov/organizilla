@@ -24,5 +24,4 @@ public class EmailServiceImpl implements EmailService {
         HttpEntity<ActionEmailDto> request = new HttpEntity<>(actionEmailDto, headers);
         restTemplate.postForEntity(sendEmailEndpoint, request, Void.class);
     }
-
 }

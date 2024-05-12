@@ -10,5 +10,4 @@ public class SendEmailDto {
 
     @Email
     private String email;
-
 }

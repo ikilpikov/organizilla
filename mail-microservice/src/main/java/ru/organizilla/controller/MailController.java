@@ -20,5 +20,4 @@ public class MailController {
         emailService.sendRegistrationMail(emailDto.getTo(), emailDto.getUsername(), emailDto.getSecretCode());
         return ok().body("Email sent successfully");
     }
-
 }

@@ -11,5 +11,4 @@ public class ApplicationConfig {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
 }

@@ -111,5 +111,4 @@ public class AuthController {
     public ResponseEntity<String> handleJwtException(JwtException ex) {
         return badRequest().body("Invalid token");
     }
-
 }

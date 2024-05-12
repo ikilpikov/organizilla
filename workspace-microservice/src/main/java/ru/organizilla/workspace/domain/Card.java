@@ -9,36 +9,29 @@ import java.sql.Timestamp;
 @Table(name = "card")
 @Data
 public class Card {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "list")
     private ListEntity list;
-
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String name;
-
     @Column(nullable = false)
     private boolean closed;
-
     @Column(nullable = false)
     private Timestamp createdAt;
-
     @Column(nullable = false)
     private Timestamp lastActivity;
-
     @Column
     private Timestamp deadline;
-
     @Column(nullable = false)
     private boolean isTemplate;
-
     @Column(nullable = false)
     private boolean subscribed;
-
     @ManyToOne
     @JoinColumn(name = "assigned_to")
     private User assignedTo;
+
 }

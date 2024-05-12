@@ -10,10 +10,7 @@ import java.sql.Timestamp;
 public class GetAllBoardsDto {
 
     private Long id;
-
     private String name;
-
     private String backgroundImage;
-
     private Timestamp lastActivity;
 }

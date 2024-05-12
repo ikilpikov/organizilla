@@ -34,7 +34,7 @@ public class ListOrderUtil {
             throw new CannotChangePositionException("Previous and next list ids must not be same");
         }
 
-        Integer calculatedPosition;
+        int calculatedPosition;
 
         if (nextListId == null) {
             calculatedPosition = getListById(previousListId).getPosition() + POSITION_DELTA;
@@ -79,5 +79,4 @@ public class ListOrderUtil {
 
         boardRepository.save(board);
     }
-
 }

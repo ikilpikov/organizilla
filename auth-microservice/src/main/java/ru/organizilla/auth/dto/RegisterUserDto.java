@@ -12,13 +12,10 @@ public class RegisterUserDto {
     @NotBlank
     @Size(min = 10, max = 100)
     private String email;
-
     @Size(min = 3, max = 40)
-    @Pattern(regexp = "^[a-zA-Z0-9_]*$")
+    @Pattern(regexp = "^\\w*$")
     private String username;
-
     @Size(min = 8, max = 50)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$")
     private String password;
-
 }

@@ -10,9 +10,6 @@ public class ActionEmailDto {
 
     @Email
     private String to;
-
     private String username;
-
     private String secretCode;
-
 }

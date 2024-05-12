@@ -217,5 +217,4 @@ public class AuthServiceImpl implements AuthService {
         user.setRefreshToken(refreshToken);
         userRepository.save(user);
     }
-
 }

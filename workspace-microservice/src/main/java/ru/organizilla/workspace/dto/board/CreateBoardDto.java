@@ -14,11 +14,8 @@ public class CreateBoardDto {
     @NotBlank
     @Size(min = 3, max = 100)
     private String name;
-
     @Size(max = 255)
     private String backgroundImage;
-
     @NotNull
     private Boolean isPublic;
-
 }

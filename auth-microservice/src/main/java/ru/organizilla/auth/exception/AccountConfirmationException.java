@@ -7,5 +7,4 @@ public class AccountConfirmationException extends AuthenticationException {
     public AccountConfirmationException(String msg) {
         super(msg);
     }
-
 }

@@ -7,11 +7,10 @@ import lombok.Data;
 @Table(name = "label_color")
 @Data
 public class LabelColor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false, length = 50)
     private String color;
-
 }

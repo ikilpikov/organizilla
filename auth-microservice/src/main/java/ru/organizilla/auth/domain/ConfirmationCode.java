@@ -23,5 +23,4 @@ public class ConfirmationCode {
     @OneToOne
     @JoinColumn(name = "\"user\"", nullable = false)
     private User user;
-
 }

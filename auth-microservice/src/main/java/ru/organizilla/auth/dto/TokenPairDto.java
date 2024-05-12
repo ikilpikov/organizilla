@@ -8,6 +8,5 @@ import lombok.Setter;
 public class TokenPairDto {
 
     private String accessToken;
-
     private String refreshToken;
 }

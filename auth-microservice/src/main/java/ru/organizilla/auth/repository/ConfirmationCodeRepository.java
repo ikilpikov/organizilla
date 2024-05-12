@@ -6,5 +6,4 @@ import ru.organizilla.auth.domain.ConfirmationCode;
 
 @Repository
 public interface ConfirmationCodeRepository extends JpaRepository<ConfirmationCode, Long> {
-
 }

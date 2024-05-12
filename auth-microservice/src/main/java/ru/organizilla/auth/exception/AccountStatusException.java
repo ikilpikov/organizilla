@@ -7,5 +7,4 @@ public class AccountStatusException extends AuthenticationException {
     public AccountStatusException(String msg) {
         super(msg);
     }
-
 }
