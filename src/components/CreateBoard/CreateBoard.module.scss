@@ -1,15 +1,20 @@
 .createBoard {
+    margin-left: 20px;
     display: flex;
     flex-direction: row;
     gap: 15%;
+    &__selectBackground {
+        margin-top: 40px;
+        text-align: center;
+    }
     &__addData {
         input {
+            border-radius: 5px;
+            padding: 5px;
             margin-left: 20px;
+            margin-bottom: 10px;
             border: none;
             border-bottom: 1px solid black;
-        }
-        h3 {
-            margin-top: 40px;
         }
         flex: 0 0 30%;
     }
@@ -18,8 +23,23 @@
         position: fixed;
         left: 40%;
         height: 400px;
-        &__create {
-            margin-left: 50%;
+    }
+    &__boardView__create,
+    &__selectBackground__more {
+        margin-top: 10px;
+        margin-left: calc(50% - 30px);
+        border-radius: 5px;
+        border: 2px solid black;
+        padding: 10px;
+        font-size: 1.3rem;
+        background-color: var(--button-background-color);
+        color: var(--button-text-color);
+        &:hover {
+            background-color: var(--button-hover-background-color);
+        }
+        &:disabled {
+            background-color: rgb(217, 214, 214);
+            color: rgb(143, 143, 143);
         }
     }
     [class$='-option'] {

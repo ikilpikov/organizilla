@@ -17,7 +17,6 @@ const List: FC<IListProps> = ({ list, boardId }) => {
             <div className={styles.list}>
                 <div className={styles.list__title}>
                     <h2>{list.name}</h2>
-                    <h5>{list.id}</h5>
                     <img src={more} width={20} onClick={() => setShowListActions(list.id)} />
                 </div>
                 <ListContainer />

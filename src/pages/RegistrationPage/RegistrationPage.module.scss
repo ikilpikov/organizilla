@@ -91,6 +91,12 @@ $stark-med-blue: #000000;
         position: relative;
         input {
             width: 100%;
+            &:focus::-webkit-textfield-decoration-container {
+                visibility: hidden;
+                pointer-events: none;
+                position: absolute;
+                right: 0;
+            }
         }
         .eyeIcon {
             width: 20px;

@@ -14,21 +14,14 @@ const BoardPage = () => {
     const { data, isSuccess } = useBoardData(id || '');
 
     const [listData, setListData] = useState<IList[]>([]);
-    const [listReorder, setListReorder] = useState<IListReorder>({
-        id: null,
-        previousListId: null,
-        nextListId: null,
-    });
-    const { mutate, isPaused } = useReorderList();
+
+    const { mutate } = useReorderList();
     useEffect(() => {
         if (data) {
             setListData(data.data.lists);
         }
     }, [data]);
 
-    useEffect(() => {
-        if (listReorder) mutate(listReorder);
-    }, [listReorder]);
     const handleDragDrop = results => {
         const { source, destination, type, draggableId } = results;
 
@@ -58,7 +51,7 @@ const BoardPage = () => {
             listReorder.nextListId = nextListId;
 
             setListData(reorderedLists);
-            setListReorder(listReorder);
+            mutate(listReorder);
         }
     };
 
@@ -111,7 +104,6 @@ const BoardPage = () => {
                                 </Droppable>
                                 <div className={styles.addList}>
                                     <CreateListButton />
-                                    {isPaused && <h1>Pending</h1>}
                                 </div>
                             </div>
                         </DragDropContext>

@@ -1,6 +1,11 @@
-.createBoardOptions {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+.createBoard {
+    &__title {
+        margin-left: 10px;
+    }
+    &__options {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
 }

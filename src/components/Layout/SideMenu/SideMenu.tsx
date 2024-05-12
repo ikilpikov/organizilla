@@ -16,14 +16,27 @@ const SideMenu: FC<ISideMenuProps> = ({ fullWidth }) => {
         <aside
             className={`${styles.sideMenu} ${sideMenuIsVisible ? styles.sideMenu__visible : styles.sideMenu__hide}  ${fullWidth ? '' : styles.sideMenu__fullWidth}`}
         >
-            <NavLink to={'/'}>{t('sideMenu.main')}</NavLink>
-            <NavLink to={'/create-board'}>{t('sideMenu.create')}</NavLink>
-            <p>{t('sideMenu.templates')}</p>
-            <p>{t('sideMenu.projects')}</p>
-            <NavLink to={'/calendar'}>{t('sideMenu.calendar')}</NavLink>
-            <NavLink to={'/pomodoro'}>{t('sideMenu.pomodoro')}</NavLink>
-            <NavLink to={'/import'}>{t('sideMenu.import')}</NavLink>
-            <NavLink to={'/settings'}>{t('sideMenu.settings')}</NavLink>
+            <NavLink to={'/'} className={({ isActive }) => (isActive ? styles.active : '')}>
+                {t('sideMenu.main')}
+            </NavLink>
+            <NavLink
+                to={'/create-board'}
+                className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+                {t('sideMenu.create')}
+            </NavLink>
+            <NavLink to={'/calendar'} className={({ isActive }) => (isActive ? styles.active : '')}>
+                {t('sideMenu.calendar')}
+            </NavLink>
+            <NavLink to={'/pomodoro'} className={({ isActive }) => (isActive ? styles.active : '')}>
+                {t('sideMenu.pomodoro')}
+            </NavLink>
+            <NavLink to={'/import'} className={({ isActive }) => (isActive ? styles.active : '')}>
+                {t('sideMenu.import')}
+            </NavLink>
+            <NavLink to={'/settings'} className={({ isActive }) => (isActive ? styles.active : '')}>
+                {t('sideMenu.settings')}
+            </NavLink>
         </aside>
     );
 };

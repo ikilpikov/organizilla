@@ -1,5 +1,4 @@
 .sideMenu {
-    padding-left: 5px;
     background-color: var(--background-color);
     color: var(--color);
     width: 10%;
@@ -8,6 +7,14 @@
     flex-direction: column;
     gap: 5%;
     border-right: 1px solid black;
+    a {
+        padding-left: 5px;
+        height: 40px;
+    }
+    .active {
+        background-color: var(--background--color-lighter);
+    }
+
     &__visible {
         transition: transform 0.5s ease;
         transform: translateX(0);

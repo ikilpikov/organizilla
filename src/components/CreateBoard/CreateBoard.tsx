@@ -43,7 +43,7 @@ const CreateBoard = () => {
         <div className={styles.createBoard}>
             <div className={styles.createBoard__addData}>
                 <ArrowBack />
-                <h1>{t('createBlankBoard.title')}</h1>
+                <h1 className={styles.createBoard__addData}>{t('createBlankBoard.title')}</h1>
                 <label>{t('createBlankBoard.boardName')}</label>
                 <input
                     value={name}
@@ -56,9 +56,14 @@ const CreateBoard = () => {
                     onChange={handleSelectChange}
                     className={styles.customSelect}
                 />
-                <h3>{t('createBlankBoard.selectBackground')}</h3>
+                <h3 className={styles.createBoard__selectBackground}>
+                    {t('createBlankBoard.selectBackground')}
+                </h3>
                 <SelectBackground />
-                <button onClick={() => setBackgroundImagePageNumber()}>
+                <button
+                    onClick={() => setBackgroundImagePageNumber()}
+                    className={styles.createBoard__selectBackground__more}
+                >
                     {t('createBlankBoard.moreBackgrounds')}
                 </button>
             </div>

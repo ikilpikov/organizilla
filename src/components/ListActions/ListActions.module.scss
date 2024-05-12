@@ -2,4 +2,20 @@
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
+    padding: 5px;
+    margin-top: 10px;
+    margin-left: -50px;
+    width: 60%;
+    z-index: 10;
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        img {
+            cursor: pointer;
+            filter: var(--icon-color);
+            &:hover {
+                background-color: var(--icon-hover);
+            }
+        }
+    }
 }

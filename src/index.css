@@ -36,11 +36,12 @@ a:hover {
 }
 html[app-theme='light'] {
     --button-text-color: #ffffff;
-    --button-background-color: #4e005c;
-    --button-border-color: #ba8fc2;
+    --button-background-color: #488abc;
+    --button-hover-background-color: #64ace3;
+    --button-border-color: #d26ce4;
 
     --background-color: rgb(254, 255, 239);
-    -background--color-lighter: rgb(116, 192, 236);
+    --background--color-lighter: rgb(116, 192, 236);
     --color: black;
     --icon-color: invert(0%) sepia(100%) saturate(15%) hue-rotate(246deg) brightness(105%)
         contrast(105%);
@@ -48,9 +49,10 @@ html[app-theme='light'] {
 }
 
 html[app-theme='dark'] {
-    --button-text-color: #545252;
-    --button-background-color: #f9d4ff;
-    --button-border-color: #4e005c;
+    --button-text-color: #000000;
+    --button-background-color: #f3f934;
+    --button-hover-background-color: #f4f891;
+    --button-border-color: #1b181b;
 
     --background-color: rgb(65, 65, 64);
     --background--color-lighter: rgb(90, 90, 89);

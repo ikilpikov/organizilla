@@ -1,6 +1,7 @@
 .listContainer {
     display: flex;
     align-items: flex-start;
+    position: relative;
 }
 .list {
     flex-grow: 1;

@@ -7,7 +7,7 @@ import ImportDataModal from '../../UI/Modals/ImportData/ImportDataModal';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import { getSelectedData } from '../../../services/trelloAPI.service';
 import { useImportModalVisibleStore } from '../../../store';
-import styles from './TrelloImport.module.scss';
+import styles from '../Trello.module.scss';
 const TrelloImport = () => {
     const { t } = useTranslation();
     const [tokenValue, setTokenValue] = useState('');
@@ -41,7 +41,7 @@ const TrelloImport = () => {
     };
 
     return (
-        <div>
+        <div className={styles.trelloImport}>
             <input
                 placeholder={t('import.inputToken')}
                 onBlur={getAllBoards}
@@ -56,7 +56,11 @@ const TrelloImport = () => {
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions}
             />
-            <button onClick={importData} disabled={!(selectedOptions.length > 0)}>
+            <button
+                onClick={importData}
+                disabled={!(selectedOptions.length > 0)}
+                className={styles.trelloImport__btn}
+            >
                 {t('import.importData')}
             </button>
             {importModalIsVisible && <ImportDataModal />}

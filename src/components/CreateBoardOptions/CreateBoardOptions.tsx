@@ -8,8 +8,8 @@ const CreateBoardOptions = () => {
     const { t } = useTranslation();
     return (
         <>
-            <h1>{t('createBoard.createTitle')}</h1>
-            <div className={styles.createBoardOptions}>
+            <h1 className={styles.createBoard__title}>{t('createBoard.createTitle')}</h1>
+            <div className={styles.createBoard__options}>
                 <BlockOption
                     text={t('createBoard.createBlank')}
                     link="/create-board/blank"

@@ -20,23 +20,23 @@ const CustomSelect: FC<ICustomSelectProps> = ({ options, selectedOptions, setSel
         setSelectedOptions(newValue ? (newValue as IOptions[]).map(option => option.value) : []);
     };
     return (
-        <>
+        <div className={styles.customSelect}>
             <Select
                 isDisabled={!options.length}
                 options={options}
                 isMulti
                 onChange={handleOnChange}
                 value={options.filter(option => selectedOptions.includes(option.value))}
-                className={styles.customSelect}
             />
             <label>{t('import.selectAll')}</label>
             <input
+                className={styles.customSelect__input}
                 onClick={handleSelectAll}
                 disabled={!options.length}
                 type="checkbox"
                 checked={selectedOptions.length == options.length && options.length > 0}
             />
-        </>
+        </div>
     );
 };
 
