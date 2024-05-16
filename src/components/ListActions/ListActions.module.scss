@@ -1,20 +1,46 @@
 .listActions {
+    position: absolute;
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
     padding: 5px;
+    border-radius: 5px;
+    border: 2px solid var(--border-color);
     margin-top: 10px;
-    margin-left: -50px;
-    width: 60%;
+    right: -150px;
+    width: 90%;
     z-index: 10;
     &__title {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 10px;
+        h3 {
+            margin: 0 auto;
+        }
         img {
             cursor: pointer;
             filter: var(--icon-color);
             &:hover {
                 background-color: var(--icon-hover);
+            }
+        }
+    }
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            display: inline-block;
+            font-size: inherit;
+            color: inherit;
+            background: none;
+            &:hover {
+                background-color: var(--background--color-lighter);
             }
         }
     }

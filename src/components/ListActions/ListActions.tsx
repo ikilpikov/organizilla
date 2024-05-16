@@ -19,9 +19,11 @@ const ListActions: FC<IListActions> = ({ id, boardId }) => {
                 <h3>Действия со списком</h3>
                 <img src={cross} width={20} onClick={() => setShowListActions(Number(id))} />
             </div>
-            <button onClick={() => deleteList()}>Удалить список</button>
-            <button>Добавить карточку</button>
-            <button>Подписаться</button>
+            <div className={styles.listActions__actions}>
+                <button onClick={() => deleteList()}>Удалить список</button>
+                <button>Добавить карточку</button>
+                <button>Подписаться</button>
+            </div>
         </div>
     );
 };

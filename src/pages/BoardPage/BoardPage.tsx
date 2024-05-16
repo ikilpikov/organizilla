@@ -9,7 +9,9 @@ import { IList } from '../../types/entityTypes';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { IListReorder } from '../../types/entityTypes';
 import useReorderList from '../../hooks/useReorderList';
+import { useShowListActionStore } from '../../store';
 const BoardPage = () => {
+    const setShowListActions = useShowListActionStore(state => state.setShowListActions);
     const { id } = useParams();
     const { data, isSuccess } = useBoardData(id || '');
 
@@ -55,6 +57,9 @@ const BoardPage = () => {
         }
     };
 
+    const handleDragStart = () => {
+        setShowListActions('');
+    };
     return (
         <Layout>
             {isSuccess && (
@@ -68,7 +73,7 @@ const BoardPage = () => {
                     }}
                 >
                     <div>
-                        <DragDropContext onDragEnd={handleDragDrop}>
+                        <DragDropContext onDragEnd={handleDragDrop} onDragStart={handleDragStart}>
                             <div className={styles.lists}>
                                 <Droppable droppableId="ROOT" type="group" direction="horizontal">
                                     {provided => (
