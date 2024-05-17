@@ -110,6 +110,8 @@ interface ISelectedBackround {
 interface IBackgroundImage {
     backgroundImagePageNumber: number;
     selectedBackground: ISelectedBackround;
+    backgroundsIsLoading: boolean;
+    setBackgroundsIsLoading: (isLoading: boolean) => void;
     setBackgroundImagePageNumber: (isStart?: boolean) => void;
     setSelectedBackground: (urls: string[]) => void;
     resetSelectedBackground: () => void;
@@ -122,7 +124,10 @@ export const useBackgroundImageStore = create<IBackgroundImage>(set => ({
             'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTgwNjF8MHwxfHNlYXJjaHwxfHxwaG90byUyMGJhY2tncm91bmR8ZW58MHwwfHx8MTcxNDk5MjE3MXww&ixlib=rb-4.0.3&q=80&w=700&quot;',
         full: 'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1OTgwNjF8MHwxfHNlYXJjaHwxfHxwaG90byUyMGJhY2tncm91bmR8ZW58MHwwfHx8MTcxNDk4NzA2N3ww&ixlib=rb-4.0.3&q=85',
     },
-
+    backgroundsIsLoading: false,
+    setBackgroundsIsLoading(isLoading) {
+        set(() => ({ backgroundsIsLoading: isLoading }));
+    },
     setBackgroundImagePageNumber: (isStart?: boolean) => {
         if (isStart) {
             set(() => ({ backgroundImagePageNumber: 1 }));

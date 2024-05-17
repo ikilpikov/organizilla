@@ -43,11 +43,12 @@ axiosInstanceWithToken.interceptors.response.use(
         if (error.response.status === 401) {
             console.log('ku');
             const accessToken = await refreshToken();
-            console.log(accessToken, 'accessToken');
 
-            setAccessToken(accessToken);
-            error.config.headers.Authorization = `Bearer ${accessToken}`;
-            return axios.request(error.config);
+            if (accessToken) {
+                setAccessToken(accessToken);
+                error.config.headers.Authorization = `Bearer ${accessToken}`;
+                return axios.request(error.config);
+            }
         }
 
         // Если это не ошибка аутентификации, просто передаем ошибку дальше
@@ -61,10 +62,12 @@ const refreshToken = async () => {
         const response = await axiosInstance.post('/refresh', null, {
             withCredentials: true,
         });
-        console.log(response);
-
         return response.data.accessToken;
-    } catch (error) {
-        console.log(error);
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            if (error.response?.status === 403) {
+                window.location.href = '/auth';
+            }
+        }
     }
 };

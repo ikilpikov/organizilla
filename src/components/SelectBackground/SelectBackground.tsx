@@ -3,19 +3,21 @@ import useBackgroundImages from '../../hooks/useBackgroundImages';
 import { IBackgroundImage, IURL } from '../../types/entityTypes';
 import styles from './SelectBackground.module.scss';
 import { useBackgroundImageStore } from '../../store';
-import { resizeImage } from '../../utils/utils';
+import { resizeImage } from '../../utils/helper';
 
 const SelectBackground = React.memo(() => {
     const backgroundImagePageNumber = useBackgroundImageStore(
         state => state.backgroundImagePageNumber,
     );
     const setSelectedBackground = useBackgroundImageStore(state => state.setSelectedBackground);
+    const setBackgroundsIsLoading = useBackgroundImageStore(state => state.setBackgroundsIsLoading);
     const [backgroundImages, setBackgroundImages] = useState<{ urls: IURL }[]>([]);
 
     const [selectedImage, setSelectedImage] = useState(0);
     const { data, isError } = useBackgroundImages(backgroundImagePageNumber);
     useEffect(() => {
         if (data) {
+            setBackgroundsIsLoading(true);
             if (backgroundImagePageNumber > 1) {
                 setBackgroundImages([
                     ...backgroundImages,

@@ -15,6 +15,7 @@ const CreateBoard = () => {
     );
     const selectedBackground = useBackgroundImageStore(state => state.selectedBackground);
     const resetSelectedBackground = useBackgroundImageStore(state => state.resetSelectedBackground);
+    const backgroundsIsLoading = useBackgroundImageStore(state => state.backgroundsIsLoading);
     const options = [
         { value: true, label: t('createBlankBoard.options.public') },
         { value: false, label: t('createBlankBoard.options.private') },
@@ -60,12 +61,14 @@ const CreateBoard = () => {
                     {t('createBlankBoard.selectBackground')}
                 </h3>
                 <SelectBackground />
-                <button
-                    onClick={() => setBackgroundImagePageNumber()}
-                    className={styles.createBoard__selectBackground__more}
-                >
-                    {t('createBlankBoard.moreBackgrounds')}
-                </button>
+                {backgroundsIsLoading && (
+                    <button
+                        onClick={() => setBackgroundImagePageNumber()}
+                        className={styles.createBoard__selectBackground__more}
+                    >
+                        {t('createBlankBoard.moreBackgrounds')}
+                    </button>
+                )}
             </div>
             <div className={styles.createBoard__boardView}>
                 <BoardView background={selectedBackground.regular} />

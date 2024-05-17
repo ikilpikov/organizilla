@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { isNotEmpty } from '../../utils/utils';
+import { isNotEmpty } from '../../utils/helper';
 import { useEmailDataStore } from '../../store';
 import styles from './EmailCode.module.scss';
 const EmailCode = () => {
