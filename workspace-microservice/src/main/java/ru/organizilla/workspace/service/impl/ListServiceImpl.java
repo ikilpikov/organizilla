@@ -76,6 +76,20 @@ public class ListServiceImpl implements ListService {
         listOrderUtil.changeListPosition(listId, reorderListDto.getPreviousListId(), reorderListDto.getNextListId());
     }
 
+    @Override
+    public void renameList(Long listId, String username, String newName) {
+        var user = getUserByUsername(username);
+        var list = getListById(listId);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
+            throw new NotAllowedException("Renaming not allowed");
+        }
+
+        list.setName(newName);
+        updateBoardLastActivity(list.getBoard());
+        listRepository.save(list);
+    }
+
     private User getUserByUsername(String username) {
         return userRepository
                 .findByUsername(username)

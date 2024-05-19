@@ -9,4 +9,5 @@ public interface ListService {
     CreatedListInfoDto createList(CreateListDto listDto, String username);
     void deleteList(Long listId, String username);
     void reorderList(Long listId, ReorderListDto reorderListDto, String username);
+    void renameList(Long listId, String username, String newName);
 }

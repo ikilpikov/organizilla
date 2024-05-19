@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import ru.organizilla.workspace.dto.list.CreateListDto;
 import ru.organizilla.workspace.dto.list.CreatedListInfoDto;
+import ru.organizilla.workspace.dto.list.RenameListDto;
 import ru.organizilla.workspace.dto.list.ReorderListDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.ListService;
@@ -45,6 +46,14 @@ public class ListController {
                                               @RequestBody ReorderListDto listDto) {
         listOrderUtil.changeListPosition(listDto.getPreviousListId(), listDto.getNextListId(), id);
         return ok().body("List reordered");
+    }
+
+    @PatchMapping("/rename/{id}")
+    public ResponseEntity<String> renameList(@PathVariable("id") Long id,
+                                             @RequestHeader(USERNAME_HEADER) String username,
+                                             @RequestBody @Valid RenameListDto listDto) {
+        listService.renameList(id, username, listDto.getName());
+        return ok().body("List renamed");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
