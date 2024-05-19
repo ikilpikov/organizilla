@@ -1,5 +1,5 @@
 import { IBoardPost, IListPost } from '../types/basicTypes';
-import { IListReorder } from '../types/entityTypes';
+import { IList, IListReorder } from '../types/entityTypes';
 import { axiosInstanceWithToken } from './instances';
 
 export const createBoard = async ({ name, backgroundImage, isPublic }: IBoardPost) => {
@@ -33,6 +33,12 @@ export const reorderList = async ({ id, previousListId, nextListId }: IListReord
     const response = await axiosInstanceWithToken.patch(`/workspace/list/reorder/${id}`, {
         previousListId,
         nextListId,
+    });
+    return response;
+};
+export const renameList = async ({ id, name }: IList) => {
+    const response = await axiosInstanceWithToken.patch(`/workspace/list/rename/${id}`, {
+        name,
     });
     return response;
 };

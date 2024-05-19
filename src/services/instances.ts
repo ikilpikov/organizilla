@@ -23,7 +23,6 @@ export const axiosInstanceWithToken = axios.create({
 axiosInstanceWithToken.interceptors.request.use(
     config => {
         const token = getAccessToken();
-        console.log(token);
 
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
@@ -39,9 +38,7 @@ axiosInstanceWithToken.interceptors.response.use(
         return response;
     },
     async error => {
-        console.log(error.response.status);
         if (error.response.status === 401) {
-            console.log('ku');
             const accessToken = await refreshToken();
 
             if (accessToken) {
@@ -57,7 +54,6 @@ axiosInstanceWithToken.interceptors.response.use(
 );
 
 const refreshToken = async () => {
-    console.log('refresh');
     try {
         const response = await axiosInstance.post('/refresh', null, {
             withCredentials: true,

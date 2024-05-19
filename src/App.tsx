@@ -9,6 +9,7 @@ import CreateNewBoardPage from './pages/CreateNewBoardPage/CreateNewBoardPage';
 import BoardPage from './pages/BoardPage/BoardPage';
 
 import './App.css';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/create-board" element={<CreateBoardPage />} />
                 <Route path="/create-board/blank" element={<CreateNewBoardPage />} />
                 <Route path="/board/:id" element={<BoardPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
             </Routes>
         </>
     );

@@ -58,7 +58,7 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
         setShowListActions(-1);
     };
     return (
-        <div>
+        <div className={styles.boardContainer}>
             <DragDropContext onDragEnd={handleDragDrop} onDragStart={handleDragStart}>
                 <div className={styles.lists}>
                     <Droppable droppableId="ROOT" type="group" direction="horizontal">

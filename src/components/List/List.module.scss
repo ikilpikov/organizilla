@@ -25,5 +25,14 @@
                 background-color: var(--icon-hover);
             }
         }
+        &_input {
+            height: 36px;
+            font-size: 24px;
+            font-weight: 600;
+            background-color: var(--background-color);
+            color: var(--color);
+            max-width: 100%;
+            min-width: 1ch;
+        }
     }
 }

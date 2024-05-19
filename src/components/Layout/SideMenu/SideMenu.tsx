@@ -10,7 +10,6 @@ interface ISideMenuProps {
 const SideMenu: FC<ISideMenuProps> = ({ fullWidth }) => {
     const { t } = useTranslation();
     const sideMenuIsVisible = useSideMenuVisibleStore(state => state.sideMenuIsVisible);
-    console.log(fullWidth, 'sidemenu');
 
     return (
         <aside
