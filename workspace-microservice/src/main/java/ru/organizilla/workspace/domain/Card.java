@@ -19,19 +19,18 @@ public class Card {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private boolean closed;
+    private boolean closed = false;
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
     @Column(nullable = false)
-    private Timestamp lastActivity;
+    private Timestamp lastActivity = new Timestamp(System.currentTimeMillis());
     @Column
     private Timestamp deadline;
+    @Column
+    private Integer position;
     @Column(nullable = false)
-    private boolean isTemplate;
-    @Column(nullable = false)
-    private boolean subscribed;
+    private boolean isTemplate = false;
     @ManyToOne
     @JoinColumn(name = "assigned_to")
     private User assignedTo;
-
 }

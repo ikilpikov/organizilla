@@ -7,15 +7,14 @@ import ru.organizilla.workspace.domain.ListEntity;
 import ru.organizilla.workspace.dto.board.GetBoardDto;
 import ru.organizilla.workspace.dto.card.GetCardDto;
 import ru.organizilla.workspace.dto.list.GetListDto;
+import ru.organizilla.workspace.service.UserService;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 import ru.organizilla.workspace.domain.Board;
-import ru.organizilla.workspace.domain.User;
 import ru.organizilla.workspace.dto.board.CreateBoardDto;
 import ru.organizilla.workspace.dto.board.CreatedBoardInfoDto;
 import ru.organizilla.workspace.dto.board.GetAllBoardsDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.repository.BoardRepository;
-import ru.organizilla.workspace.repository.UserRepository;
 import ru.organizilla.workspace.service.BoardService;
 
 import java.util.Comparator;
@@ -26,13 +25,14 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
-    private final UserRepository userRepository;
+
+    private final UserService userService;
 
     private final AccessCheckUtil accessCheckUtil;
 
     @Override
     public CreatedBoardInfoDto createBoard(CreateBoardDto boardDto, String username) {
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
         var board = new Board();
         board.setCreatedBy(user);
         board.setName(boardDto.getName());
@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<GetAllBoardsDto> getAllBoards(String username) {
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
 
         return boardRepository.findByCreatedBy(user).stream().map(board -> {
             var boardDto = new GetAllBoardsDto();
@@ -57,7 +57,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public GetBoardDto getBoard(Long boardId, String username) {
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
         var board = getBoardById(boardId);
 
         if (!accessCheckUtil.canReadBoardEntities(user, board)) {
@@ -69,7 +69,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void deleteBoard(Long boardId, String username) {
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
         var board = getBoardById(boardId);
 
         if (!accessCheckUtil.canCreateUpdateDeleteBoard(user, board)) {
@@ -77,12 +77,6 @@ public class BoardServiceImpl implements BoardService {
         }
 
         boardRepository.delete(board);
-    }
-
-    private User getUserByUsername(String username) {
-        return userRepository
-                .findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
     }
 
     private Board getBoardById(Long id) {
@@ -107,8 +101,8 @@ public class BoardServiceImpl implements BoardService {
                                 .closed(card.isClosed())
                                 .lastActivity(card.getLastActivity())
                                 .deadline(card.getDeadline())
-                                .isTemplate(card.isTemplate())
-                                .isSubscribed(card.isSubscribed()).build()).toList()).build()).toList();
+                                .isTemplate(card.isTemplate()).build())
+                                .toList()).build()).toList();
         return GetBoardDto.builder()
                 .name(board.getName())
                 .lastActivity(board.getLastActivity())

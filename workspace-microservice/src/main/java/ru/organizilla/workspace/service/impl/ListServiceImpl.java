@@ -5,15 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.domain.ListEntity;
-import ru.organizilla.workspace.domain.User;
 import ru.organizilla.workspace.dto.list.CreateListDto;
 import ru.organizilla.workspace.dto.list.CreatedListInfoDto;
 import ru.organizilla.workspace.dto.list.ReorderListDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.repository.BoardRepository;
 import ru.organizilla.workspace.repository.ListRepository;
-import ru.organizilla.workspace.repository.UserRepository;
 import ru.organizilla.workspace.service.ListService;
+import ru.organizilla.workspace.service.UserService;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 import ru.organizilla.workspace.util.ListOrderUtil;
 
@@ -25,17 +24,18 @@ public class ListServiceImpl implements ListService {
 
     private final ListRepository listRepository;
     private final BoardRepository boardRepository;
-    private final UserRepository userRepository;
 
     private final AccessCheckUtil accessCheckUtil;
     private final ListOrderUtil listOrderUtil;
+
+    private final UserService userService;
 
     private static final int POSITION_DELTA = 65_536;
 
     @Override
     public CreatedListInfoDto createList(CreateListDto listDto, String username) {
         var board = getBoardById(listDto.getBoardId());
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, board)) {
             throw new NotAllowedException("Creation not allowed");
@@ -53,7 +53,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void deleteList(Long listId, String username) {
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
         var list = getListById(listId);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
@@ -66,7 +66,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void reorderList(Long listId, ReorderListDto reorderListDto, String username) {
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
         var list = getListById(listId);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
@@ -78,7 +78,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void renameList(Long listId, String username, String newName) {
-        var user = getUserByUsername(username);
+        var user = userService.getUserByUsername(username);
         var list = getListById(listId);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
@@ -88,12 +88,6 @@ public class ListServiceImpl implements ListService {
         list.setName(newName);
         updateBoardLastActivity(list.getBoard());
         listRepository.save(list);
-    }
-
-    private User getUserByUsername(String username) {
-        return userRepository
-                .findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
     }
 
     private Board getBoardById(Long id) {
