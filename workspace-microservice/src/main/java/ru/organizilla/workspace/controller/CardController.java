@@ -8,11 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import ru.organizilla.workspace.dto.card.CreateCardDto;
 import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
-import ru.organizilla.workspace.dto.list.CreateListDto;
-import ru.organizilla.workspace.dto.list.CreatedListInfoDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.CardService;
-import ru.organizilla.workspace.service.impl.CardServiceImpl;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
@@ -30,6 +27,13 @@ public class CardController {
                                                          @RequestHeader(USERNAME_HEADER) String username) {
         var cardInfo = cardService.createCard(cardDto, username);
         return ok().body(cardInfo);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteList(@PathVariable("id") Long id,
+                                             @RequestHeader(USERNAME_HEADER) String username) {
+        cardService.deleteCard(id, username);
+        return ok().body("Card deleted");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
