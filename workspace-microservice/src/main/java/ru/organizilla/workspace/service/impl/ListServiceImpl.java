@@ -12,7 +12,7 @@ import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.repository.BoardRepository;
 import ru.organizilla.workspace.repository.ListRepository;
 import ru.organizilla.workspace.service.ListService;
-import ru.organizilla.workspace.service.UserService;
+import ru.organizilla.workspace.dao.UserDao;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 import ru.organizilla.workspace.util.ListOrderUtil;
 
@@ -28,14 +28,14 @@ public class ListServiceImpl implements ListService {
     private final AccessCheckUtil accessCheckUtil;
     private final ListOrderUtil listOrderUtil;
 
-    private final UserService userService;
+    private final UserDao userDao;
 
     private static final int POSITION_DELTA = 65_536;
 
     @Override
     public CreatedListInfoDto createList(CreateListDto listDto, String username) {
         var board = getBoardById(listDto.getBoardId());
-        var user = userService.getUserByUsername(username);
+        var user = userDao.getUserByUsername(username);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, board)) {
             throw new NotAllowedException("Creation not allowed");
@@ -53,7 +53,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void deleteList(Long listId, String username) {
-        var user = userService.getUserByUsername(username);
+        var user = userDao.getUserByUsername(username);
         var list = getListById(listId);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
@@ -66,7 +66,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void reorderList(Long listId, ReorderListDto reorderListDto, String username) {
-        var user = userService.getUserByUsername(username);
+        var user = userDao.getUserByUsername(username);
         var list = getListById(listId);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
@@ -78,7 +78,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void renameList(Long listId, String username, String newName) {
-        var user = userService.getUserByUsername(username);
+        var user = userDao.getUserByUsername(username);
         var list = getListById(listId);
 
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, list.getBoard())) {
