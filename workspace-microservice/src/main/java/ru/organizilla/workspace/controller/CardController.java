@@ -1,17 +1,13 @@
 package ru.organizilla.workspace.controller;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import ru.organizilla.workspace.dto.card.CreateCardDto;
 import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
-import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.CardService;
 
-import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 import static ru.organizilla.workspace.constant.RequestHeaderConstants.USERNAME_HEADER;
 
@@ -34,20 +30,5 @@ public class CardController {
                                              @RequestHeader(USERNAME_HEADER) String username) {
         cardService.deleteCard(id, username);
         return ok().body("Card deleted");
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        return badRequest().body("Invalid data");
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
-        return badRequest().body(ex.getMessage());
-    }
-
-    @ExceptionHandler(NotAllowedException.class)
-    public ResponseEntity<String> handleNotAllowedException(NotAllowedException ex) {
-        return badRequest().body(ex.getMessage());
     }
 }
