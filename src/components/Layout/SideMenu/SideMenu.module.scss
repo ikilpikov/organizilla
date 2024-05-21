@@ -1,5 +1,5 @@
 .sideMenu {
-    z-index: 10;
+    z-index: 9;
     background-color: var(--background-color);
     color: var(--color);
     width: 10%;
@@ -9,7 +9,7 @@
     gap: 5%;
     border-right: 1px solid black;
     a {
-        padding-left: 5px;
+        padding-left: 10px;
         height: 40px;
     }
     .active {

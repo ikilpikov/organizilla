@@ -33,7 +33,7 @@ const Layout: FC<ILayoutProps> = ({ children, fullWidth }) => {
     return (
         <div
             className={`${styles.layoutContainer} ${fullWidth ? styles.fullHeight : ''}`}
-            style={{ height: containerHeight }}
+            style={fullWidth ? { height: '100%' } : { height: containerHeight }}
             ref={containerRef}
         >
             <Header fullWidth={fullWidth} />

@@ -1,16 +1,29 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import search from '../../assets/icons/search.svg';
+import searchIcon from '../../assets/icons/search.svg';
 import styles from './Search.module.scss';
 const Search = () => {
     const { t } = useTranslation();
-
+    const [searchValue, setSearchValue] = useState('');
+    const search = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);
+    };
     return (
-        <>
-            <h3>{t('header.search')}</h3>
-
-            <img src={search} alt="search" width={20} className={styles.search__icon} />
-        </>
+        <div className={styles.search}>
+            <div className={styles.search__container}>
+                <img
+                    src={searchIcon}
+                    alt="search"
+                    width={20}
+                    className={styles.search__container_icon}
+                />
+                <input
+                    placeholder={t('header.search')}
+                    value={searchValue}
+                    onChange={event => search(event)}
+                />
+            </div>
+        </div>
     );
 };
 

@@ -18,7 +18,8 @@ export interface IList {
     name: string;
 }
 export interface ICard {
-    idList: number;
+    id: number;
+    listId: number;
     closed: boolean;
     dateLastActivity: Date;
     idCheckLists: number[];

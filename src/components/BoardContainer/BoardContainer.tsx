@@ -25,8 +25,10 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
         const { source, destination, type, draggableId } = results;
 
         if (!destination) return;
+
         if (source.droppableId === destination.droppableId && source.index === destination.index)
             return;
+
         if (type === 'group') {
             const listReorder: IListReorder = {
                 id: draggableId,
@@ -52,6 +54,40 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
             setListData(reorderedLists);
             mutate(listReorder);
         }
+        const itemSourceIndex = source.index;
+        const itemDestinationIndex = destination.index;
+
+        const storeSourceIndex = listData.findIndex(store => store.id == source.droppableId);
+        console.log(storeSourceIndex);
+
+        const storeDestinationIndex = listData.findIndex(
+            store => store.id == destination.droppableId,
+        );
+        console.log(listData[storeSourceIndex]);
+
+        console.log(listData[storeSourceIndex].cards);
+
+        const newSourceItems = [...listData[storeSourceIndex].cards];
+        const newDestinationItems =
+            source.droppableId != destination.droppableId
+                ? [...listData[storeDestinationIndex].cards]
+                : newSourceItems;
+
+        const [deletedItem] = newSourceItems.splice(itemSourceIndex, 1);
+        newDestinationItems.splice(itemDestinationIndex, 0, deletedItem);
+
+        const newStores = [...listData];
+
+        newStores[storeSourceIndex] = {
+            ...listData[storeSourceIndex],
+            cards: newSourceItems,
+        };
+        newStores[storeDestinationIndex] = {
+            ...listData[storeDestinationIndex],
+            cards: newDestinationItems,
+        };
+
+        setListData(newStores);
     };
 
     const handleDragStart = () => {

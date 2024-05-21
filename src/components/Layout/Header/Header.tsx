@@ -1,5 +1,4 @@
 import BurgerMenu from '../../UI/BurgerMenu/BurgerMenu';
-import SelectLangugage from '../../SelectLanguage/SelectLangugage';
 import SelectTheme from '../../SelectTheme/SelectTheme';
 import NotificationsComponent from '../../NotificationsComponent/NotificationsComponent';
 import Search from '../../Search/Search';
@@ -17,12 +16,9 @@ const Header: FC<IHeaderProps> = ({ fullWidth }) => {
             <BurgerMenu />
 
             <Search />
-            <SelectLangugage />
             <SelectTheme />
             <NotificationsComponent />
             <img src={question} alt="question" width={20} className={styles.question__icon} />
-            <h2>Hot keys</h2>
-            <h2>UserPageIcon</h2>
             <img src={profile} alt="profile" width={20} className={styles.profile__icon} />
         </header>
     );

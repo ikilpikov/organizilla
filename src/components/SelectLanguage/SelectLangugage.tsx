@@ -10,7 +10,7 @@ const SelectLangugage = () => {
     };
     return (
         <>
-            <img src={planet} alt="planet" width={20} className={styles.selectLanguage__icon} />
+            {/* <img src={planet} alt="planet" width={20} className={styles.selectLanguage__icon} /> */}
             <select
                 className={styles.selectLanguage__select}
                 onChange={event => changeLanguage(event.target.value)}

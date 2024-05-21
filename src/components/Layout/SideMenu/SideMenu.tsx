@@ -24,9 +24,6 @@ const SideMenu: FC<ISideMenuProps> = ({ fullWidth }) => {
             >
                 {t('sideMenu.create')}
             </NavLink>
-            <NavLink to={'/calendar'} className={({ isActive }) => (isActive ? styles.active : '')}>
-                {t('sideMenu.calendar')}
-            </NavLink>
             <NavLink to={'/pomodoro'} className={({ isActive }) => (isActive ? styles.active : '')}>
                 {t('sideMenu.pomodoro')}
             </NavLink>

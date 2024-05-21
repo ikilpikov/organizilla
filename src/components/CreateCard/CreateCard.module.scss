@@ -1,0 +1,15 @@
+.addCard {
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    padding: 5px;
+    width: 262px;
+    background-color: var(--background-color);
+    color: var(--color);
+    font-weight: 600;
+    &:hover {
+        background-color: var(--background--color-lighter);
+    }
+}
