@@ -24,6 +24,8 @@ public class CardServiceImpl implements CardService {
 
     private final AccessCheckUtil accessCheckUtil;
 
+    private static final int POSITION_DELTA = 65_536;
+
     @Override
     public CreatedCardInfoDto createCard(CreateCardDto cardDto, String username) {
         var list = listDao.getListById(cardDto.getListId());
@@ -36,7 +38,8 @@ public class CardServiceImpl implements CardService {
         var card = new Card();
         card.setList(list);
         card.setName(cardDto.getName());
-        card.setPosition(1);
+        var previousCardPosition = cardDao.getMaxCardPositionInList(list).orElse(0);
+        card.setPosition(previousCardPosition + POSITION_DELTA);
 
         boardDao.updateLastActivity(card.getList().getBoard());
         return new CreatedCardInfoDto(cardDao.save(card).getId());

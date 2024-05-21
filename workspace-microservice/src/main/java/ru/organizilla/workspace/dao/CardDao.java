@@ -4,7 +4,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.organizilla.workspace.domain.Card;
+import ru.organizilla.workspace.domain.ListEntity;
 import ru.organizilla.workspace.repository.CardRepository;
+
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -25,6 +28,10 @@ public class CardDao {
 
     public void delete(Card card) {
         cardRepository.delete(card);
+    }
+
+    public Optional<Integer> getMaxCardPositionInList(ListEntity list) {
+        return cardRepository.findMaximumPositionByList(list);
     }
 }
 

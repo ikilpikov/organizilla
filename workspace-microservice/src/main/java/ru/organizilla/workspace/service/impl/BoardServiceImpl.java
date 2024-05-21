@@ -3,6 +3,7 @@ package ru.organizilla.workspace.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.organizilla.workspace.dao.BoardDao;
+import ru.organizilla.workspace.domain.Card;
 import ru.organizilla.workspace.domain.ListEntity;
 import ru.organizilla.workspace.dto.board.GetBoardDto;
 import ru.organizilla.workspace.dto.card.GetCardDto;
@@ -87,13 +88,14 @@ public class BoardServiceImpl implements BoardService {
                         .closed(list.isClosed())
                         .color(list.getColor())
                         .subscribed(list.getSubscribed())
-                        .cards(list.getCards().stream().map(card -> GetCardDto.builder()
-                                .id(card.getId())
-                                .name(card.getName())
-                                .closed(card.isClosed())
-                                .lastActivity(card.getLastActivity())
-                                .deadline(card.getDeadline())
-                                .isTemplate(card.isTemplate()).build())
+                        .cards(list.getCards().stream().sorted(Comparator.comparingInt(Card::getPosition))
+                                .map(card -> GetCardDto.builder()
+                                        .id(card.getId())
+                                        .name(card.getName())
+                                        .closed(card.isClosed())
+                                        .lastActivity(card.getLastActivity())
+                                        .deadline(card.getDeadline())
+                                        .isTemplate(card.isTemplate()).build())
                                 .toList()).build()).toList();
         return GetBoardDto.builder()
                 .name(board.getName())

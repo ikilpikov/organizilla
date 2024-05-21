@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.organizilla.workspace.exception.CannotChangePositionException;
 import ru.organizilla.workspace.exception.NotAllowedException;
 
 import static org.springframework.http.ResponseEntity.badRequest;
@@ -24,6 +25,11 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(NotAllowedException.class)
     public ResponseEntity<String> handleNotAllowedException(NotAllowedException ex) {
+        return badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(CannotChangePositionException.class)
+    public ResponseEntity<String> handleCannotChangePositionException(CannotChangePositionException ex) {
         return badRequest().body(ex.getMessage());
     }
 }
