@@ -8,7 +8,7 @@ export interface IBoardPost {
     isPublic: boolean;
 }
 export interface IListPost {
-    name: number;
+    name: string;
     boardId: string;
 }
 export interface IListDelete {
