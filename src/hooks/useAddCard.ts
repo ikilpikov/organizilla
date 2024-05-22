@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addCard } from '../services/workspace.service';
-import { ICard } from '../types/entityTypes';
 import { AxiosError } from 'axios';
 
 interface ICardPost {

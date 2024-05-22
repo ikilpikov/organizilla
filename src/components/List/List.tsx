@@ -5,7 +5,7 @@ import styles from './List.module.scss';
 import { IList } from '../../types/entityTypes';
 import more from '../../assets/icons/more.svg';
 import ListActions from '../ListActions/ListActions';
-import { useShowListActionStore } from '../../store';
+import { useShowActionStore } from '../../store';
 import CreateCardButton from '../CreateCard/CreateCardButton.tsx/CreateCardButton';
 
 interface IListProps {
@@ -14,7 +14,8 @@ interface IListProps {
 }
 
 const List: FC<IListProps> = ({ list, boardId }) => {
-    const { showListActions, setShowListActions } = useShowListActionStore();
+    const showListActions = useShowActionStore(state => state.showListActions);
+    const setShowListActions = useShowActionStore(state => state.setShowListActions);
     const [listName, setListName] = useState(list.name);
     const [isEditing, setIsEditing] = useState(false);
     const { mutate } = useListName();
@@ -46,16 +47,16 @@ const List: FC<IListProps> = ({ list, boardId }) => {
                             autoFocus
                         />
                     ) : (
-                        <h2 onClick={() => setIsEditing(true)}>{listName}</h2>
+                        <>
+                            <h2 onClick={() => setIsEditing(true)}>{listName}</h2>
+                        </>
                     )}
                     <img src={more} width={20} onClick={() => setShowListActions(list.id)} />
                 </div>
                 <ListContainer cards={list.cards} listId={list.id.toString()} />
                 <CreateCardButton listId={list.id} boardId={boardId} />
             </div>
-            {showListActions === list.id && (
-                <ListActions id={list.id.toString()} boardId={boardId} />
-            )}
+            {showListActions === list.id && <ListActions id={list.id} boardId={boardId} />}
         </div>
     );
 };

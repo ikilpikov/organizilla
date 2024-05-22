@@ -1,5 +1,5 @@
 import { IBoardPost, IListPost } from '../types/basicTypes';
-import { ICard, IList, IListReorder } from '../types/entityTypes';
+import { ICard, IList, IListReorder, ICardReorder } from '../types/entityTypes';
 import { axiosInstanceWithToken } from './instances';
 
 export const createBoard = async ({ name, backgroundImage, isPublic }: IBoardPost) => {
@@ -24,7 +24,7 @@ export const createList = async ({ name, boardId }: IListPost) => {
     return response;
 };
 
-export const deleteList = async (id: string) => {
+export const deleteList = async (id: number) => {
     const response = await axiosInstanceWithToken.delete(`/workspace/list/delete/${id}`);
     return response;
 };
@@ -51,7 +51,16 @@ export const addCard = async ({ listId, name }: Pick<ICard, 'listId' | 'name'>) 
     return response;
 };
 
-export const deleteCard = async (id: string) => {
+export const deleteCard = async (id: number) => {
     const response = await axiosInstanceWithToken.delete(`/workspace/card/delete/${id}`);
+    return response;
+};
+
+export const reorderCard = async ({ id, previousCardId, nextCardId, listId }: ICardReorder) => {
+    const response = await axiosInstanceWithToken.patch(`/workspace/card/reorder/${id}`, {
+        previousCardId,
+        nextCardId,
+        listId,
+    });
     return response;
 };

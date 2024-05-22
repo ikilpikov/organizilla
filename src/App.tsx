@@ -7,7 +7,6 @@ import ImportDataPage from './pages/ImportDataPage/ImportDataPage';
 import CreateBoardPage from './pages/CreateBoardPage/CreateBoardPage';
 import CreateNewBoardPage from './pages/CreateNewBoardPage/CreateNewBoardPage';
 import BoardPage from './pages/BoardPage/BoardPage';
-import PomodoroPage from './pages/PomodoroPage/PomodoroPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import './App.css';
 
@@ -24,7 +23,6 @@ function App() {
                 <Route path="/create-board/blank" element={<CreateNewBoardPage />} />
                 <Route path="/board/:id" element={<BoardPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
-                <Route path="/pomodoro" element={<PomodoroPage />} />
             </Routes>
         </>
     );

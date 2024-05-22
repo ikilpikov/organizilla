@@ -40,8 +40,8 @@ html[app-theme='light'] {
     --button-hover-background-color: #64ace3;
     --button-border-color: #d26ce4;
 
-    --background-color: rgb(254, 255, 239);
-    --background--color-lighter: rgb(116, 192, 236);
+    --background-color: rgb(235, 234, 234);
+    --background--color-lighter: rgb(250, 251, 245);
     --color: black;
     --icon-color: invert(0%) sepia(100%) saturate(15%) hue-rotate(246deg) brightness(105%)
         contrast(105%);

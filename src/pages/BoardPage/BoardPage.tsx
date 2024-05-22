@@ -7,7 +7,6 @@ import styles from './BoardPage.module.scss';
 const BoardPage = () => {
     const { id } = useParams();
     const { data, isSuccess } = useBoardData(id || '');
-
     return (
         <Layout>
             {isSuccess && (

@@ -2,20 +2,21 @@ import { FC, useState } from 'react';
 import styles from '../CreateCard.module.scss';
 import cross from '../../../assets/icons/cross.svg';
 import useAddCard from '../../../hooks/useAddCard';
+import { useShowActionStore } from '../../../store';
 interface ICreateCardFormProps {
     listId: number;
     boardId: string;
-    setIsAddCard: (isAddCard: boolean) => void;
 }
 
-const CreateCardForm: FC<ICreateCardFormProps> = ({ listId, boardId, setIsAddCard }) => {
+const CreateCardForm: FC<ICreateCardFormProps> = ({ listId, boardId }) => {
     const { mutate } = useAddCard();
     const [cardName, setCardName] = useState('');
+    const setShowAddCard = useShowActionStore(state => state.setShowAddCard);
 
     const addList = () => {
         const cardData = { name: cardName, listId, boardId };
         mutate(cardData);
-        setIsAddCard(false);
+        setShowAddCard(-1);
     };
     return (
         <div className={styles.createListForm}>
@@ -28,7 +29,7 @@ const CreateCardForm: FC<ICreateCardFormProps> = ({ listId, boardId, setIsAddCar
                 <button onClick={() => addList()} disabled={!cardName}>
                     Добавить карточку
                 </button>
-                <img src={cross} width={30} onClick={() => setIsAddCard(false)} />
+                <img src={cross} width={30} onClick={() => setShowAddCard(-1)} />
             </div>
         </div>
     );

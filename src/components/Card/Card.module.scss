@@ -1,8 +1,53 @@
-.card {
-    background-color: var(--background--color-lighter);
-    border-radius: 5px;
-    padding: 8px 12px 4px;
-    margin-bottom: 8px;
-    min-height: 36px;
-    cursor: pointer;
+.cardContainer {
+    display: flex;
+    .card {
+        width: 100%;
+        position: relative; // Добавьте относительное позиционирование к карточке
+        background-color: var(--background--color-lighter);
+        box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding: 8px 12px 4px;
+        margin-bottom: 8px;
+        min-height: 36px;
+        display: flex;
+        flex-direction: row;
+        align-items: center; // Добавьте выравнивание по центру по вертикали
+        cursor: pointer;
+
+        &:hover {
+            border: 2px solid #388bff;
+        }
+
+        &__name {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        &__button {
+            position: absolute;
+            right: 8px;
+            top: 2px;
+            border: none;
+            background-color: var(--background--color-lighter);
+            border-radius: 50%;
+            padding: 2px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+                filter: var(--icon-color);
+            }
+            &:hover {
+                background-color: #ccc;
+            }
+        }
+        &__actions {
+            z-index: 11;
+            background-color: red;
+            position: absolute;
+            right: -30%;
+        }
+    }
 }

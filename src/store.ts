@@ -155,14 +155,29 @@ export const useBackgroundImageStore = create<IBackgroundImage>(set => ({
     },
 }));
 
-interface IShowListActionStore {
+interface IShowActionStore {
     showListActions: number;
+    showCardActions: number;
+    showAddCard: number;
     setShowListActions: (id: number) => void;
+    setShowCardActions: (id: number) => void;
+    setShowAddCard: (id: number) => void;
 }
-export const useShowListActionStore = create<IShowListActionStore>((set, get) => ({
+export const useShowActionStore = create<IShowActionStore>((set, get) => ({
     showListActions: -1,
+    showCardActions: -1,
+    showAddCard: -1,
     setShowListActions: (id: number) => {
-        if (get().showListActions === id) set(() => ({ showListActions: -1 }));
-        else set(() => ({ showListActions: id }));
+        if (get().showListActions === id) {
+            set(() => ({ showListActions: -1 }));
+        } else {
+            set(() => ({ showListActions: id, showCardActions: -1, showAddCard: -1 }));
+        }
+    },
+    setShowCardActions: (id: number) => {
+        set(() => ({ showCardActions: id, showListActions: -1, showAddCard: -1 }));
+    },
+    setShowAddCard: (id: number) => {
+        set(() => ({ showAddCard: id, showListActions: -1, showCardActions: -1 }));
     },
 }));

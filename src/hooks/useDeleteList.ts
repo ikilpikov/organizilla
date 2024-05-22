@@ -2,22 +2,55 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteList } from '../services/workspace.service';
 import { AxiosError } from 'axios';
 import { IListDelete } from '../types/basicTypes';
+import { IBoardQueryData } from '../types/entityTypes';
+
 const useDeleteList = () => {
     const queryClient = useQueryClient();
+
     return useMutation({
         mutationFn: (listData: IListDelete) => {
             const { id } = listData;
             return deleteList(id);
         },
-        onSuccess: (_, variables) => {
-            const id = variables.boardId;
-            console.log(id);
+        onMutate: async (listData: IListDelete) => {
+            const { id, boardId } = listData;
 
-            queryClient.invalidateQueries({ queryKey: ['board', id] });
+            // Отменяем текущие запросы для данных доски
+            await queryClient.cancelQueries({ queryKey: ['board', boardId] });
+
+            // Сохраняем текущее состояние для возможного восстановления
+            const previousBoardData = queryClient.getQueryData<IBoardQueryData>(['board', boardId]);
+
+            // Оптимистически обновляем состояние
+            if (previousBoardData) {
+                queryClient.setQueryData<IBoardQueryData>(['board', boardId], oldData => {
+                    if (!oldData) return oldData;
+                    const newLists = oldData.data.lists.filter(list => list.id !== id);
+                    return {
+                        ...oldData,
+                        data: {
+                            ...oldData.data,
+                            lists: newLists,
+                        },
+                    };
+                });
+            }
+
+            return { previousBoardData };
         },
-        onError: (error: AxiosError) => {
-            console.log(error);
+        onError: (error: AxiosError, variables, context) => {
+            console.error('Error deleting list:', error);
+
+            // Восстанавливаем предыдущее состояние в случае ошибки
+            if (context?.previousBoardData) {
+                queryClient.setQueryData(['board', variables.boardId], context.previousBoardData);
+            }
+        },
+        onSettled: (_, __, variables) => {
+            const id = variables.boardId;
+            queryClient.invalidateQueries({ queryKey: ['board', id] });
         },
     });
 };
+
 export default useDeleteList;

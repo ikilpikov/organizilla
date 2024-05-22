@@ -54,7 +54,16 @@ export interface IURL {
     thumb: string;
 }
 export interface IListReorder {
-    id: string | null;
+    id: number | null;
     previousListId: number | null;
     nextListId: number | null;
+}
+export interface ICardReorder {
+    id: number | null;
+    previousCardId: number | null;
+    nextCardId: number | null;
+    listId: number;
+}
+export interface IBoardQueryData {
+    data: IBoard;
 }

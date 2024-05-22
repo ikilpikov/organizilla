@@ -2,11 +2,12 @@ import { useState, useEffect, FC } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import useBoardData from '../../hooks/useBoardData';
 import useReorderList from '../../hooks/useReorderList';
-import { useShowListActionStore } from '../../store';
+import { useShowActionStore } from '../../store';
 import CreateListButton from '../CreateList/CreateListButton/CreateListButton';
 import List from '../List/List';
-import { IListReorder, IList } from '../../types/entityTypes';
+import { IListReorder, IList, ICardReorder } from '../../types/entityTypes';
 import styles from './BoardContainer.module.scss';
+import useReorderCard from '../../hooks/useReorderCard';
 
 interface IBoardContainerProps {
     id: string;
@@ -15,12 +16,16 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
     const [listData, setListData] = useState<IList[]>([]);
     const { data } = useBoardData(id || '');
     const { mutate } = useReorderList();
-    const setShowListActions = useShowListActionStore(state => state.setShowListActions);
+    const { mutate: mutateCard } = useReorderCard();
+    const setShowListActions = useShowActionStore(state => state.setShowListActions);
+    const setShowAddCard = useShowActionStore(state => state.setShowAddCard);
+    const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
     useEffect(() => {
         if (data) {
             setListData(data.data.lists);
         }
     }, [data]);
+
     const handleDragDrop = results => {
         const { source, destination, type, draggableId } = results;
 
@@ -53,45 +58,60 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
 
             setListData(reorderedLists);
             mutate(listReorder);
+        } else if (type === 'card') {
+            const itemSourceIndex = source.index;
+            const itemDestinationIndex = destination.index;
+
+            const listSourceIndex = listData.findIndex(store => store.id == source.droppableId);
+            const listDestinationIndex = listData.findIndex(
+                store => store.id == destination.droppableId,
+            );
+
+            const newSourceItems = [...listData[listSourceIndex].cards];
+            const newDestinationItems =
+                source.droppableId != destination.droppableId
+                    ? [...listData[listDestinationIndex].cards]
+                    : newSourceItems;
+
+            const [deletedItem] = newSourceItems.splice(itemSourceIndex, 1);
+            newDestinationItems.splice(itemDestinationIndex, 0, deletedItem);
+
+            const newLists = [...listData];
+
+            newLists[listSourceIndex] = {
+                ...listData[listSourceIndex],
+                cards: newSourceItems,
+            };
+            newLists[listDestinationIndex] = {
+                ...listData[listDestinationIndex],
+                cards: newDestinationItems,
+            };
+            const cardReorder: ICardReorder = {
+                id: draggableId,
+                previousCardId: null,
+                nextCardId: null,
+                listId: destination.droppableId,
+            };
+
+            const [selectedList] = listData.filter(state => state.id == destination.droppableId);
+
+            const previousCardId =
+                itemDestinationIndex > 0 ? selectedList?.cards[itemDestinationIndex - 1]?.id : null;
+            const nextListId =
+                itemDestinationIndex < newLists.length - 1
+                    ? selectedList?.cards[itemDestinationIndex]?.id
+                    : null;
+            cardReorder.previousCardId = previousCardId;
+            cardReorder.nextCardId = nextListId;
+            setListData(newLists);
+            mutateCard(cardReorder);
         }
-        const itemSourceIndex = source.index;
-        const itemDestinationIndex = destination.index;
-
-        const storeSourceIndex = listData.findIndex(store => store.id == source.droppableId);
-        console.log(storeSourceIndex);
-
-        const storeDestinationIndex = listData.findIndex(
-            store => store.id == destination.droppableId,
-        );
-        console.log(listData[storeSourceIndex]);
-
-        console.log(listData[storeSourceIndex].cards);
-
-        const newSourceItems = [...listData[storeSourceIndex].cards];
-        const newDestinationItems =
-            source.droppableId != destination.droppableId
-                ? [...listData[storeDestinationIndex].cards]
-                : newSourceItems;
-
-        const [deletedItem] = newSourceItems.splice(itemSourceIndex, 1);
-        newDestinationItems.splice(itemDestinationIndex, 0, deletedItem);
-
-        const newStores = [...listData];
-
-        newStores[storeSourceIndex] = {
-            ...listData[storeSourceIndex],
-            cards: newSourceItems,
-        };
-        newStores[storeDestinationIndex] = {
-            ...listData[storeDestinationIndex],
-            cards: newDestinationItems,
-        };
-
-        setListData(newStores);
     };
 
     const handleDragStart = () => {
         setShowListActions(-1);
+        setShowAddCard(-1);
+        setShowCardActions(-1);
     };
     return (
         <div className={styles.boardContainer}>

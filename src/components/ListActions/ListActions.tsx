@@ -2,16 +2,17 @@ import { FC } from 'react';
 import cross from '../../assets/icons/cross.svg';
 import styles from './ListActions.module.scss';
 import useDeleteList from '../../hooks/useDeleteList';
-import { useShowListActionStore } from '../../store';
+import { useShowActionStore } from '../../store';
 interface IListActions {
-    id: string;
+    id: number;
     boardId: string;
 }
 const ListActions: FC<IListActions> = ({ id, boardId }) => {
-    const setShowListActions = useShowListActionStore(state => state.setShowListActions);
+    const setShowListActions = useShowActionStore(state => state.setShowListActions);
     const { mutate } = useDeleteList();
     const deleteList = () => {
         mutate({ id, boardId });
+        setShowListActions(-1);
     };
     return (
         <div className={styles.listActions}>
