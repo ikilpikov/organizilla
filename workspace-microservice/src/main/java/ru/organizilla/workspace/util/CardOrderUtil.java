@@ -30,6 +30,8 @@ public class CardOrderUtil {
             throw new CannotChangePositionException("List id cannot be null");
         }
 
+        var list = getListById(listId);
+
         if (Objects.equals(previousCardId, nextCardId) && previousCardId != null) {
             throw new CannotChangePositionException("Previous and next card ids must not be same");
         }
@@ -60,6 +62,7 @@ public class CardOrderUtil {
         }
 
         card.setPosition(calculatedPosition);
+        card.setList(list);
         cardRepository.save(card);
     }
 
@@ -80,5 +83,11 @@ public class CardOrderUtil {
         return cardRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Card not found: " + id));
+    }
+
+    private ListEntity getListById(Long id) {
+        return listRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("List not found: " + id));
     }
 }
