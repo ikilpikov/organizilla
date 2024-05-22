@@ -4,10 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.organizilla.workspace.dto.board.CreateBoardDto;
-import ru.organizilla.workspace.dto.board.CreatedBoardInfoDto;
-import ru.organizilla.workspace.dto.board.GetAllBoardsDto;
-import ru.organizilla.workspace.dto.board.GetBoardDto;
+import ru.organizilla.workspace.dto.board.*;
 import ru.organizilla.workspace.service.BoardService;
 
 import java.util.List;
@@ -47,5 +44,20 @@ public class BoardController {
                                               @RequestHeader(USERNAME_HEADER) String username) {
         boardService.deleteBoard(id, username);
         return ok().body("Board deleted");
+    }
+
+    @PutMapping("/{id}/color")
+    public ResponseEntity<String> setColor(@PathVariable("id") Long id,
+                                           @RequestHeader(USERNAME_HEADER) String username,
+                                           @RequestBody @Valid SetColorValueDto colorValueDto) {
+        boardService.setColor(id, username, colorValueDto.getColor(), colorValueDto.getValue());
+        return ok().body("Color value added successfully");
+    }
+
+    @GetMapping("/{id}/color/all")
+    public ResponseEntity<GetColorValuesDto> getAllColors(@PathVariable("id") Long id,
+                                           @RequestHeader(USERNAME_HEADER) String username) {
+        var colors = boardService.getColorValues(id, username);
+        return ok().body(colors);
     }
 }

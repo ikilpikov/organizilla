@@ -2,18 +2,16 @@ package ru.organizilla.workspace.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.organizilla.workspace.dao.BoardDao;
+import ru.organizilla.workspace.dao.*;
 import ru.organizilla.workspace.domain.Card;
+import ru.organizilla.workspace.domain.LabelValue;
 import ru.organizilla.workspace.domain.ListEntity;
-import ru.organizilla.workspace.dto.board.GetBoardDto;
+import ru.organizilla.workspace.domain.enums.Color;
+import ru.organizilla.workspace.dto.board.*;
 import ru.organizilla.workspace.dto.card.GetCardDto;
 import ru.organizilla.workspace.dto.list.GetListDto;
-import ru.organizilla.workspace.dao.UserDao;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 import ru.organizilla.workspace.domain.Board;
-import ru.organizilla.workspace.dto.board.CreateBoardDto;
-import ru.organizilla.workspace.dto.board.CreatedBoardInfoDto;
-import ru.organizilla.workspace.dto.board.GetAllBoardsDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.BoardService;
 
@@ -26,6 +24,8 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardDao boardDao;
     private final UserDao userDao;
+    private final LabelValueDao labelValueDao;
+    private final LabelColorDao labelColorDao;
 
     private final AccessCheckUtil accessCheckUtil;
 
@@ -76,6 +76,52 @@ public class BoardServiceImpl implements BoardService {
         }
 
         boardDao.delete(board);
+    }
+
+    @Override
+    public void setColor(Long boardId, String username, Color color, String value) {
+        var user = userDao.getUserByUsername(username);
+        var board = boardDao.getBoardById(boardId);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteBoard(user, board)) {
+            throw new NotAllowedException("Color setting not allowed");
+        }
+
+        var colorEntity = labelColorDao.getLabelColorByColor(color);
+        var labelValue = board.getLabels()
+                .stream()
+                .filter(x -> x.getLabelColor().equals(colorEntity))
+                .findFirst()
+                .orElse(new LabelValue());
+
+        labelValue.setBoard(board);
+        labelValue.setLabelColor(colorEntity);
+        labelValue.setValue(value);
+        labelValueDao.save(labelValue);
+    }
+
+    @Override
+    public GetColorValuesDto getColorValues(Long boardId, String username) {
+        var user = userDao.getUserByUsername(username);
+        var board = boardDao.getBoardById(boardId);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteBoard(user, board)) {
+            throw new NotAllowedException("Getting color not allowed");
+        }
+
+        var myColors = labelValueDao.getAllBoardColorValues(board);
+
+        GetColorValuesDto getColorValuesDto = new GetColorValuesDto();
+        myColors
+                .forEach(x -> getColorValuesDto.addColorValue(x.getLabelColor().getColor().getColorValue(), x.getValue()));
+        labelColorDao
+                .getLabelColors()
+                .forEach(x -> {
+                    if (myColors.stream().noneMatch(y -> y.getLabelColor().equals(x))) {
+                        getColorValuesDto.addColorValue(x.getColor().getColorValue(), null);
+                    }
+                });
+        return getColorValuesDto;
     }
 
     private GetBoardDto buildGetBoardDto(Board board) {

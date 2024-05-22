@@ -2,6 +2,7 @@ package ru.organizilla.workspace.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import ru.organizilla.workspace.domain.enums.Color;
 
 @Entity
 @Table(name = "label_color")
@@ -12,5 +13,6 @@ public class LabelColor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, length = 50)
-    private String color;
+    @Enumerated(EnumType.STRING)
+    private Color color;
 }
