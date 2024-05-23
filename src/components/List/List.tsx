@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import useListName from '../../hooks/useListName';
 import ListContainer from '../ListContainer/ListContainer';
 import styles from './List.module.scss';
@@ -18,8 +18,15 @@ const List: FC<IListProps> = ({ list, boardId }) => {
     const setShowListActions = useShowActionStore(state => state.setShowListActions);
     const [listName, setListName] = useState(list.name);
     const [isEditing, setIsEditing] = useState(false);
+    const [rows, setRows] = useState(1);
     const { mutate } = useListName();
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    useEffect(() => {
+        const numLines = Math.min(Math.ceil(listName.length / 18), 10);
+        setRows(numLines);
+    }, [listName]);
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setListName(e.target.value);
     };
 
@@ -28,7 +35,7 @@ const List: FC<IListProps> = ({ list, boardId }) => {
         mutate({ id: list.id, name: listName });
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
             handleBlur();
         }
@@ -38,13 +45,15 @@ const List: FC<IListProps> = ({ list, boardId }) => {
             <div className={styles.list}>
                 <div className={styles.list__title}>
                     {isEditing ? (
-                        <input
+                        <textarea
                             value={listName}
                             className={styles.list__title_input}
                             onChange={handleNameChange}
                             onBlur={handleBlur}
                             onKeyDown={handleKeyDown}
                             autoFocus
+                            wrap="soft"
+                            rows={rows}
                         />
                     ) : (
                         <>

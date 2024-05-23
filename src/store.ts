@@ -181,3 +181,12 @@ export const useShowActionStore = create<IShowActionStore>((set, get) => ({
         set(() => ({ showAddCard: id, showListActions: -1, showCardActions: -1 }));
     },
 }));
+interface ThemeState {
+    theme: string;
+    setTheme: (theme: string) => void;
+}
+
+export const useThemeStore = create<ThemeState>(set => ({
+    theme: 'light',
+    setTheme: theme => set({ theme }),
+}));

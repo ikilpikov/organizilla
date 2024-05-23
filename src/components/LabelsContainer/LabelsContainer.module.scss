@@ -1,0 +1,12 @@
+.labelContainer {
+    background-color: var(--background--color-lighter);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    &__label {
+        border-radius: 10px;
+        padding: 10px;
+        margin: 5px;
+        width: calc(15%);
+    }
+}

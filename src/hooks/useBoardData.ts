@@ -6,6 +6,7 @@ const useBoardData = (id: string) => {
         queryKey: ['board', id],
         queryFn: () => getBoard(id),
         refetchOnWindowFocus: false,
+        retry: 0,
     });
 };
 export default useBoardData;

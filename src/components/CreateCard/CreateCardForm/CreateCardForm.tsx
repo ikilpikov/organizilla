@@ -1,8 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import styles from '../CreateCard.module.scss';
 import cross from '../../../assets/icons/cross.svg';
 import useAddCard from '../../../hooks/useAddCard';
 import { useShowActionStore } from '../../../store';
+import useClickOutside from '../../../hooks/useClickOutside';
 interface ICreateCardFormProps {
     listId: number;
     boardId: string;
@@ -11,15 +12,18 @@ interface ICreateCardFormProps {
 const CreateCardForm: FC<ICreateCardFormProps> = ({ listId, boardId }) => {
     const { mutate } = useAddCard();
     const [cardName, setCardName] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
     const setShowAddCard = useShowActionStore(state => state.setShowAddCard);
-
+    const cardAddRef = useRef<HTMLDivElement>(null);
+    useClickOutside(cardAddRef, () => setShowAddCard(-1), isOpen);
+    useEffect(() => setIsOpen(true), []);
     const addList = () => {
         const cardData = { name: cardName, listId, boardId };
         mutate(cardData);
         setShowAddCard(-1);
     };
     return (
-        <div className={styles.createListForm}>
+        <div className={styles.createListForm} ref={cardAddRef}>
             <input
                 placeholder="Введите имя списка"
                 value={cardName}

@@ -16,7 +16,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        h2 {
+            font-size: 24px;
+        }
         img {
+            position: absolute;
+            right: 10px;
+            top: 30px;
             cursor: pointer;
             filter: var(--icon-color);
             border-radius: 5px;
@@ -26,13 +32,18 @@
             }
         }
         &_input {
-            height: 36px;
+            padding: 5px;
+            height: auto;
+            min-height: 36px;
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             background-color: var(--background-color);
             color: var(--color);
             max-width: 100%;
             min-width: 1ch;
+            resize: none;
+            overflow: hidden;
+            overflow-wrap: break-word;
         }
     }
 }

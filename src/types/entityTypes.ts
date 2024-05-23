@@ -6,7 +6,7 @@ export interface IBoard {
     name: string;
     checkLists: ICheckList[];
 }
-interface ILabelName {
+export interface ILabelName {
     [key: string]: string;
 }
 export interface IList {

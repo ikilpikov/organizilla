@@ -8,6 +8,7 @@ import CreateBoardPage from './pages/CreateBoardPage/CreateBoardPage';
 import CreateNewBoardPage from './pages/CreateNewBoardPage/CreateNewBoardPage';
 import BoardPage from './pages/BoardPage/BoardPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<MainPage />} />
+                <Route path="*" element={<NotFoundPage />} />
                 <Route path="/registration" element={<RegistrationPage />} />
                 <Route path="/registration/mail" element={<MailCodePage />} />
                 <Route path="/auth" element={<AuthPage />} />

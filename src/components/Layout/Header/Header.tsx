@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import BurgerMenu from '../../UI/BurgerMenu/BurgerMenu';
 import SelectTheme from '../../SelectTheme/SelectTheme';
 import NotificationsComponent from '../../NotificationsComponent/NotificationsComponent';
@@ -5,7 +6,6 @@ import Search from '../../Search/Search';
 import question from '../../../assets/icons/question.svg';
 import profile from '../../../assets/icons/profile.svg';
 import styles from './Header.module.scss';
-import { FC } from 'react';
 
 interface IHeaderProps {
     fullWidth?: boolean;

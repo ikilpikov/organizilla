@@ -1,0 +1,24 @@
+.settings {
+    text-align: center;
+    &__appearance {
+        border: 2px solid grey;
+        &_language {
+            display: flex;
+        }
+        &_theme {
+            display: flex;
+        }
+    }
+    &__userInfo {
+        border: 2px solid grey;
+    }
+    &__header {
+        border: 2px solid blue;
+    }
+    &__system {
+        border: 2px solid green;
+    }
+    &__info {
+        border: 2px solid blue;
+    }
+}

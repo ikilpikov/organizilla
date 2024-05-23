@@ -1,11 +1,11 @@
-import { useTheme } from '../../hooks/useTheme';
+import { useThemeContext } from '../../hooks/useThemeContext';
 import Switch from '../UI/Switch/Switch';
 import sun from '../../assets/icons/sun.svg';
 import moon from '../../assets/icons/moon.svg';
 import styles from './SelectTheme.module.scss';
 
 const SelectTheme = () => {
-    const { theme, setTheme } = useTheme();
+    const { theme, setTheme } = useThemeContext();
     const toggleTheme = () => {
         const nextTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(nextTheme);

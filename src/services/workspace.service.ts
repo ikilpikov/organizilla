@@ -64,3 +64,8 @@ export const reorderCard = async ({ id, previousCardId, nextCardId, listId }: IC
     });
     return response;
 };
+
+export const getAllColors = async (id: string) => {
+    const response = await axiosInstanceWithToken.get(`/workspace/board/${id}/color/all`);
+    return response;
+};

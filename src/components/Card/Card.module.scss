@@ -21,6 +21,10 @@
         &__name {
             flex: 1;
             margin-right: 10px;
+
+            &:focus {
+                outline: none;
+            }
         }
 
         &__button {
@@ -45,9 +49,9 @@
         }
         &__actions {
             z-index: 11;
-            background-color: red;
+            background-color: rgb(100, 100, 100);
             position: absolute;
-            right: -30%;
+            right: -60%;
         }
     }
 }
