@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.organizilla.workspace.dto.board.SetColorValueDto;
 import ru.organizilla.workspace.dto.card.CreateCardDto;
 import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
 import ru.organizilla.workspace.dto.card.ReorderCardDto;
@@ -20,7 +21,6 @@ import static ru.organizilla.workspace.constant.RequestHeaderConstants.USERNAME_
 public class CardController {
 
     private final CardService cardService;
-
     private final CardOrderUtil cardOrderUtil;
 
     @PostMapping("/create")
@@ -49,7 +49,15 @@ public class CardController {
     public ResponseEntity<String> setDescription(@PathVariable("id") Long id,
                                               @RequestHeader(USERNAME_HEADER) String username,
                                               @RequestBody @Valid SetDescriptionDto cardDto) {
-        cardService.setDescription(id, username, cardDto);
+        cardService.setDescription(id, username, cardDto.getDescription());
         return ok().body("Description set");
+    }
+
+    @PatchMapping("/{id}/color")
+    public ResponseEntity<String> setColor(@PathVariable("id") Long id,
+                                           @RequestHeader(USERNAME_HEADER) String username,
+                                           @RequestBody @Valid SetColorValueDto colorValueDto) {
+        cardService.setColor(id, username, colorValueDto.getColor());
+        return ok().body("Color value set successfully");
     }
 }

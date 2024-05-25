@@ -2,16 +2,14 @@ package ru.organizilla.workspace.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.organizilla.workspace.dao.BoardDao;
-import ru.organizilla.workspace.dao.CardDao;
-import ru.organizilla.workspace.dao.ListDao;
+import ru.organizilla.workspace.dao.*;
 import ru.organizilla.workspace.domain.Card;
+import ru.organizilla.workspace.domain.CardLabel;
+import ru.organizilla.workspace.domain.enums.Color;
 import ru.organizilla.workspace.dto.card.CreateCardDto;
 import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
-import ru.organizilla.workspace.dto.card.SetDescriptionDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.CardService;
-import ru.organizilla.workspace.dao.UserDao;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 
 @Service
@@ -19,9 +17,13 @@ import ru.organizilla.workspace.util.AccessCheckUtil;
 public class CardServiceImpl implements CardService {
 
     private final UserDao userDao;
+
     private final ListDao listDao;
     private final CardDao cardDao;
     private final BoardDao boardDao;
+
+    private final CardLabelDao cardLabelDao;
+    private final LabelValueDao labelValueDao;
 
     private final AccessCheckUtil accessCheckUtil;
 
@@ -74,7 +76,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public void setDescription(Long cardId, String username, SetDescriptionDto descriptionDto) {
+    public void setDescription(Long cardId, String username, String description) {
         var user = userDao.getUserByUsername(username);
         var card = cardDao.getCardById(cardId);
 
@@ -82,7 +84,29 @@ public class CardServiceImpl implements CardService {
             throw new NotAllowedException("Renaming not allowed");
         }
 
-        card.setDescription(descriptionDto.getDescription());
+        card.setDescription(description);
         cardDao.save(card);
+    }
+
+    @Override
+    public void setColor(Long cardId, String username, Color color) {
+        var user = userDao.getUserByUsername(username);
+        var card = cardDao.getCardById(cardId);
+
+
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, card.getList().getBoard())) {
+            throw new NotAllowedException("Renaming not allowed");
+        }
+
+        var labelValue = labelValueDao.getLabelValueByBoardAndColor(card.getList().getBoard(), color);
+
+        if (labelValue.getCardLabels().stream().anyMatch(x -> x.getLabelValue().equals(labelValue))) {
+            return;
+        }
+
+        var cardLabel = new CardLabel();
+        cardLabel.setCard(card);
+        cardLabel.setLabelValue(labelValue);
+        cardLabelDao.save(cardLabel);
     }
 }

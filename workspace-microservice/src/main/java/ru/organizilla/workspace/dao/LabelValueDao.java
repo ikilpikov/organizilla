@@ -1,10 +1,12 @@
 package ru.organizilla.workspace.dao;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.domain.LabelValue;
+import ru.organizilla.workspace.domain.enums.Color;
 import ru.organizilla.workspace.repository.LabelValueRepository;
 
 import java.util.List;
@@ -26,5 +28,10 @@ public class LabelValueDao {
 
     public List<LabelValue> getAllBoardColorValues(Board board) {
         return labelValueRepository.findByBoard(board);
+    }
+
+    public LabelValue getLabelValueByBoardAndColor(Board board, Color color) {
+        return labelValueRepository.findByValueByBoardAndColor(board, color)
+                .orElseThrow(() -> new EntityNotFoundException("Label value not found"));
     }
 }

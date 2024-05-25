@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "card")
@@ -35,4 +36,6 @@ public class Card {
     @ManyToOne
     @JoinColumn(name = "assigned_to")
     private User assignedTo;
+    @OneToMany(mappedBy = "card")
+    private List<CardLabel> labels;
 }
