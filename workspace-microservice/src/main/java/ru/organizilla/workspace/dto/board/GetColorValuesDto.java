@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class GetColorValuesDto {
 
-    private Map<String, String> colorValues = new LinkedHashMap<>();
+    private final Map<String, String> colorValues = new LinkedHashMap<>();
 
     @JsonAnySetter
     public void addColorValue(String color, String value) {

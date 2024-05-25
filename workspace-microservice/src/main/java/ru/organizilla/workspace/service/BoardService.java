@@ -12,6 +12,6 @@ public interface BoardService {
     GetBoardDto getBoard(Long boardId, String username);
     void deleteBoard(Long boardId, String username);
 
-    void setColor(Long boardId, String username, Color color, String value);
+    void setColorValue(Long boardId, String username, Color color, String value);
     GetColorValuesDto getColorValues(Long boardId, String username);
 }

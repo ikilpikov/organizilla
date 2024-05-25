@@ -1,5 +1,6 @@
 package ru.organizilla.workspace.service.impl;
 
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.organizilla.workspace.dao.*;
@@ -79,7 +80,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void setColor(Long boardId, String username, Color color, String value) {
+    public void setColorValue(Long boardId, String username, Color color, @Nullable String value) {
         var user = userDao.getUserByUsername(username);
         var board = boardDao.getBoardById(boardId);
 
@@ -87,17 +88,11 @@ public class BoardServiceImpl implements BoardService {
             throw new NotAllowedException("Color setting not allowed");
         }
 
-        var colorEntity = labelColorDao.getLabelColorByColor(color);
-        var labelValue = board.getLabels()
-                .stream()
-                .filter(x -> x.getLabelColor().equals(colorEntity))
-                .findFirst()
-                .orElse(new LabelValue());
-
-        labelValue.setBoard(board);
-        labelValue.setLabelColor(colorEntity);
-        labelValue.setValue(value);
-        labelValueDao.save(labelValue);
+        if (value != null) {
+            addColorValue(board, color, value);
+        } else {
+            removeColorValue(board, color);
+        }
     }
 
     @Override
@@ -151,5 +146,29 @@ public class BoardServiceImpl implements BoardService {
                 .isPublic(board.isPublic())
                 .lists(listDtos)
                 .build();
+    }
+
+    private void addColorValue(Board board, Color color, String value) {
+        var colorEntity = labelColorDao.getLabelColorByColor(color);
+        var labelValue = board.getLabels()
+                .stream()
+                .filter(x -> x.getLabelColor().equals(colorEntity))
+                .findFirst()
+                .orElse(new LabelValue());
+
+        labelValue.setBoard(board);
+        labelValue.setLabelColor(colorEntity);
+        labelValue.setValue(value);
+        labelValueDao.save(labelValue);
+    }
+
+    private void removeColorValue(Board board, Color color) {
+        var colorEntity = labelColorDao.getLabelColorByColor(color);
+        var labelValue = board.getLabels()
+                .stream()
+                .filter(x -> x.getLabelColor().equals(colorEntity))
+                .findFirst();
+
+        labelValue.ifPresent(labelValueDao::delete);
     }
 }

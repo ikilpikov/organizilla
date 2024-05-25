@@ -50,8 +50,8 @@ public class BoardController {
     public ResponseEntity<String> setColor(@PathVariable("id") Long id,
                                            @RequestHeader(USERNAME_HEADER) String username,
                                            @RequestBody @Valid SetColorValueDto colorValueDto) {
-        boardService.setColor(id, username, colorValueDto.getColor(), colorValueDto.getValue());
-        return ok().body("Color value added successfully");
+        boardService.setColorValue(id, username, colorValueDto.getColor(), colorValueDto.getValue());
+        return ok().body("Color value set successfully");
     }
 
     @GetMapping("/{id}/color/all")

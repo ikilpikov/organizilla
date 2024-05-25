@@ -31,6 +31,6 @@ public class Board {
     private List<BoardColab> boardColab;
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<ListEntity> lists;
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board")
     private List<LabelValue> labels;
 }
