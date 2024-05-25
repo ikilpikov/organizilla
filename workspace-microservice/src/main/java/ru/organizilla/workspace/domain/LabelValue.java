@@ -1,10 +1,9 @@
 package ru.organizilla.workspace.domain;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "label_value")
@@ -20,8 +19,8 @@ public class LabelValue {
     @ManyToOne
     @JoinColumn(name = "board")
     private Board board;
-    @OneToMany(mappedBy = "labelValue", cascade = CascadeType.REMOVE)
-    private Set<CardLabel> cardLabels = new HashSet<>();
+    @OneToMany(mappedBy = "labelValue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CardLabel> cardLabels;
     @Column(nullable = false, length = 100)
     private String value;
 }
