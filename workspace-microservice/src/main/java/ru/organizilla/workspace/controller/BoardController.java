@@ -46,7 +46,7 @@ public class BoardController {
         return ok().body("Board deleted");
     }
 
-    @PutMapping("/{id}/color")
+    @PatchMapping("/{id}/color")
     public ResponseEntity<String> setColor(@PathVariable("id") Long id,
                                            @RequestHeader(USERNAME_HEADER) String username,
                                            @RequestBody @Valid SetColorValueDto colorValueDto) {

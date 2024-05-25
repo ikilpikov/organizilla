@@ -8,6 +8,7 @@ import ru.organizilla.workspace.dao.ListDao;
 import ru.organizilla.workspace.domain.Card;
 import ru.organizilla.workspace.dto.card.CreateCardDto;
 import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
+import ru.organizilla.workspace.dto.card.SetDescriptionDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.CardService;
 import ru.organizilla.workspace.dao.UserDao;
@@ -69,6 +70,19 @@ public class CardServiceImpl implements CardService {
 
         card.setName(newName);
         boardDao.updateLastActivity(card.getList().getBoard());
+        cardDao.save(card);
+    }
+
+    @Override
+    public void setDescription(Long cardId, String username, SetDescriptionDto descriptionDto) {
+        var user = userDao.getUserByUsername(username);
+        var card = cardDao.getCardById(cardId);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, card.getList().getBoard())) {
+            throw new NotAllowedException("Renaming not allowed");
+        }
+
+        card.setDescription(descriptionDto.getDescription());
         cardDao.save(card);
     }
 }

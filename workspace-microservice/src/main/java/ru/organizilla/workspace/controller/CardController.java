@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.organizilla.workspace.dto.card.CreateCardDto;
 import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
 import ru.organizilla.workspace.dto.card.ReorderCardDto;
+import ru.organizilla.workspace.dto.card.SetDescriptionDto;
 import ru.organizilla.workspace.service.CardService;
 import ru.organizilla.workspace.util.CardOrderUtil;
 
@@ -42,5 +43,13 @@ public class CardController {
                                               @RequestBody ReorderCardDto cardDto) {
         cardOrderUtil.changeCardPosition(cardDto.getPreviousCardId(), cardDto.getNextCardId(), id, cardDto.getListId());
         return ok().body("Card reordered");
+    }
+
+    @PatchMapping("{id}/description")
+    public ResponseEntity<String> setDescription(@PathVariable("id") Long id,
+                                              @RequestHeader(USERNAME_HEADER) String username,
+                                              @RequestBody @Valid SetDescriptionDto cardDto) {
+        cardService.setDescription(id, username, cardDto);
+        return ok().body("Description set");
     }
 }
