@@ -8,13 +8,15 @@ const PomodoroPage = () => {
     return (
         <Layout>
             <div className={styles.pomodoro}>
-                <div>
+                <div className={styles.pomodoro__timer}>
                     <Timer />
                     <button className={styles.pomodoro__settings}>
                         <Link to={'/settings'}>Settings</Link>
                     </button>
                 </div>
-                <SelectCard />
+                <div className={styles.pomodoro__selectCard}>
+                    <SelectCard />
+                </div>
             </div>
         </Layout>
     );
