@@ -1,4 +1,4 @@
-import { IBoardPost, IListPost, ISetColor } from '../types/basicTypes';
+import { IBoardPost, IListPost, ISetCardColor, ISetColor } from '../types/basicTypes';
 import { ICard, IList, IListReorder, ICardReorder } from '../types/entityTypes';
 import { axiosInstanceWithToken } from './instances';
 
@@ -73,9 +73,28 @@ export const getAllColors = async (id: string) => {
 export const setColorValue = async ({ boardId, color, value }: ISetColor) => {
     const colorValue = color === '' ? null : color;
 
-    const response = await axiosInstanceWithToken.put(`workspace/board/${boardId}/color`, {
+    const response = await axiosInstanceWithToken.patch(`workspace/board/${boardId}/color`, {
         color: colorValue,
         value,
     });
+    return response;
+};
+
+export const setCardColor = async ({ cardId, color }: ISetCardColor) => {
+    const response = await axiosInstanceWithToken.patch(`workspace/card/${cardId}/color`, {
+        color,
+    });
+    return response;
+};
+
+export const removeCardColor = async ({ cardId, color }: ISetCardColor) => {
+    const response = await axiosInstanceWithToken.delete(`workspace/card/${cardId}/color`, {
+        data: { color },
+    });
+    return response;
+};
+
+export const getCard = async (id: number) => {
+    const response = await axiosInstanceWithToken.get(`/workspace/card/${id}`);
     return response;
 };

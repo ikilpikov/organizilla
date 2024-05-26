@@ -15,7 +15,7 @@ const TrelloImport = () => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const { importModalIsVisible, setImportModalIsVisible } = useImportModalVisibleStore();
     const { data, refetch, isError } = useTrelloBoards(tokenValue);
-
+    
     const options = boardsData?.map((element: IBoard) => ({
         value: element.id,
         label: element.name,

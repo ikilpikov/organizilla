@@ -5,6 +5,9 @@ import styles from './Card.module.scss';
 import CardActions from '../CardActions/CardActions';
 import { useShowActionStore } from '../../store';
 import { useParams } from 'react-router-dom';
+import useCard from '../../hooks/useCard';
+import useColors from '../../hooks/useColors'; // Make sure to import useColors
+import COLOR_SHADES from '../../constants/colorShades';
 
 interface ICardProps {
     card: ICard;
@@ -12,32 +15,20 @@ interface ICardProps {
 
 const Card: FC<ICardProps> = ({ card }) => {
     const [isHover, setIsHover] = useState(false);
-
     const showCardActions = useShowActionStore(state => state.showCardActions);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
     const cardRef = useRef<HTMLDivElement>(null);
     const cardNameRef = useRef<HTMLDivElement>(null);
     const { id } = useParams();
+    //const { data, refetch, isError } = useCard(card.id);
+    const { data: dataColors } = useColors(id!);
+    console.log(dataColors?.data['black']);
 
-    /*  useClickOutside(cardRef, () => setShowCardActions(-1), showCardActions == card.id && !isEdit);
-
-    useEffect(() => {
-        const handleSelectionChange = () => {
-            const selection = window.getSelection();
-            if (selection && selection.type === 'Caret') {
-                setIsEdit(false);
-            }
-        };
-        document.addEventListener('selectionchange', handleSelectionChange);
-        return () => {
-            document.removeEventListener('selectionchange', handleSelectionChange);
-        };
-    }, []); */
+    console.log(card);
 
     const editCard = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event?.preventDefault();
         setShowCardActions(card.id);
-        // setIsEdit(true);
         if (cardNameRef.current) {
             const selection = window.getSelection();
             if (selection) {
@@ -64,20 +55,45 @@ const Card: FC<ICardProps> = ({ card }) => {
         }
     };
 
+    const openCard = () => {
+        console.log('a');
+
+        //refetch();
+    };
+
     return (
         <div
             className={styles.cardContainer}
             onKeyDown={event => closeCardActions(event)}
             ref={cardRef}
+            onClick={() => openCard()}
         >
             <div
                 className={styles.card}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
                 onContextMenu={event => editCard(event)}
-                /*  onFocus={() => setIsEdit(true)}
-                onBlur={() => setIsEdit(false)} */
             >
+                <div className={styles.card__colors}>
+                    {card.colors.map((color, index) => (
+                        <div
+                            key={index}
+                            className={styles.card__colorBlock}
+                            style={{
+                                backgroundColor:
+                                    COLOR_SHADES[color as keyof typeof COLOR_SHADES]
+                                        .backgroundColor,
+                                color: COLOR_SHADES[color as keyof typeof COLOR_SHADES].textColor,
+                            }}
+                        >
+                            {dataColors && dataColors.data[color] && (
+                                <span className={styles.card__colorName}>
+                                    {dataColors.data[color]}
+                                </span>
+                            )}
+                        </div>
+                    ))}
+                </div>
                 <div
                     ref={cardNameRef}
                     className={styles.card__name}
@@ -95,7 +111,7 @@ const Card: FC<ICardProps> = ({ card }) => {
             </div>
             {showCardActions === card.id && (
                 <div className={styles.card__actions}>
-                    <CardActions cardId={card.id} boardId={id!} />
+                    <CardActions cardId={card.id} boardId={id!} colors={card.colors} />
                 </div>
             )}
         </div>

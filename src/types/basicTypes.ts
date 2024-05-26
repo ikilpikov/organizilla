@@ -21,3 +21,13 @@ export interface ISetColor {
     color: string;
     value: string;
 }
+export interface ISetCardColor {
+    cardId: number;
+    color: string;
+}
+type cardColorAction = 'set' | 'unset';
+
+export interface ICardColorData extends ISetCardColor {
+    action: cardColorAction;
+    boardId: string;
+}

@@ -5,14 +5,15 @@ import cross from '../../assets/icons/cross.svg';
 import { useShowActionStore } from '../../store';
 import CreateNewLabel from '../CreateNewLabel/CreateNewLabel';
 interface ICardActionsProps {
+    colors: string[];
     cardId: number;
     boardId: string;
 }
-const CardActions: FC<ICardActionsProps> = ({ cardId, boardId }) => {
+const CardActions: FC<ICardActionsProps> = ({ cardId, boardId, colors: initialColors }) => {
     const { mutate } = useDeleteCard();
     const [isVisibleLabels, setIsVisibleLabels] = useState(false);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
-
+    const [colors, setColors] = useState(initialColors);
     return (
         <div>
             <div className={styles.cardActions}>
@@ -26,7 +27,12 @@ const CardActions: FC<ICardActionsProps> = ({ cardId, boardId }) => {
             </div>
             {isVisibleLabels && (
                 <div className={styles.labelContainer}>
-                    <CreateNewLabel setIsVisibleLabels={setIsVisibleLabels} />
+                    <CreateNewLabel
+                        setIsVisibleLabels={setIsVisibleLabels}
+                        cardId={cardId}
+                        colors={colors}
+                        setColors={setColors}
+                    />
                 </div>
             )}
         </div>
