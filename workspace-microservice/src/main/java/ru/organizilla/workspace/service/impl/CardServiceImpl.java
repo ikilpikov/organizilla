@@ -6,6 +6,7 @@ import ru.organizilla.workspace.dao.*;
 import ru.organizilla.workspace.domain.Card;
 import ru.organizilla.workspace.domain.CardLabel;
 import ru.organizilla.workspace.domain.enums.Color;
+import ru.organizilla.workspace.dto.card.CardMoreInfoDto;
 import ru.organizilla.workspace.dto.card.CreateCardDto;
 import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
 import ru.organizilla.workspace.exception.NotAllowedException;
@@ -86,6 +87,18 @@ public class CardServiceImpl implements CardService {
 
         card.setDescription(description);
         cardDao.save(card);
+    }
+
+    @Override
+    public CardMoreInfoDto getCard(Long cardId, String username) {
+        var card = cardDao.getCardById(cardId);
+        var user = userDao.getUserByUsername(username);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, card.getList().getBoard())) {
+            throw new NotAllowedException("Getting card not allowed");
+        }
+
+        return CardMoreInfoDto.builder().description(card.getDescription()).build();
     }
 
     @Override

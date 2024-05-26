@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.organizilla.workspace.dto.board.SetColorValueDto;
-import ru.organizilla.workspace.dto.card.CreateCardDto;
-import ru.organizilla.workspace.dto.card.CreatedCardInfoDto;
-import ru.organizilla.workspace.dto.card.ReorderCardDto;
-import ru.organizilla.workspace.dto.card.SetDescriptionDto;
+import ru.organizilla.workspace.dto.card.*;
 import ru.organizilla.workspace.service.CardService;
 import ru.organizilla.workspace.util.CardOrderUtil;
 
@@ -51,6 +48,19 @@ public class CardController {
                                               @RequestBody @Valid SetDescriptionDto cardDto) {
         cardService.setDescription(id, username, cardDto.getDescription());
         return ok().body("Description set");
+    }
+
+    @PatchMapping("{id}/rename")
+    public ResponseEntity<String> renameCard(@PathVariable("id") Long id,
+                                                 @RequestHeader(USERNAME_HEADER) String username,
+                                                 @RequestBody @Valid RenameCardDto renameCardDto) {
+        cardService.renameCard(id, username, renameCardDto.getName());
+        return ok().body("Description set");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CardMoreInfoDto> getCard(@PathVariable("id") Long id, @RequestHeader(USERNAME_HEADER) String username) {
+        return ok().body(cardService.getCard(id, username));
     }
 
     @PatchMapping("/{id}/color")
