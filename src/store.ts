@@ -181,12 +181,141 @@ export const useShowActionStore = create<IShowActionStore>((set, get) => ({
         set(() => ({ showAddCard: id, showListActions: -1, showCardActions: -1 }));
     },
 }));
-interface ThemeState {
+interface IThemeState {
     theme: string;
     setTheme: (theme: string) => void;
 }
 
-export const useThemeStore = create<ThemeState>(set => ({
+export const useThemeStore = create<IThemeState>(set => ({
     theme: 'light',
     setTheme: theme => set({ theme }),
 }));
+
+interface IHeaderItemsVisibility {
+    isVisibleSearch: boolean;
+    isVisibleNotification: boolean;
+    isVisibleHotKey: boolean;
+    isVisibleSelectTheme: boolean;
+    isVisibleProfile: boolean;
+    isVisibleCreate: boolean;
+    isVisiblePomodoro: boolean;
+    isVisibleImport: boolean;
+    setIsVisibleCreate: () => void;
+    setIsVisiblePomodoro: () => void;
+    setIsVisibleImport: () => void;
+    setSearchVisible: () => void;
+    setNotificationVisible: () => void;
+    setHotKeyVisible: () => void;
+    setSelectThemeVisible: () => void;
+    setProfileVisible: () => void;
+}
+
+export const useVisibilityStore = create(
+    persist(
+        set => ({
+            isVisibleSearch: false,
+            isVisibleNotification: false,
+            isVisibleHotKey: true,
+            isVisibleSelectTheme: true,
+            isVisibleProfile: true,
+            isVisibleCreate: true,
+            isVisiblePomodoro: true,
+            isVisibleImport: true,
+
+            setIsVisibleCreate: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisibleCreate: !state.isVisibleCreate,
+                }));
+            },
+            setIsVisiblePomodoro: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisiblePomodoro: !state.isVisiblePomodoro,
+                }));
+            },
+            setIsVisibleImport: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisibleImport: !state.isVisibleImport,
+                }));
+            },
+            setSearchVisible: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisibleSearch: !state.isVisibleSearch,
+                }));
+            },
+            setNotificationVisible: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisibleNotification: !state.isVisibleNotification,
+                }));
+            },
+            setHotKeyVisible: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisibleHotKey: !state.isVisibleHotKey,
+                }));
+            },
+            setSelectThemeVisible: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisibleSelectTheme: !state.isVisibleSelectTheme,
+                }));
+            },
+            setProfileVisible: () => {
+                set((state: IHeaderItemsVisibility) => ({
+                    isVisibleProfile: !state.isVisibleProfile,
+                }));
+            },
+        }),
+        {
+            name: 'visibility-store',
+            partialize: (state: IHeaderItemsVisibility) => ({
+                isVisibleSearch: state.isVisibleSearch,
+                isVisibleNotification: state.isVisibleNotification,
+                isVisibleHotKey: state.isVisibleHotKey,
+                isVisibleSelectTheme: state.isVisibleSelectTheme,
+                isVisibleProfile: state.isVisibleProfile,
+            }),
+        },
+    ),
+);
+
+interface ISystemFormatStore {
+    fontSize: string;
+    setFontSize: (size: string) => void;
+}
+export const useFontSizeStore = create(
+    persist(
+        set => ({
+            fontSize: '16px',
+            setFontSize: (size: string) => set({ fontSize: size }),
+        }),
+        {
+            name: 'font-size-storage',
+            partialize: (state: ISystemFormatStore) => ({
+                fontSize: state.fontSize,
+            }),
+        },
+    ),
+);
+
+interface IPomodoroSettings {
+    workTime: number;
+    breakTime: number;
+    setWorkTime: (time: number) => void;
+    setBreakTime: (time: number) => void;
+}
+
+export const usePomodoroSettingsStore = create(
+    persist(
+        set => ({
+            workTime: 25,
+            breakTime: 5,
+            setWorkTime: (time: number) => set({ workTime: time }),
+            setBreakTime: (time: number) => set({ breakTime: time }),
+        }),
+        {
+            name: 'pomodoro-settings',
+            partialize: (state: IPomodoroSettings) => ({
+                workTime: state.workTime,
+                breakTime: state.breakTime,
+            }),
+        },
+    ),
+);

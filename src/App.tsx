@@ -10,6 +10,7 @@ import BoardPage from './pages/BoardPage/BoardPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import './App.css';
+import PomodoroPage from './pages/PomodoroPage/PomodoroPage';
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/create-board/blank" element={<CreateNewBoardPage />} />
                 <Route path="/board/:id" element={<BoardPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/pomodoro" element={<PomodoroPage />} />
             </Routes>
         </>
     );

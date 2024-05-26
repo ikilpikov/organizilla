@@ -1,11 +1,21 @@
 .header {
     background-color: var(--background-color);
+    //padding-right: 20px;
     color: var(--color);
     display: flex;
     border-bottom: 1px solid black;
     height: 10vh;
     width: 100%;
-    justify-content: space-between;
+    &__burger {
+        flex: 0 0 auto;
+    }
+
+    &__items {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: space-evenly;
+    }
     p {
         cursor: pointer;
     }
@@ -14,6 +24,19 @@
         top: 0;
         left: 0;
         z-index: 10;
+    }
+    button {
+        padding: 5px;
+        border: none;
+        //margin-top: 20px;
+        height: 50%;
+        color: var(--button-text-color);
+        font-size: var(--font-size);
+        border-radius: 12px;
+        background-color: var(--button-background-color);
+        &:hover {
+            background-color: var(--button-hover-background-color);
+        }
     }
 }
 .question__icon {

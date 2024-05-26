@@ -1,12 +1,16 @@
+import ChangeHeaderItems from '../ChangeHeaderItems/ChangeHeaderItems';
+import ChangeSystemFormat from '../ChangeSystemFormat/ChangeSystemFormat';
+import PomodoroSettings from '../PomodoroSettings/PomodoroSettings';
 import SelectLangugage from '../SelectLanguage/SelectLangugage';
 import SelectTheme from '../SelectTheme/SelectTheme';
+import UserProfileSettings from '../UserProfileSettings/UserProfileSettings';
 import styles from './SettingsContainer.module.scss';
 const SettingsContainer = () => {
     return (
         <div className={styles.settings}>
             <h1>Settings</h1>
             <div className={styles.settings__appearance}>
-                <h3>Appearance</h3>
+                <h3>System appearance</h3>
                 <div className={styles.settings__appearance_language}>
                     <h4>Language</h4>
                     <SelectLangugage />
@@ -15,39 +19,22 @@ const SettingsContainer = () => {
                     <h4>Theme</h4>
                     <SelectTheme />
                 </div>
+                <div className={styles.settings__appearance_systemFormat}>
+                    <h4>System font-size</h4>
+                    <ChangeSystemFormat />
+                </div>
             </div>
             <div className={styles.settings__userInfo}>
-                <h3>Профиль пользователя</h3>
-                <p>Имя</p>
-                <p>Электронная почта</p>
-                <p>Пароль</p>
+                <h3>User profile</h3>
+                <UserProfileSettings />
             </div>
             <div className={styles.settings__header}>
-                <h3>Настройка заголовка сайта</h3>
-                <input type="checkbox" />
-                <p>Search</p>
-                <input type="checkbox" />
-                <p>SelectTheme</p>
-                <input type="checkbox" />
-                <p>Notifications</p>
-                <input type="checkbox" />
-                <p>HotKeys</p>
-                <input type="checkbox" />
-                <p>Profile</p>
-            </div>
-            <div className={styles.settings__system}>
-                <p>Card font-size</p>
-                <p>System font-size</p>
-                <p>Time format</p>
-                <h3>Notifications</h3>
-            </div>
-            <div className={styles.settings__info}>
-                <p>Ask a question</p>
-                <p>Organizilla FAQ</p>
-                <p>Privacy Policy</p>
+                <h3>Header appearance</h3>
+                <ChangeHeaderItems />
             </div>
             <div>
                 <h3>Pomodoro settings</h3>
+                <PomodoroSettings />
             </div>
         </div>
     );

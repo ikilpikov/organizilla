@@ -25,11 +25,11 @@ const CreateCardForm: FC<ICreateCardFormProps> = ({ listId, boardId }) => {
     return (
         <div className={styles.createListForm} ref={cardAddRef}>
             <input
-                placeholder="Введите имя списка"
+                placeholder="Введите название карточки"
                 value={cardName}
                 onChange={event => setCardName(event.target.value)}
             />
-            <div className={styles.createListForm__addClose}>
+            <div className={styles.createListForm__addCard}>
                 <button onClick={() => addList()} disabled={!cardName}>
                     Добавить карточку
                 </button>

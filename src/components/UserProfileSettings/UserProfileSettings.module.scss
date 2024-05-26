@@ -1,0 +1,25 @@
+.userProfileSettings {
+    margin-top: 15px;
+    &__item {
+        display: flex;
+        text-align: left;
+        margin-left: 30%;
+        margin-bottom: 20px;
+        &_name,
+        &_email,
+        &_password {
+            width: 70%;
+        }
+        button {
+            padding: 5px;
+            width: 100px;
+            height: 50px;
+            background-color: var(--button-background-color);
+            border: none;
+            border-radius: 10px;
+            &:hover {
+                background-color: var(--button-hover-background-color);
+            }
+        }
+    }
+}

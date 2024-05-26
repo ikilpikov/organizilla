@@ -1,9 +1,9 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import useDeleteCard from '../../hooks/useDeleteCard';
 import styles from './CardActions.module.scss';
-import LabelsContainer from '../LabelsContainer/LabelsContainer';
-import useClickOutside from '../../hooks/useClickOutside';
+import cross from '../../assets/icons/cross.svg';
 import { useShowActionStore } from '../../store';
+import CreateNewLabel from '../CreateNewLabel/CreateNewLabel';
 interface ICardActionsProps {
     cardId: number;
     boardId: string;
@@ -11,19 +11,24 @@ interface ICardActionsProps {
 const CardActions: FC<ICardActionsProps> = ({ cardId, boardId }) => {
     const { mutate } = useDeleteCard();
     const [isVisibleLabels, setIsVisibleLabels] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const cardActionsRef = useRef<HTMLDivElement>(null);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
-    useClickOutside(cardActionsRef, () => setShowCardActions(-1), isOpen);
-    useEffect(() => setIsOpen(true), []);
+
     return (
         <div>
-            <div className={styles.cardActions} ref={cardActionsRef}>
-                <h3>Открыть карточку</h3>
-                <h3 onClick={() => mutate({ id: cardId, boardId })}>Удалить карточку</h3>
-                <h3 onClick={() => setIsVisibleLabels(!isVisibleLabels)}>Изменить метки</h3>
+            <div className={styles.cardActions}>
+                <div className={styles.cardActions__title}>
+                    <h3>Действия с карточкой</h3>
+                    <img src={cross} width={20} onClick={() => setShowCardActions(-1)} />
+                </div>
+                <h4>Открыть карточку</h4>
+                <h4 onClick={() => mutate({ id: cardId, boardId })}>Удалить карточку</h4>
+                <h4 onClick={() => setIsVisibleLabels(!isVisibleLabels)}>Изменить метки</h4>
             </div>
-            {isVisibleLabels && <LabelsContainer />}
+            {isVisibleLabels && (
+                <div className={styles.labelContainer}>
+                    <CreateNewLabel setIsVisibleLabels={setIsVisibleLabels} />
+                </div>
+            )}
         </div>
     );
 };

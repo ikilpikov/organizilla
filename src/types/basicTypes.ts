@@ -15,3 +15,9 @@ export interface IListDelete {
     id: number;
     boardId: string;
 }
+
+export interface ISetColor {
+    boardId: string;
+    color: string;
+    value: string;
+}

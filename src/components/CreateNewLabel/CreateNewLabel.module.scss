@@ -1,0 +1,35 @@
+.createNewLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    &__title {
+        display: flex;
+        gap: 90%;
+        margin-bottom: 15px;
+        img {
+            cursor: pointer;
+            filter: var(--icon-color);
+            &:hover {
+                background-color: var(--icon-hover);
+            }
+        }
+    }
+    &__label {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        &_color {
+            width: 100%;
+            height: 30px;
+            border-radius: 20px;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}

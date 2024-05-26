@@ -1,0 +1,23 @@
+.pomodoroButton {
+    margin: 20px auto;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: var(--background--color-invariant);
+    cursor: pointer;
+
+    img {
+        cursor: pointer;
+        filter: var(--icon-color);
+        width: 70%;
+        height: auto;
+    }
+
+    &:hover {
+        background-color: var(--background--color-hover);
+    }
+}

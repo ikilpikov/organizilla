@@ -1,0 +1,9 @@
+.pomodoroCards {
+    display: flex;
+    justify-content: space-around;
+    border: 2px solid red;
+    &__active {
+        width: 100%;
+        border: 2px solid black;
+    }
+}

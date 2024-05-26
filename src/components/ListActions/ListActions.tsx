@@ -9,9 +9,8 @@ interface IListActions {
     boardId: string;
 }
 const ListActions: FC<IListActions> = ({ id, boardId }) => {
-    console.log('эййй меня мага зовут');
-
     const setShowListActions = useShowActionStore(state => state.setShowListActions);
+    const setShowAddCard = useShowActionStore(state => state.setShowAddCard);
     const { mutate } = useDeleteList();
     const listActionRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +29,7 @@ const ListActions: FC<IListActions> = ({ id, boardId }) => {
                 </div>
                 <div className={styles.listActions__actions}>
                     <button onClick={() => deleteList()}>Удалить список</button>
-                    <button>Добавить карточку</button>
+                    <button onClick={() => setShowAddCard(id)}>Добавить карточку</button>
                     <button>Подписаться</button>
                 </div>
             </div>

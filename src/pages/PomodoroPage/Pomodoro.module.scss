@@ -1,0 +1,23 @@
+.pomodoro {
+    --red: #f54e4e;
+    --green: #4aec8c;
+    display: flex;
+    gap: 100px;
+    padding-top: 50px;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    &__settings {
+        padding: 10px;
+        width: 140px;
+        height: 50px;
+        background-color: var(--button-background-color);
+        border: none;
+        border-radius: 5px;
+        font-size: calc(var(--font-size) * 1.5);
+        font-weight: 700;
+        &:hover {
+            background-color: var(--button-hover-background-color);
+        }
+    }
+}

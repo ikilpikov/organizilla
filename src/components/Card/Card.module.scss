@@ -21,7 +21,7 @@
         &__name {
             flex: 1;
             margin-right: 10px;
-
+            font-size: var(--font-size);
             &:focus {
                 outline: none;
             }

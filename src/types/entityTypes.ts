@@ -27,6 +27,7 @@ export interface ICard {
     name: string;
     subscribed: boolean;
     labels: ILabel[];
+    description: string;
 }
 export interface ILabel {
     color: string;
