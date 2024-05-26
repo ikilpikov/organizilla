@@ -8,9 +8,14 @@ import ru.organizilla.workspace.repository.CardLabelRepository;
 @Component
 @RequiredArgsConstructor
 public class CardLabelDao {
+
     private final CardLabelRepository cardLabelRepository;
 
     public CardLabel save(CardLabel cardLabel) {
         return cardLabelRepository.save(cardLabel);
+    }
+
+    public void delete(CardLabel cardLabel) {
+        cardLabelRepository.delete(cardLabel);
     }
 }

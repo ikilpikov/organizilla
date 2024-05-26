@@ -9,5 +9,7 @@ public interface CardService {
     void deleteCard(Long cardId, String username);
     void setDescription(Long cardId, String username, String description);
     void renameCard(Long cardId, String username, String newName);
+
     void setColor(Long cardId, String username, Color color);
+    void removeColor(Long cardId, String username, Color color);
 }

@@ -60,4 +60,12 @@ public class CardController {
         cardService.setColor(id, username, colorValueDto.getColor());
         return ok().body("Color value set successfully");
     }
+
+    @DeleteMapping("/{id}/color")
+    public ResponseEntity<String> deleteColor(@PathVariable("id") Long id,
+                                           @RequestHeader(USERNAME_HEADER) String username,
+                                           @RequestBody @Valid SetColorValueDto colorValueDto) {
+        cardService.removeColor(id, username, colorValueDto.getColor());
+        return ok().body("Color value removed successfully");
+    }
 }

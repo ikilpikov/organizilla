@@ -93,9 +93,8 @@ public class CardServiceImpl implements CardService {
         var user = userDao.getUserByUsername(username);
         var card = cardDao.getCardById(cardId);
 
-
         if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, card.getList().getBoard())) {
-            throw new NotAllowedException("Renaming not allowed");
+            throw new NotAllowedException("Setting color not allowed");
         }
 
         var labelValue = labelValueDao.getLabelValueByBoardAndColor(card.getList().getBoard(), color);
@@ -108,5 +107,22 @@ public class CardServiceImpl implements CardService {
         cardLabel.setCard(card);
         cardLabel.setLabelValue(labelValue);
         cardLabelDao.save(cardLabel);
+    }
+
+    @Override
+    public void removeColor(Long cardId, String username, Color color) {
+        var user = userDao.getUserByUsername(username);
+        var card = cardDao.getCardById(cardId);
+
+        if (!accessCheckUtil.canCreateUpdateDeleteCardAndList(user, card.getList().getBoard())) {
+            throw new NotAllowedException("Removing color not allowed");
+        }
+
+        var cardLabel = cardDao.getCardById(cardId).getLabels().stream().filter(label -> label.getLabelValue()
+                .getLabelColor()
+                .getColor()
+                .equals(color)).findFirst();
+
+        cardLabel.ifPresent(cardLabelDao::delete);
     }
 }
