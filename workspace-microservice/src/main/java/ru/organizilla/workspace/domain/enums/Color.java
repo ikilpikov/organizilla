@@ -1,5 +1,12 @@
 package ru.organizilla.workspace.domain.enums;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import ru.organizilla.workspace.serialization.LabelColorDeserializer;
+import ru.organizilla.workspace.serialization.LabelColorSerializer;
+
+@JsonSerialize(using = LabelColorSerializer.class)
+@JsonDeserialize(using = LabelColorDeserializer.class)
 public enum Color {
 
     GREEN("green"),

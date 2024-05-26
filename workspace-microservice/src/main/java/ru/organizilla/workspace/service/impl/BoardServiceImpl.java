@@ -4,19 +4,15 @@ import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.organizilla.workspace.dao.*;
-import ru.organizilla.workspace.domain.Card;
 import ru.organizilla.workspace.domain.LabelValue;
-import ru.organizilla.workspace.domain.ListEntity;
 import ru.organizilla.workspace.domain.enums.Color;
 import ru.organizilla.workspace.dto.board.*;
-import ru.organizilla.workspace.dto.card.GetCardDto;
-import ru.organizilla.workspace.dto.list.GetListDto;
+import ru.organizilla.workspace.mapper.BoardMapper;
 import ru.organizilla.workspace.util.AccessCheckUtil;
 import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.BoardService;
 
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -29,6 +25,8 @@ public class BoardServiceImpl implements BoardService {
     private final LabelColorDao labelColorDao;
 
     private final AccessCheckUtil accessCheckUtil;
+
+    private final BoardMapper boardMapper;
 
     @Override
     public CreatedBoardInfoDto createBoard(CreateBoardDto boardDto, String username) {
@@ -64,7 +62,7 @@ public class BoardServiceImpl implements BoardService {
             throw new NotAllowedException("Cannot read board");
         }
 
-        return buildGetBoardDto(board);
+        return boardMapper.boardToGetBoardDto(board);
     }
 
     @Override
@@ -117,35 +115,6 @@ public class BoardServiceImpl implements BoardService {
                     }
                 });
         return getColorValuesDto;
-    }
-
-    private GetBoardDto buildGetBoardDto(Board board) {
-        var listDtos = board.getLists()
-                .stream()
-                .sorted(Comparator.comparingInt(ListEntity::getPosition))
-                .map(list -> GetListDto.builder()
-                        .id(list.getId())
-                        .name(list.getName())
-                        .closed(list.isClosed())
-                        .color(list.getColor())
-                        .subscribed(list.getSubscribed())
-                        .cards(list.getCards().stream().sorted(Comparator.comparingInt(Card::getPosition))
-                                .map(card -> GetCardDto.builder()
-                                        .id(card.getId())
-                                        .name(card.getName())
-                                        .closed(card.isClosed())
-                                        .lastActivity(card.getLastActivity())
-                                        .deadline(card.getDeadline())
-                                        .isTemplate(card.isTemplate()).build())
-                                .toList()).build()).toList();
-        return GetBoardDto.builder()
-                .name(board.getName())
-                .lastActivity(board.getLastActivity())
-                .isClosed(board.isClosed())
-                .backgroundImage(board.getBackgroundImage())
-                .isPublic(board.isPublic())
-                .lists(listDtos)
-                .build();
     }
 
     private void addColorValue(Board board, Color color, String value) {
