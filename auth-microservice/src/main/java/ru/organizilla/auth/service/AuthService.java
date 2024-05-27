@@ -6,6 +6,7 @@ public interface AuthService {
 
     TokenPairDto authenticateUsername(AuthUsernameDto authUsernameDto);
     TokenPairDto authenticateEmail(AuthEmailDto authEmailDto);
+    void logout(String username);
 
     void registerUser(RegisterUserDto registerUserDTO);
     void sendRegisterEmail(SendEmailDto sendEmailDto);

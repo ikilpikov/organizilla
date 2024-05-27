@@ -74,6 +74,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public void logout(String username) {
+        var user = userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found by username " + username));
+
+        user.setRefreshToken(null);
+        userRepository.save(user);
+    }
+
+    @Override
     public void registerUser(RegisterUserDto registerUserDTO) {
         if (userRepository.existsByEmail(registerUserDTO.getEmail())) {
             throw new KeyAlreadyExistsException("Email " + registerUserDTO.getEmail() + " already taken");
