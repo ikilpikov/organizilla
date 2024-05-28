@@ -112,11 +112,11 @@ public class CardServiceImpl implements CardService {
 
         var labelValue = labelValueDao.getLabelValueByBoardAndColor(card.getList().getBoard(), color);
 
-        if (labelValue.getCardLabels().stream().anyMatch(x -> x.getLabelValue().equals(labelValue))) {
-            return;
-        }
+        var cardLabel = card.getLabels().stream()
+                .filter(x -> x.getLabelValue().getLabelColor().equals(labelValue.getLabelColor()))
+                .findFirst()
+                .orElse(new CardLabel());
 
-        var cardLabel = new CardLabel();
         cardLabel.setCard(card);
         cardLabel.setLabelValue(labelValue);
         cardLabelDao.save(cardLabel);
