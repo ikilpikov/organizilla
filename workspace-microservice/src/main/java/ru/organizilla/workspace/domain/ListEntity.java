@@ -26,6 +26,6 @@ public class ListEntity {
     private Boolean subscribed;
     @Column
     private Integer position;
-    @OneToMany(mappedBy = "list", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "list", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Card> cards;
 }

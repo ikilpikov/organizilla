@@ -36,6 +36,6 @@ public class Card {
     @ManyToOne
     @JoinColumn(name = "assigned_to")
     private User assignedTo;
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardLabel> labels;
 }
