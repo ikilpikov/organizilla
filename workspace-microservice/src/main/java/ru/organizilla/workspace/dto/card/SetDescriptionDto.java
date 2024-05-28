@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class SetDescriptionDto {
 
-    @Size(min = 1, max = 512)
+    @Size(min = 1)
     private String description;
 }

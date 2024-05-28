@@ -31,7 +31,7 @@ public class Card {
     private Integer position;
     @Column(nullable = false)
     private boolean isTemplate = false;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToOne
     @JoinColumn(name = "assigned_to")
