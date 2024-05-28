@@ -13,6 +13,7 @@ const CardActions: FC<ICardActionsProps> = ({ cardId, boardId, colors: initialCo
     const { mutate } = useDeleteCard();
     const [isVisibleLabels, setIsVisibleLabels] = useState(false);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
+    const setShowCardBody = useShowActionStore(state => state.setShowCardBody);
     const [colors, setColors] = useState(initialColors);
     return (
         <div>
@@ -21,7 +22,7 @@ const CardActions: FC<ICardActionsProps> = ({ cardId, boardId, colors: initialCo
                     <h3>Действия с карточкой</h3>
                     <img src={cross} width={20} onClick={() => setShowCardActions(-1)} />
                 </div>
-                <h4>Открыть карточку</h4>
+                <h4 onClick={() => setShowCardBody(cardId)}>Открыть карточку</h4>
                 <h4 onClick={() => mutate({ id: cardId, boardId })}>Удалить карточку</h4>
                 <h4 onClick={() => setIsVisibleLabels(!isVisibleLabels)}>Изменить метки</h4>
             </div>

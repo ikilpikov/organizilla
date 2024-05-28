@@ -31,3 +31,12 @@ export interface ICardColorData extends ISetCardColor {
     action: cardColorAction;
     boardId: string;
 }
+export interface ISetCardName {
+    cardId: number;
+    boardId: string;
+    name: string;
+}
+export interface ISetDescription {
+    cardId: number;
+    description: string;
+}

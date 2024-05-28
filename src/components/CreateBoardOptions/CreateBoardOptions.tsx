@@ -15,11 +15,11 @@ const CreateBoardOptions = () => {
                     link="/create-board/blank"
                     imageLink={plus}
                 />
-                <BlockOption
+                {/* <BlockOption
                     text={t('createBoard.createTemplate')}
                     link="/create-board/template"
                     imageLink={template}
-                />
+                /> */}
                 <BlockOption
                     text={t('createBoard.importBoard')}
                     link="/import"

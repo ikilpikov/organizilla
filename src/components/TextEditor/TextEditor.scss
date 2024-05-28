@@ -1,0 +1,68 @@
+/* TextEditor.scss */
+$text-editor-dark-bg: #333;
+$text-editor-dark-border: #444;
+$text-editor-dark-color: #ccc;
+$text-editor-dark-hover-color: #fff;
+$text-editor-dark-editor-bg: #2c2c2c;
+$text-editor-dark-placeholder-color: #e80e0e;
+
+.text-editor {
+    min-height: 300px;
+    max-height: 450px;
+    overflow: auto;
+}
+.text-editor.dark {
+    .ql-toolbar {
+        background-color: var(--background-color);
+        border: 1px solid black;
+
+        button,
+        .ql-picker-label,
+        .ql-picker-item {
+            color: var(--color);
+
+            &:hover {
+                color: $text-editor-dark-hover-color;
+            }
+        }
+        .ql-picker-options {
+            background-color: var(--background-color);
+        }
+        .ql-stroke {
+            stroke: var(--color);
+        }
+
+        .ql-fill {
+            fill: var(--color);
+        }
+
+        .ql-stroke-miter {
+            stroke: var(--color);
+        }
+
+        .ql-picker {
+            color: var(--color);
+        }
+    }
+
+    .ql-container,
+    .ql-editor {
+        color: var(--color);
+        background-color: var(--background-color);
+    }
+    .ql-editor {
+        min-height: 200px;
+        border-color: #2c2c2c;
+    }
+    .ql-editor.ql-blank::before {
+        color: var(--color);
+    }
+    .ql-tooltip.ql-editing {
+        background-color: var(--background-color);
+        margin-left: 80px;
+        padding-left: 10px;
+        &::before {
+            content: none;
+        }
+    }
+}

@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import useCard from '../../hooks/useCard';
 import useColors from '../../hooks/useColors'; // Make sure to import useColors
 import COLOR_SHADES from '../../constants/colorShades';
+import CardBody from '../CardBody/CardBody';
 
 interface ICardProps {
     card: ICard;
@@ -16,15 +17,14 @@ interface ICardProps {
 const Card: FC<ICardProps> = ({ card }) => {
     const [isHover, setIsHover] = useState(false);
     const showCardActions = useShowActionStore(state => state.showCardActions);
+    const showCardBody = useShowActionStore(state => state.showCardBody);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
+    const setShowCardBody = useShowActionStore(state => state.setShowCardBody);
     const cardRef = useRef<HTMLDivElement>(null);
     const cardNameRef = useRef<HTMLDivElement>(null);
     const { id } = useParams();
-    //const { data, refetch, isError } = useCard(card.id);
+    const { data, refetch } = useCard(card.id);
     const { data: dataColors } = useColors(id!);
-    console.log(dataColors?.data['black']);
-
-    console.log(card);
 
     const editCard = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event?.preventDefault();
@@ -50,15 +50,28 @@ const Card: FC<ICardProps> = ({ card }) => {
     };
 
     const closeCardActions = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter') {
+        const target = event.target as HTMLElement;
+        if (event.key === 'Enter' && !target.classList.contains('ql-editor')) {
             setShowCardActions(-1);
         }
     };
 
-    const openCard = () => {
-        console.log('a');
+    const openCard = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        console.log(event.target);
 
-        //refetch();
+        if (event.target instanceof HTMLImageElement) {
+            const imgSrc = event.target.src;
+            if (imgSrc.includes('cross.svg')) {
+                setShowCardActions(-1);
+            } else {
+                setShowCardActions(card.id);
+            }
+        } else if (event.target instanceof HTMLButtonElement && showCardBody !== -1) {
+            setShowCardActions(card.id);
+        } else {
+            refetch();
+            setShowCardBody(card.id);
+        }
     };
 
     return (
@@ -66,7 +79,7 @@ const Card: FC<ICardProps> = ({ card }) => {
             className={styles.cardContainer}
             onKeyDown={event => closeCardActions(event)}
             ref={cardRef}
-            onClick={() => openCard()}
+            onClick={event => openCard(event)}
         >
             <div
                 className={styles.card}
@@ -112,6 +125,11 @@ const Card: FC<ICardProps> = ({ card }) => {
             {showCardActions === card.id && (
                 <div className={styles.card__actions}>
                     <CardActions cardId={card.id} boardId={id!} colors={card.colors} />
+                </div>
+            )}
+            {showCardBody === card.id && data?.data && (
+                <div>
+                    <CardBody card={card} description={data?.data} />
                 </div>
             )}
         </div>

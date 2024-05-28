@@ -1,4 +1,10 @@
-import { IBoardPost, IListPost, ISetCardColor, ISetColor } from '../types/basicTypes';
+import {
+    IBoardPost,
+    IListPost,
+    ISetCardColor,
+    ISetColor,
+    ISetDescription,
+} from '../types/basicTypes';
 import { ICard, IList, IListReorder, ICardReorder } from '../types/entityTypes';
 import { axiosInstanceWithToken } from './instances';
 
@@ -38,6 +44,13 @@ export const reorderList = async ({ id, previousListId, nextListId }: IListReord
 };
 export const renameList = async ({ id, name }: Pick<IList, 'id' | 'name'>) => {
     const response = await axiosInstanceWithToken.patch(`/workspace/list/rename/${id}`, {
+        name,
+    });
+    return response;
+};
+
+export const renameCard = async ({ id, name }: Pick<ICard, 'id' | 'name'>) => {
+    const response = await axiosInstanceWithToken.patch(`/workspace/card/${id}/rename`, {
         name,
     });
     return response;
@@ -96,5 +109,17 @@ export const removeCardColor = async ({ cardId, color }: ISetCardColor) => {
 
 export const getCard = async (id: number) => {
     const response = await axiosInstanceWithToken.get(`/workspace/card/${id}`);
+    return response;
+};
+
+export const getUserData = async () => {
+    const response = await axiosInstanceWithToken.get('/account/user');
+    return response;
+};
+
+export const setDescription = async ({ cardId, description }: ISetDescription) => {
+    const response = await axiosInstanceWithToken.patch(`/workspace/card/${cardId}/description`, {
+        description,
+    });
     return response;
 };

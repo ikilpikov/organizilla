@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './UserProfileSettings.module.scss';
+import useUserData from '../../hooks/useUserData';
 const UserProfileSettings = () => {
+    const { data } = useUserData();
     return (
         <div className={styles.userProfileSettings}>
             <div className={styles.userProfileSettings__item}>
@@ -13,7 +15,7 @@ const UserProfileSettings = () => {
             <div className={styles.userProfileSettings__item}>
                 <div className={styles.userProfileSettings__item_email}>
                     <h4>Электронная почта</h4>
-                    <p>tmp@mail.ru</p>
+                    {data && <p>{data.data}</p>}
                 </div>
 
                 <button>Edit email</button>

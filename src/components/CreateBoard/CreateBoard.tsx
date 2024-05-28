@@ -29,7 +29,9 @@ const CreateBoard = () => {
             backgroundImage: selectedBackground.full,
             isPublic: selectedOption.value,
         };
-        mutate(boardData);
+        console.log(boardData);
+
+        //mutate(boardData);
     };
     useEffect(() => {
         setBackgroundImagePageNumber(true);
