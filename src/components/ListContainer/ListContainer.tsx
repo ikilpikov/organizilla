@@ -3,10 +3,12 @@ import { ICard } from '../../types/entityTypes';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
 import styles from './ListContainer.module.scss';
+
 interface IListContainerProps {
     cards: ICard[];
     listId: string;
 }
+
 const ListContainer: FC<IListContainerProps> = ({ cards, listId }) => {
     return (
         <Droppable droppableId={listId} type="card">

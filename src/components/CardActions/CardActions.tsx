@@ -16,15 +16,15 @@ const CardActions: FC<ICardActionsProps> = ({ cardId, boardId, colors: initialCo
     const setShowCardBody = useShowActionStore(state => state.setShowCardBody);
     const [colors, setColors] = useState(initialColors);
     return (
-        <div>
+        <div className="cardActions">
             <div className={styles.cardActions}>
                 <div className={styles.cardActions__title}>
                     <h3>Действия с карточкой</h3>
                     <img src={cross} width={20} onClick={() => setShowCardActions(-1)} />
                 </div>
                 <h4 onClick={() => setShowCardBody(cardId)}>Открыть карточку</h4>
-                <h4 onClick={() => mutate({ id: cardId, boardId })}>Удалить карточку</h4>
                 <h4 onClick={() => setIsVisibleLabels(!isVisibleLabels)}>Изменить метки</h4>
+                <h4 onClick={() => mutate({ id: cardId, boardId })}>Удалить карточку</h4>
             </div>
             {isVisibleLabels && (
                 <div className={styles.labelContainer}>

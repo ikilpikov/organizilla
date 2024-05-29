@@ -3,7 +3,7 @@ import BlockOption from '../UI/BlockOption/BlockOption';
 import styles from './CreateBoardOptions.module.scss';
 import plus from '../../assets/icons/plus.svg';
 import importImg from '../../assets/import.png';
-import template from '../../assets/template.png';
+
 const CreateBoardOptions = () => {
     const { t } = useTranslation();
     return (

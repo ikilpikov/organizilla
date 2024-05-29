@@ -3,9 +3,9 @@ import styles from './ChangeHeaderItems.module.scss';
 const ChangeHeaderItems = () => {
     const {
         //isVisibleSearch,
-        isVisibleHotKey,
+        //isVisibleHotKey,
         //  isVisibleNotification,
-        isVisibleProfile,
+        // isVisibleProfile,
         isVisibleSelectTheme,
         isVisibleCreate,
         isVisibleImport,
@@ -16,8 +16,8 @@ const ChangeHeaderItems = () => {
         setIsVisiblePomodoro,
         setSelectThemeVisible,
         // setNotificationVisible,
-        setHotKeyVisible,
-        setProfileVisible,
+        //setHotKeyVisible,
+        // setProfileVisible,
     } = useVisibilityStore();
 
     return (
@@ -59,14 +59,14 @@ const ChangeHeaderItems = () => {
                 />
                 <p>Notifications</p>
             </div> */}
-            <div>
+            {/*    <div>
                 <input type="checkbox" checked={isVisibleHotKey} onChange={setHotKeyVisible} />
                 <p>HotKeys</p>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
                 <input type="checkbox" checked={isVisibleProfile} onChange={setProfileVisible} />
                 <p>Profile</p>
-            </div>
+            </div> */}
         </div>
     );
 };

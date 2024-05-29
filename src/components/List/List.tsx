@@ -11,9 +11,10 @@ import CreateCardButton from '../CreateCard/CreateCardButton.tsx/CreateCardButto
 interface IListProps {
     list: IList;
     boardId: string;
+    setListData: (list: IList[]) => void;
 }
 
-const List: FC<IListProps> = ({ list, boardId }) => {
+const List: FC<IListProps> = ({ list, boardId, setListData }) => {
     const showListActions = useShowActionStore(state => state.showListActions);
     const setShowListActions = useShowActionStore(state => state.setShowListActions);
     const [listName, setListName] = useState(list.name);
@@ -65,7 +66,15 @@ const List: FC<IListProps> = ({ list, boardId }) => {
                 <ListContainer cards={list.cards} listId={list.id.toString()} />
                 <CreateCardButton listId={list.id} boardId={boardId} />
             </div>
-            {showListActions === list.id && <ListActions id={list.id} boardId={boardId} />}
+            {showListActions === list.id && (
+                <ListActions
+                    list={list}
+                    id={list.id}
+                    boardId={boardId}
+                    cards={list.cards}
+                    setListData={setListData}
+                />
+            )}
         </div>
     );
 };

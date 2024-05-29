@@ -9,9 +9,7 @@
     height: fit-content;
     padding: 15px;
     cursor: default;
-    img {
-        filter: var(--icon-color);
-    }
+
     &__title {
         display: flex;
         justify-content: space-between;
@@ -29,6 +27,7 @@
         }
         &_img {
             cursor: pointer;
+            filter: var(--icon-color);
             &:hover {
                 background-color: var(--icon-hover);
             }

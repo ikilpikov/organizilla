@@ -5,6 +5,7 @@ export interface IBoard {
     labelNames: ILabelName[];
     name: string;
     checkLists: ICheckList[];
+    background: string;
 }
 export interface ILabelName {
     [key: string]: string;
@@ -21,7 +22,7 @@ export interface ICard {
     id: number;
     listId: number;
     closed: boolean;
-    dateLastActivity: Date;
+    lastActivity: Date;
     idCheckLists: number[];
     isTemplate: boolean;
     name: string;

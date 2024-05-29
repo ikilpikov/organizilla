@@ -12,6 +12,8 @@ export const filterTrelloData = (
         labelNames: [],
         checkLists: [],
         name: '',
+        background:
+            'https://images.unsplash.com/photo-1508615039623-a25605d2b022?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1OTgwNjF8MHwxfHNlYXJjaHw3Mnx8cGhvdG8lMjBiYWNrZ3JvdW5kfGVufDB8MHx8fDE3MTY5MTg1NTJ8MA&ixlib=rb-4.0.3&q=85',
     };
 
     const checkLists: ICheckList[] = checkList.map((checkList: ICheckList) => ({

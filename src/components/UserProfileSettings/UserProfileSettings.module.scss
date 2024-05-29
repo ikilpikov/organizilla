@@ -1,4 +1,6 @@
 .userProfileSettings {
+    display: flex;
+    justify-content: center;
     margin-top: 15px;
     &__item {
         display: flex;
@@ -15,6 +17,8 @@
             width: 100px;
             height: 50px;
             background-color: var(--button-background-color);
+            color: var(--color);
+            font-size: var(--font-size);
             border: none;
             border-radius: 10px;
             &:hover {

@@ -136,7 +136,12 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
                                                 {...provided.draggableProps}
                                                 ref={provided.innerRef}
                                             >
-                                                <List key={list.id} list={list} boardId={id} />
+                                                <List
+                                                    key={list.id}
+                                                    list={list}
+                                                    boardId={id}
+                                                    setListData={setListData}
+                                                />
                                             </div>
                                         )}
                                     </Draggable>

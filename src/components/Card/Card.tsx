@@ -29,7 +29,7 @@ const Card: FC<ICardProps> = ({ card }) => {
     const editCard = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event?.preventDefault();
         setShowCardActions(card.id);
-        if (cardNameRef.current) {
+        /* if (cardNameRef.current) {
             const selection = window.getSelection();
             if (selection) {
                 selection.removeAllRanges();
@@ -38,7 +38,7 @@ const Card: FC<ICardProps> = ({ card }) => {
                 selection.addRange(range);
                 cardNameRef.current.focus();
             }
-        }
+        } */
     };
 
     const handleBlur = () => {
@@ -57,18 +57,19 @@ const Card: FC<ICardProps> = ({ card }) => {
     };
 
     const openCard = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        console.log(event.target);
+        const targetElement = event.target as HTMLElement;
+        const isInsideCardActions = targetElement.closest('.cardActions');
 
-        if (event.target instanceof HTMLImageElement) {
-            const imgSrc = event.target.src;
+        if (targetElement instanceof HTMLImageElement) {
+            const imgSrc = targetElement.src;
             if (imgSrc.includes('cross.svg')) {
                 setShowCardActions(-1);
             } else {
                 setShowCardActions(card.id);
             }
-        } else if (event.target instanceof HTMLButtonElement && showCardBody !== -1) {
+        } else if (targetElement instanceof HTMLButtonElement && showCardBody === -1) {
             setShowCardActions(card.id);
-        } else {
+        } else if (!isInsideCardActions) {
             refetch();
             setShowCardBody(card.id);
         }

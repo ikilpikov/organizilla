@@ -3,7 +3,8 @@ import { reorderCard } from '../services/workspace.service';
 import { ICardReorder } from '../types/entityTypes';
 import { AxiosError } from 'axios';
 
-const useCardList = () => {
+const useReorderCard = () => {
+    // const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (cardReorderData: ICardReorder) => reorderCard(cardReorderData),
         onSuccess: (response, variables) => {
@@ -16,4 +17,4 @@ const useCardList = () => {
         },
     });
 };
-export default useCardList;
+export default useReorderCard;

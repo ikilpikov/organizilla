@@ -17,9 +17,9 @@ interface IHeaderProps {
 const Header: FC<IHeaderProps> = ({ fullWidth }) => {
     const {
         isVisibleSearch,
-        isVisibleHotKey,
+        // isVisibleHotKey,
         isVisibleNotification,
-        isVisibleProfile,
+        // isVisibleProfile,
         isVisibleSelectTheme,
         isVisibleCreate,
         isVisibleImport,
@@ -54,17 +54,17 @@ const Header: FC<IHeaderProps> = ({ fullWidth }) => {
                         onClick={() => navigator('/import')}
                     />
                 )}
-                {isVisibleHotKey && (
+                {/*  {isVisibleHotKey && (
                     <img
                         src={question}
                         alt="question"
                         width={30}
                         className={styles.question__icon}
                     />
-                )}
-                {isVisibleProfile && (
+                )} */}
+                {/*  {isVisibleProfile && (
                     <img src={profile} alt="profile" width={30} className={styles.profile__icon} />
-                )}
+                )} */}
             </div>
         </header>
     );
