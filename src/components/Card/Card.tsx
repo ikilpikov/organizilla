@@ -16,8 +16,10 @@ interface ICardProps {
 
 const Card: FC<ICardProps> = ({ card }) => {
     const [isHover, setIsHover] = useState(false);
+    const [isBottom, setIsBottom] = useState(false);
     const showCardActions = useShowActionStore(state => state.showCardActions);
     const showCardBody = useShowActionStore(state => state.showCardBody);
+    const showSearchCard = useShowActionStore(state => state.showSearchCard);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
     const setShowCardBody = useShowActionStore(state => state.setShowCardBody);
     const cardRef = useRef<HTMLDivElement>(null);
@@ -26,8 +28,15 @@ const Card: FC<ICardProps> = ({ card }) => {
     const { data, refetch } = useCard(card.id);
     const { data: dataColors } = useColors(id!);
 
-    const editCard = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (showSearchCard != -1 && showCardBody == card.id) {
+        console.log('patrik');
+        refetch();
+    }
+    const editCard = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event?.preventDefault();
+        if (event?.screenY > 600) setIsBottom(true);
+        else setIsBottom(false);
+
         setShowCardActions(card.id);
         /* if (cardNameRef.current) {
             const selection = window.getSelection();
@@ -83,7 +92,7 @@ const Card: FC<ICardProps> = ({ card }) => {
             onClick={event => openCard(event)}
         >
             <div
-                className={styles.card}
+                className={`${styles.card} ${showCardActions === card.id ? styles.showCard : ''}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
                 onContextMenu={event => editCard(event)}
@@ -118,19 +127,28 @@ const Card: FC<ICardProps> = ({ card }) => {
                     {card.name}
                 </div>
                 {isHover && showCardActions !== card.id && (
-                    <button className={styles.card__button} onClick={() => editCard()}>
+                    <button className={styles.card__button} onClick={event => editCard(event)}>
                         <img src={pencil} width={16} alt="pencil" />
                     </button>
                 )}
             </div>
             {showCardActions === card.id && (
-                <div className={styles.card__actions}>
-                    <CardActions cardId={card.id} boardId={id!} colors={card.colors} />
+                <div
+                    className={`${styles.card__actions} ${isBottom ? styles.card__actions_buttom : ''}`}
+                >
+                    <CardActions
+                        cardId={card.id}
+                        boardId={id!}
+                        colors={card.colors}
+                        setIsHover={setIsHover}
+                        isBottom={isBottom}
+                    />
                 </div>
             )}
+
             {showCardBody === card.id && data?.data && (
                 <div>
-                    <CardBody card={card} description={data?.data} />
+                    <CardBody card={card} description={data?.data} setIsHover={setIsHover} />
                 </div>
             )}
         </div>

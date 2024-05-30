@@ -2,7 +2,7 @@ import { useVisibilityStore } from '../../store';
 import styles from './ChangeHeaderItems.module.scss';
 const ChangeHeaderItems = () => {
     const {
-        //isVisibleSearch,
+        isVisibleSearch,
         //isVisibleHotKey,
         //  isVisibleNotification,
         // isVisibleProfile,
@@ -10,7 +10,7 @@ const ChangeHeaderItems = () => {
         isVisibleCreate,
         isVisibleImport,
         isVisiblePomodoro,
-        //setSearchVisible,
+        setSearchVisible,
         setIsVisibleCreate,
         setIsVisibleImport,
         setIsVisiblePomodoro,
@@ -22,13 +22,13 @@ const ChangeHeaderItems = () => {
 
     return (
         <div className={styles.changeHeaderItems}>
-            {/*  <div>
-                <input type="checkbox" checked={isVisibleSearch} onChange={setSearchVisible} />
-                <p>Search</p>
-            </div> */}
             <div>
                 <input type="checkbox" checked={isVisibleCreate} onChange={setIsVisibleCreate} />
                 <p>Create</p>
+            </div>
+            <div>
+                <input type="checkbox" checked={isVisibleSearch} onChange={setSearchVisible} />
+                <p>Search</p>
             </div>
 
             <div>

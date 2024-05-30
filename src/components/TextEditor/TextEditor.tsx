@@ -34,7 +34,9 @@ const TextEditor: FC<ITextEditorProps> = ({ cardId, description }) => {
                     theme="snow"
                 />
             </div>
-            <button onClick={() => saveText()}>Save</button>
+            <button onClick={() => saveText()} className="text-editor__save">
+                Save
+            </button>
         </div>
     );
 };

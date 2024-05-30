@@ -8,11 +8,13 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IBoards } from '../../components/WorkSpaces/WorkSpaces';
 import styles from './MainPage.module.scss';
+
 const MainPage = () => {
     const { t } = useTranslation();
     const successRegisterVisible = useSuccessRegisterStore(state => state.successRegisterVisible);
     const [boards, setBoards] = useState<IBoards[]>([]);
     const { data, isSuccess } = useAllBoards();
+
     useEffect(() => {
         if (data) {
             setBoards(data.data);

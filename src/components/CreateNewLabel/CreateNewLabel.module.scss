@@ -31,5 +31,16 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        &_button {
+            border-radius: 5px;
+            font-weight: 500;
+            padding: 5px;
+            border: none;
+            color: var(--color);
+            background-color: var(--button-background-color);
+            &:hover {
+                background-color: var(--button-hover-background-color);
+            }
+        }
     }
 }

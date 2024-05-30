@@ -1,5 +1,8 @@
 .cardContainer {
     display: flex;
+    .showCard {
+        border: 2px solid #388bff;
+    }
     .card {
         width: 100%;
         position: relative;
@@ -73,9 +76,11 @@
 
         &__actions {
             z-index: 11;
-            background-color: rgb(100, 100, 100);
             position: absolute;
-            right: -60%;
+            right: -70%;
+            &_buttom {
+                top: 60%;
+            }
         }
     }
 }

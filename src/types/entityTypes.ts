@@ -70,3 +70,8 @@ export interface ICardReorder {
 export interface IBoardQueryData {
     data: IBoard;
 }
+export interface IExtendedCard extends ICard {
+    listName: string;
+    boardName: string;
+    boardId: string;
+}

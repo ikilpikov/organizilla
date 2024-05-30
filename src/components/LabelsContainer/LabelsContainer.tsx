@@ -11,11 +11,13 @@ interface ILabelsContainerProps {
     labels: ILabel;
     setIsVisibleLabels: (isVisible: boolean) => void;
     setIsCreateLabel: (isCreate: boolean) => void;
+    setIsHover: (isHover: boolean) => void;
 }
 const LabelsContainer: FC<ILabelsContainerProps> = ({
     labels,
     setIsVisibleLabels,
     setIsCreateLabel,
+    setIsHover,
 }) => {
     const { id } = useParams();
     const [colorName, setColorName] = useState('');
@@ -37,7 +39,14 @@ const LabelsContainer: FC<ILabelsContainerProps> = ({
             <div className={styles.labelsContainer__title}>
                 <img src={leftArrow} width={15} onClick={() => setIsCreateLabel(false)} />
                 <h3>Создание метки</h3>
-                <img src={cross} width={20} onClick={() => setIsVisibleLabels(false)} />
+                <img
+                    src={cross}
+                    width={20}
+                    onClick={() => {
+                        setIsVisibleLabels(false);
+                        setIsHover(false);
+                    }}
+                />
             </div>
             <div className={styles.labelsContainer__view}>
                 <div

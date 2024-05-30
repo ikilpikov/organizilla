@@ -16,9 +16,10 @@ interface IDescription {
 interface ICardBodyProps {
     card: ICard;
     description: IDescription;
+    setIsHover: (isHover: boolean) => void;
 }
 
-const CardBody: FC<ICardBodyProps> = ({ card, description }) => {
+const CardBody: FC<ICardBodyProps> = ({ card, description, setIsHover }) => {
     const { id } = useParams();
     const { data } = useColors(id!);
     const [cardName, setCardName] = useState(card.name);
@@ -75,7 +76,10 @@ const CardBody: FC<ICardBodyProps> = ({ card, description }) => {
                 <img
                     src={cross}
                     width={25}
-                    onClick={() => setShowCardBody(-1)}
+                    onClick={() => {
+                        setShowCardBody(-1);
+                        setIsHover(false);
+                    }}
                     className={styles.cardBody__title_img}
                 />
             </div>
@@ -98,7 +102,11 @@ const CardBody: FC<ICardBodyProps> = ({ card, description }) => {
             </div>
             <div className={styles.cardBody__description}>
                 <div className={styles.cardBody__description_title}>
-                    <img src={descriptionIcon} width={30} />
+                    <img
+                        src={descriptionIcon}
+                        width={30}
+                        className={styles.cardBody__description_img}
+                    />
                     <h2>Описание</h2>
                 </div>
                 <TextEditor description={description.description} cardId={card.id} />

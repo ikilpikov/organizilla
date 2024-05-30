@@ -1,0 +1,17 @@
+.searchContainer {
+    background-color: var(--background--color-lighter);
+    position: absolute;
+    width: 250px;
+    padding: 5px;
+    border-radius: 5px;
+    top: 60px;
+    max-height: 650px;
+    overflow: auto;
+    &__content {
+        margin-bottom: 5px;
+        cursor: pointer;
+        &:hover {
+            background-color: var(--background--color-hover);
+        }
+    }
+}

@@ -14,6 +14,7 @@ interface ICreateNewLabelProps {
     cardId: number;
     colors: string[];
     setColors: (colors: string[]) => void;
+    setIsHover: (isHover: boolean) => void;
 }
 
 const CreateNewLabel: FC<ICreateNewLabelProps> = ({
@@ -21,6 +22,7 @@ const CreateNewLabel: FC<ICreateNewLabelProps> = ({
     cardId,
     colors,
     setColors,
+    setIsHover,
 }) => {
     const { id } = useParams<{ id: string }>();
     const { data } = useColors(id!);
@@ -61,7 +63,14 @@ const CreateNewLabel: FC<ICreateNewLabelProps> = ({
             <div className={styles.createNewLabel}>
                 <div className={styles.createNewLabel__title}>
                     <h4>Метки</h4>
-                    <img src={cross} width={20} onClick={() => setIsVisibleLabels(false)} />
+                    <img
+                        src={cross}
+                        width={20}
+                        onClick={() => {
+                            setIsVisibleLabels(false);
+                            setIsHover(false);
+                        }}
+                    />
                 </div>
                 {sortedData.length > 0 &&
                     sortedData.map(([key, value], index: number) => (
@@ -87,13 +96,19 @@ const CreateNewLabel: FC<ICreateNewLabelProps> = ({
                             </div>
                         </div>
                     ))}
-                <button onClick={() => setIsCreateLabel(true)}>Create label</button>
+                <button
+                    onClick={() => setIsCreateLabel(true)}
+                    className={styles.createNewLabel__label_button}
+                >
+                    Create label
+                </button>
             </div>
             {isCreateLabel && (
                 <LabelsContainer
                     labels={labelsCollection}
                     setIsVisibleLabels={setIsVisibleLabels}
                     setIsCreateLabel={setIsCreateLabel}
+                    setIsHover={setIsHover}
                 />
             )}
         </>

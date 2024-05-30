@@ -160,16 +160,19 @@ interface IShowActionStore {
     showCardActions: number;
     showAddCard: number;
     showCardBody: number;
+    showSearchCard: number;
     setShowListActions: (id: number) => void;
     setShowCardActions: (id: number) => void;
     setShowAddCard: (id: number) => void;
     setShowCardBody: (id: number) => void;
+    setShowSearchCard: (id: number) => void;
 }
 export const useShowActionStore = create<IShowActionStore>((set, get) => ({
     showListActions: -1,
     showCardActions: -1,
     showAddCard: -1,
     showCardBody: -1,
+    showSearchCard: -1,
     setShowListActions: (id: number) => {
         if (get().showListActions === id) {
             set(() => ({ showListActions: -1 }));
@@ -179,6 +182,7 @@ export const useShowActionStore = create<IShowActionStore>((set, get) => ({
                 showCardActions: -1,
                 showAddCard: -1,
                 showCardBody: -1,
+                showSearchCard: -1,
             }));
         }
     },
@@ -188,6 +192,7 @@ export const useShowActionStore = create<IShowActionStore>((set, get) => ({
             showListActions: -1,
             showAddCard: -1,
             showCardBody: -1,
+            showSearchCard: -1,
         }));
     },
     setShowAddCard: (id: number) => {
@@ -196,6 +201,7 @@ export const useShowActionStore = create<IShowActionStore>((set, get) => ({
             showListActions: -1,
             showCardActions: -1,
             showCardBody: -1,
+            showSearchCard: -1,
         }));
     },
     setShowCardBody: (id: number) => {
@@ -204,6 +210,12 @@ export const useShowActionStore = create<IShowActionStore>((set, get) => ({
             showListActions: -1,
             showCardActions: -1,
             showAddCard: -1,
+            showSearchCard: -1,
+        }));
+    },
+    setShowSearchCard: (id: number) => {
+        set(() => ({
+            showSearchCard: id,
         }));
     },
 }));
@@ -239,7 +251,7 @@ interface IHeaderItemsVisibility {
 export const useVisibilityStore = create(
     persist(
         set => ({
-            isVisibleSearch: false,
+            isVisibleSearch: true,
             isVisibleNotification: false,
             isVisibleHotKey: true,
             isVisibleSelectTheme: true,

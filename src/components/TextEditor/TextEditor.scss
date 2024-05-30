@@ -10,6 +10,18 @@ $text-editor-dark-placeholder-color: #e80e0e;
     min-height: 300px;
     max-height: 450px;
     overflow: auto;
+    &__save {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 20px;
+        border: none;
+        background-color: var(--button-background-color);
+        color: var(--color);
+        &:hover {
+            background-color: var(--button-hover-background-color);
+        }
+    }
 }
 .text-editor.dark {
     .ql-toolbar {
