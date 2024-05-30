@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.organizilla.workspace.dto.board.*;
+import ru.organizilla.workspace.dto.importing.trello.ImportBoardDto;
 import ru.organizilla.workspace.service.BoardService;
 
 import java.util.List;
@@ -59,5 +60,12 @@ public class BoardController {
                                            @RequestHeader(USERNAME_HEADER) String username) {
         var colors = boardService.getColorValues(id, username);
         return ok().body(colors);
+    }
+
+    @PostMapping("/import")
+    public ResponseEntity<String> importTrelloBoard(@RequestHeader(USERNAME_HEADER) String username,
+                                                               @RequestBody List<ImportBoardDto> boardDtos) {
+        boardDtos.forEach(x -> boardService.importTrelloBoard(username, x));
+        return ok().body("ok");
     }
 }

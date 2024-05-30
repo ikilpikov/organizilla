@@ -4,16 +4,19 @@ import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.organizilla.workspace.dao.*;
-import ru.organizilla.workspace.domain.LabelValue;
+import ru.organizilla.workspace.domain.*;
 import ru.organizilla.workspace.domain.enums.Color;
 import ru.organizilla.workspace.dto.board.*;
+import ru.organizilla.workspace.dto.importing.trello.ImportBoardDto;
+import ru.organizilla.workspace.dto.importing.trello.ImportCardDto;
 import ru.organizilla.workspace.mapper.BoardMapper;
 import ru.organizilla.workspace.util.AccessCheckUtil;
-import ru.organizilla.workspace.domain.Board;
 import ru.organizilla.workspace.exception.NotAllowedException;
 import ru.organizilla.workspace.service.BoardService;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -115,6 +118,76 @@ public class BoardServiceImpl implements BoardService {
                     }
                 });
         return getColorValuesDto;
+    }
+
+    @Override
+    public Long importTrelloBoard(String username, ImportBoardDto importBoardDto) {
+        var user = userDao.getUserByUsername(username);
+        var labelColors = labelColorDao.getLabelColors();
+
+        var labelValues = importBoardDto.getLabelNames().entrySet().stream()
+                .filter(x -> !x.getValue().isEmpty())
+                .map(x -> {
+                    var labelValue = new LabelValue();
+                    labelValue.setLabelColor(labelColors.stream()
+                            .filter(y -> y.getColor().equals(x.getKey())).findFirst().get());
+                    labelValue.setValue(x.getValue());
+                    return labelValue;
+                }).toList();
+
+        Function<List<ImportCardDto>, List<Card>> getCards = cards -> cards.stream().map(x -> {
+            var card = new Card();
+            card.setName(x.getName());
+            card.setClosed(x.getClosed());
+            card.setLastActivity(x.getDateLastActivity());
+            card.setCreatedAt(x.getDateLastActivity());
+            card.setTemplate(x.getIsTemplate());
+            /*card.setLabels(x.getLabels().stream().map(y -> {
+                var label = new CardLabel();
+                label.setCard(card);
+                label.setLabelValue(labelValues.stream()//.filter(z -> z.getLabelColor().getColor().getColorValue().equals(y.getColor()))
+                        .findFirst().get());
+                return label;
+            }).toList());*/
+            return card;
+        }).toList();
+
+        var board = new Board();
+
+        var lists = importBoardDto.getLists().stream().map(x -> {
+            var list = new ListEntity();
+            list.setClosed(x.getClosed());
+            list.setName(x.getName());
+            x.setColor(x.getColor());
+            list.setBoard(board);
+
+            var cards = getCards.apply(x.getCards());
+            cards.forEach(y -> y.setList(list));
+            list.setCards(cards);
+            int cardPosition = 65536;
+            for (var card : cards) {
+                card.setPosition(cardPosition);
+                cardPosition += 65536;
+            }
+
+            return list;
+        }).toList();
+
+        int position = 65536;
+        for(var l : lists) {
+            l.setPosition(position);
+            position += 65536;
+        }
+
+
+        board.setName(importBoardDto.getName());
+        board.setLastActivity(new Timestamp(System.currentTimeMillis()));
+        board.setBackgroundImage(importBoardDto.getBackground());
+        board.setCreatedBy(user);
+        labelValues.forEach(x -> x.setBoard(board));
+        board.setLabels(labelValues);
+        board.setLists(lists);
+        return boardDao.save(board).getId();
     }
 
     private void addColorValue(Board board, Color color, String value) {
