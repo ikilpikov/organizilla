@@ -22,8 +22,8 @@ export interface ICard {
     id: number;
     listId: number;
     closed: boolean;
-    lastActivity: Date;
-    idCheckLists: number[];
+    dateLastActivity: Date;
+    //idCheckLists: number[];
     isTemplate: boolean;
     name: string;
     subscribed: boolean;

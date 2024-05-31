@@ -8,6 +8,7 @@ import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import { getSelectedData } from '../../../services/trelloAPI.service';
 import { useImportModalVisibleStore } from '../../../store';
 import styles from '../Trello.module.scss';
+import useTrelloImport from '../../../hooks/useTrelloImport';
 const TrelloImport = () => {
     const { t } = useTranslation();
     const [tokenValue, setTokenValue] = useState('');
@@ -15,7 +16,7 @@ const TrelloImport = () => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const { importModalIsVisible, setImportModalIsVisible } = useImportModalVisibleStore();
     const { data, refetch, isError } = useTrelloBoards(tokenValue);
-    
+    const { mutate } = useTrelloImport();
     const options = boardsData?.map((element: IBoard) => ({
         value: element.id,
         label: element.name,
@@ -35,9 +36,10 @@ const TrelloImport = () => {
         }
     }, [data]);
 
-    const importData = () => {
+    const importData = async () => {
         setImportModalIsVisible(true);
-        getSelectedData({ tokenValue, boards: selectedOptions });
+        const trelloBoards = await getSelectedData({ tokenValue, boards: selectedOptions });
+        mutate(trelloBoards);
     };
 
     return (

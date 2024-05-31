@@ -5,7 +5,7 @@ import {
     ISetColor,
     ISetDescription,
 } from '../types/basicTypes';
-import { ICard, IList, IListReorder, ICardReorder } from '../types/entityTypes';
+import { ICard, IList, IListReorder, ICardReorder, IBoard } from '../types/entityTypes';
 import { axiosInstanceWithToken } from './instances';
 
 export const createBoard = async ({ name, backgroundImage, isPublic }: IBoardPost) => {
@@ -120,6 +120,19 @@ export const getUserData = async () => {
 export const setDescription = async ({ cardId, description }: ISetDescription) => {
     const response = await axiosInstanceWithToken.patch(`/workspace/card/${cardId}/description`, {
         description,
+    });
+    return response;
+};
+
+export const importTrelloBoard = async (boards: IBoard[]) => {
+    console.log(boards);
+
+    const jsonData = JSON.stringify(boards); // Преобразование массива в JSON строку
+
+    const response = await axiosInstanceWithToken.post(`/workspace/board/import`, jsonData, {
+        headers: {
+            'Content-Type': 'application/json', // Установка заголовка Content-Type на application/json
+        },
     });
     return response;
 };

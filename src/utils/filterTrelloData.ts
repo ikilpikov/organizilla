@@ -1,4 +1,5 @@
 import { IBoard, ICheckList, IList, ICard, ICheckItem, ILabel } from '../types/entityTypes';
+
 export const filterTrelloData = (
     board: IBoard,
     checkList: ICheckList[],
@@ -6,14 +7,15 @@ export const filterTrelloData = (
     cards: ICard[],
 ) => {
     const boardObject: IBoard = {
-        id: '',
-        closed: false,
-        lists: [],
-        labelNames: [],
-        checkLists: [],
-        name: '',
+        id: board.id,
+        name: board.name,
+        closed: board.closed,
         background:
+            board.background ||
             'https://images.unsplash.com/photo-1508615039623-a25605d2b022?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1OTgwNjF8MHwxfHNlYXJjaHw3Mnx8cGhvdG8lMjBiYWNrZ3JvdW5kfGVufDB8MHx8fDE3MTY5MTg1NTJ8MA&ixlib=rb-4.0.3&q=85',
+        labelNames: board.labelNames,
+        checkLists: [],
+        lists: [],
     };
 
     const checkLists: ICheckList[] = checkList.map((checkList: ICheckList) => ({
@@ -34,12 +36,10 @@ export const filterTrelloData = (
                 dateLastActivity: filteredCard.dateLastActivity,
                 isTemplate: filteredCard.isTemplate,
                 subscribed: filteredCard.subscribed,
-                idCheckLists: filteredCard.idCheckLists,
                 labels: filteredCard.labels.map((label: ILabel) => ({
                     color: label.color,
                     name: label.name,
                 })),
-                idList: filteredCard.idList,
             }));
         return {
             id: list.id,
@@ -51,9 +51,8 @@ export const filterTrelloData = (
         };
     });
 
-    const { id, name, closed, labelNames } = board;
-    console.log(list);
+    boardObject.checkLists = checkLists;
+    boardObject.lists = lists;
 
-    Object.assign(boardObject, { id, name, closed, labelNames, checkLists, lists });
     return boardObject;
 };

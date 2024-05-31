@@ -1,7 +1,6 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { FC, useState } from 'react';
-import 'react-tooltip/dist/react-tooltip.css';
 import './TextEditor.scss'; // Подключаем SCSS файл
 import { useTheme } from '../../hooks/useTheme'; // Подключаем хук useTheme
 import useDescription from '../../hooks/useDescription';
@@ -17,8 +16,6 @@ const TextEditor: FC<ITextEditorProps> = ({ cardId, description }) => {
     const { mutate } = useDescription();
 
     const saveText = () => {
-        console.log(body);
-
         mutate({ cardId, description: body });
     };
 

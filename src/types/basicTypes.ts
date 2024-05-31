@@ -38,5 +38,5 @@ export interface ISetCardName {
 }
 export interface ISetDescription {
     cardId: number;
-    description: string;
+    description: string | null;
 }
