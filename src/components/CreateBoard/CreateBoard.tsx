@@ -31,7 +31,7 @@ const CreateBoard = () => {
         };
         console.log(boardData);
 
-        //mutate(boardData);
+        mutate(boardData);
     };
     useEffect(() => {
         setBackgroundImagePageNumber(true);
