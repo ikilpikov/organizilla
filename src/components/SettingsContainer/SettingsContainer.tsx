@@ -8,19 +8,19 @@ import styles from './SettingsContainer.module.scss';
 const SettingsContainer = () => {
     return (
         <div className={styles.settings}>
-            <h1>Settings</h1>
+            <h1>Настройки</h1>
             <div className={styles.settings__appearance}>
-                <h3>System appearance</h3>
+                <h3>Внешний вид системы</h3>
                 <div className={styles.settings__appearance_language}>
-                    <h4>Language</h4>
+                    <h4>Язык</h4>
                     <SelectLangugage />
                 </div>
                 <div className={styles.settings__appearance_theme}>
-                    <h4>Theme</h4>
+                    <h4>Тема</h4>
                     <SelectTheme />
                 </div>
                 <div className={styles.settings__appearance_systemFormat}>
-                    <h4>System font-size</h4>
+                    <h4>Размер шрифта системы</h4>
                     <ChangeSystemFormat />
                 </div>
             </div>

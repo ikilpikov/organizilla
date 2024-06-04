@@ -11,6 +11,7 @@ import logo from '../../assets/logo.png';
 import openEye from '../../assets/icons/openEye.svg';
 import closeEye from '../../assets/icons/closeEye.svg';
 import styles from '../../pages/RegistrationPage/RegistrationPage.module.scss';
+
 const AuthPage = () => {
     const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState([false, false]);
@@ -31,6 +32,7 @@ const AuthPage = () => {
     useEffect(() => {
         setError('');
     }, [setError]);
+
     return (
         <>
             <img src={logo} alt="logo" className={styles.logo} />
@@ -48,6 +50,7 @@ const AuthPage = () => {
                         src={showPassword[0] ? openEye : closeEye}
                         className={styles.eyeIcon}
                         onClick={() => setShowPassword([!showPassword[0], showPassword[1]])}
+                        alt="show password"
                     />
                 </div>
                 {errors.password?.message && <ErrorMessage message={t(errors.password?.message)} />}

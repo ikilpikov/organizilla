@@ -33,7 +33,7 @@ const Header: FC<IHeaderProps> = ({ fullWidth }) => {
             </div>
             <div className={styles.header__items}>
                 {isVisibleCreate && (
-                    <button onClick={() => navigator('/create-board')}>Create</button>
+                    <button onClick={() => navigator('/create-board')}>Создать</button>
                 )}
                 {isVisibleSearch && <Search />}
                 {isVisibleSelectTheme && <SelectTheme />}

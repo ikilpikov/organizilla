@@ -27,19 +27,19 @@ const ChangeSystemFormat = () => {
                 className={fontSize === '14px' ? styles.active : ''}
                 onClick={() => setFontSize('14px')}
             >
-                Small
+                Маленький
             </button>
             <button
                 className={fontSize === '16px' ? styles.active : ''}
                 onClick={() => setFontSize('16px')}
             >
-                Medium
+                Средний
             </button>
             <button
                 className={fontSize === '20px' ? styles.active : ''}
                 onClick={() => setFontSize('20px')}
             >
-                Large
+                Большой
             </button>
         </div>
     );

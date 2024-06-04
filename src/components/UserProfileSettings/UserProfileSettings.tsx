@@ -18,14 +18,14 @@ const UserProfileSettings = () => {
             <div>
                 <div className={styles.userProfileSettings__item}>
                     <div className={styles.userProfileSettings__item_name}>
-                        <h4>Имя</h4>
+                        <h4>Name</h4>
                         {localStorage.getItem('username')}
                     </div>
                     {/* <button>Edit username</button> */}
                 </div>
                 <div className={styles.userProfileSettings__item}>
                     <div className={styles.userProfileSettings__item_email}>
-                        <h4>Электронная почта</h4>
+                        <h4>Email</h4>
                         {data?.data?.email}
                     </div>
 
