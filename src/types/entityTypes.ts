@@ -75,3 +75,9 @@ export interface IExtendedCard extends ICard {
     boardName: string;
     boardId: string;
 }
+export interface ISortBoards {
+    name: string;
+    id: number;
+    backgroundImage: string;
+    lastActivity: Date;
+}

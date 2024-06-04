@@ -1,32 +1,24 @@
 import { FC } from 'react';
 import BoardCover from '../BoardCover/BoardCover';
+import { getRecentBoards, sortBoardsByName } from '../../utils/sortBoard';
+import { ISortBoards } from '../../types/entityTypes';
 import styles from './WorkSpaces.module.scss';
-export interface IBoards {
-    name: string;
-    id: number;
-    backgroundImage: string;
-    lastActivity: Date;
-}
+
 interface IWorkSpacesProps {
-    boards: IBoards[];
+    boards: ISortBoards[];
     isRecent: boolean;
 }
+
 const WorkSpaces: FC<IWorkSpacesProps> = ({ boards, isRecent }) => {
-    let filteredBoards: IBoards[] | undefined;
-    if (isRecent) {
-        boards.sort((a, b) => {
-            return new Date(b.lastActivity).getTime() - new Date(a.lastActivity).getTime();
-        });
-        filteredBoards = boards.slice(0, 4);
-    } else {
-        filteredBoards = [...boards].sort((a, b) => a.name.localeCompare(b.name));
-    }
+    const filteredBoards = isRecent ? getRecentBoards([...boards]) : sortBoardsByName([...boards]);
 
     return (
-        <div className={`${styles.workSpaces} ${isRecent && styles.workSpaces__recent}`}>
-            {filteredBoards?.map((board, index) => (
+        <div
+            className={`${styles.workSpaces} ${isRecent ? styles.workSpaces__recent : styles.workSpaces__all}`}
+        >
+            {filteredBoards.map(board => (
                 <BoardCover
-                    key={index}
+                    key={board.id}
                     id={board.id}
                     name={board.name}
                     background={board.backgroundImage}

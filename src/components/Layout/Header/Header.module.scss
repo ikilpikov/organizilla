@@ -1,6 +1,5 @@
 .header {
     background-color: var(--background-color);
-    //padding-right: 20px;
     color: var(--color);
     display: flex;
     border-bottom: 1px solid black;
@@ -9,7 +8,6 @@
     &__burger {
         flex: 0 0 auto;
     }
-
     &__items {
         display: flex;
         align-items: center;
@@ -26,6 +24,7 @@
         z-index: 10;
     }
     button {
+        min-width: 70px;
         padding: 5px;
         border: none;
         //margin-top: 20px;

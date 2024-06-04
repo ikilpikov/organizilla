@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { useFontSizeStore } from '../../store';
+import { useTranslation } from 'react-i18next';
+import { useFontSizeStore } from '../../../store';
 import styles from './ChangeSystemFormat.module.scss';
 
 const ChangeSystemFormat = () => {
     const { fontSize, setFontSize } = useFontSizeStore();
-    console.log(fontSize);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const storedFontSize = localStorage.getItem('font-size-storage');
@@ -27,19 +28,19 @@ const ChangeSystemFormat = () => {
                 className={fontSize === '14px' ? styles.active : ''}
                 onClick={() => setFontSize('14px')}
             >
-                Маленький
+                {t('settings.appearance.systemFormat.size.small')}
             </button>
             <button
                 className={fontSize === '16px' ? styles.active : ''}
                 onClick={() => setFontSize('16px')}
             >
-                Средний
+                {t('settings.appearance.systemFormat.size.medium')}
             </button>
             <button
                 className={fontSize === '20px' ? styles.active : ''}
                 onClick={() => setFontSize('20px')}
             >
-                Большой
+                {t('settings.appearance.systemFormat.size.large')}
             </button>
         </div>
     );

@@ -1,4 +1,5 @@
-import { useVisibilityStore } from '../../store';
+import { useTranslation } from 'react-i18next';
+import { useVisibilityStore } from '../../../store';
 import styles from './ChangeHeaderItems.module.scss';
 const ChangeHeaderItems = () => {
     const {
@@ -19,16 +20,16 @@ const ChangeHeaderItems = () => {
         //setHotKeyVisible,
         // setProfileVisible,
     } = useVisibilityStore();
-
+    const { t } = useTranslation();
     return (
         <div className={styles.changeHeaderItems}>
             <div>
                 <input type="checkbox" checked={isVisibleCreate} onChange={setIsVisibleCreate} />
-                <p>Create</p>
+                <p>{t('sideMenu.create')}</p>
             </div>
             <div>
                 <input type="checkbox" checked={isVisibleSearch} onChange={setSearchVisible} />
-                <p>Search</p>
+                <p>{t('header.search')}</p>
             </div>
 
             <div>
@@ -37,7 +38,7 @@ const ChangeHeaderItems = () => {
                     checked={isVisibleSelectTheme}
                     onChange={setSelectThemeVisible}
                 />
-                <p>SelectTheme</p>
+                <p>{t('settings.appearance.theme.title')}</p>
             </div>
             <div>
                 <input
@@ -45,11 +46,11 @@ const ChangeHeaderItems = () => {
                     checked={isVisiblePomodoro}
                     onChange={setIsVisiblePomodoro}
                 />
-                <p>Pomodoro</p>
+                <p>{t('sideMenu.pomodoro')}</p>
             </div>
             <div>
                 <input type="checkbox" checked={isVisibleImport} onChange={setIsVisibleImport} />
-                <p>Import</p>
+                <p>{t('sideMenu.import')}</p>
             </div>
             {/* <div>
                 <input

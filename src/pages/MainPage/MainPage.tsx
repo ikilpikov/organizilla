@@ -1,18 +1,18 @@
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useAllBoards from '../../hooks/useAllBoards';
 import Layout from '../../components/Layout/Layout';
 import CurrentDate from '../../components/CurrentDate/CurrentDate';
 import SuccessRegister from '../../components/UI/Modals/SuccessRegister/SuccessRegisterModal';
-import { useSuccessRegisterStore } from '../../store';
 import WorkSpaces from '../../components/WorkSpaces/WorkSpaces';
-import useAllBoards from '../../hooks/useAllBoards';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { IBoards } from '../../components/WorkSpaces/WorkSpaces';
+import { useSuccessRegisterStore } from '../../store';
+import { ISortBoards } from '../../types/entityTypes';
 import styles from './MainPage.module.scss';
 
 const MainPage = () => {
     const { t } = useTranslation();
     const successRegisterVisible = useSuccessRegisterStore(state => state.successRegisterVisible);
-    const [boards, setBoards] = useState<IBoards[]>([]);
+    const [boards, setBoards] = useState<ISortBoards[]>([]);
     const { data, isSuccess } = useAllBoards();
 
     useEffect(() => {

@@ -13,17 +13,21 @@
     img {
         width: 100%;
     }
-    &_bg {
+    &__bg {
         background-image: url('../../assets/404.gif');
         height: 400px;
         background-position: center;
         background-repeat: no-repeat;
     }
-    &_text {
+    &__text {
         text-align: center;
         font-size: 32px;
+        p {
+            margin-bottom: 15px;
+        }
     }
-    &_button {
+    &__button {
+        margin-top: 20px;
         padding: 10px;
         border-radius: 30px;
         background-color: greenyellow;

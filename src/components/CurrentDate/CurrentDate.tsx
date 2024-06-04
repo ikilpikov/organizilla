@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { getCurrentDate, getGreeting } from '../../utils/date';
 import styles from './CurrentDate.module.scss';
+
 const CurrentDate = () => {
     const { t } = useTranslation();
     const date = getCurrentDate();
     const greeting = getGreeting();
-    console.log(t(greeting), greeting);
 
     return (
         <div className={styles.currentDate}>

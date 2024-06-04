@@ -1,13 +1,17 @@
 import ReactSlider from 'react-slider';
-import { usePomodoroSettingsStore } from '../../store';
+import { useTranslation } from 'react-i18next';
+import { usePomodoroSettingsStore } from '../../../store';
 import './slider.scss';
 
 const PomodoroSettings = () => {
     const { workTime, breakTime, setWorkTime, setBreakTime } = usePomodoroSettingsStore();
+    const { t } = useTranslation();
     return (
         <div className={'pomodoroSettings'}>
             <div className={'pomodoroSettings__content'}>
-                <label>work: {workTime}:00</label>
+                <label>
+                    {t('settings.pomodoro.time.work')}: {workTime}:00
+                </label>
                 <ReactSlider
                     className={'slider'}
                     thumbClassName={'thumb'}
@@ -17,7 +21,9 @@ const PomodoroSettings = () => {
                     min={1}
                     max={120}
                 />
-                <label>break: {breakTime}:00</label>
+                <label>
+                    {t('settings.pomodoro.time.break')}: {breakTime}:00
+                </label>
                 <ReactSlider
                     className={'slider green'}
                     thumbClassName={'thumb'}

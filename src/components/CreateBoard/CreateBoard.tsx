@@ -1,21 +1,15 @@
 import { useState, useEffect } from 'react';
-import useBoard from '../../hooks/useBoard';
 import Select from 'react-select';
-import SelectBackground from '../SelectBackground/SelectBackground';
-import { useBackgroundImageStore } from '../../store';
-import BoardView from '../BoardView/BoardView';
-import styles from './CreateBoard.module.scss';
-import ArrowBack from '../UI/ArrowBack/ArrowBack';
 import { useTranslation } from 'react-i18next';
+import useBoard from '../../hooks/useBoard';
+import SelectBackground from '../SelectBackground/SelectBackground';
+import BoardView from '../BoardView/BoardView';
+import ArrowBack from '../UI/ArrowBack/ArrowBack';
+import { useBackgroundImageStore } from '../../store';
+import styles from './CreateBoard.module.scss';
 
 const CreateBoard = () => {
     const { t } = useTranslation();
-    const setBackgroundImagePageNumber = useBackgroundImageStore(
-        state => state.setBackgroundImagePageNumber,
-    );
-    const selectedBackground = useBackgroundImageStore(state => state.selectedBackground);
-    const resetSelectedBackground = useBackgroundImageStore(state => state.resetSelectedBackground);
-    const backgroundsIsLoading = useBackgroundImageStore(state => state.backgroundsIsLoading);
     const options = [
         { value: true, label: t('createBlankBoard.options.public') },
         { value: false, label: t('createBlankBoard.options.private') },
@@ -23,20 +17,24 @@ const CreateBoard = () => {
     const { mutate } = useBoard();
     const [name, setName] = useState('');
     const [selectedOption, setSelectedOption] = useState(options[0]);
+    const setBackgroundImagePageNumber = useBackgroundImageStore(
+        state => state.setBackgroundImagePageNumber,
+    );
+    const selectedBackground = useBackgroundImageStore(state => state.selectedBackground);
+    const resetSelectedBackground = useBackgroundImageStore(state => state.resetSelectedBackground);
+    const backgroundsIsLoading = useBackgroundImageStore(state => state.backgroundsIsLoading);
+    useEffect(() => {
+        setBackgroundImagePageNumber(true);
+        resetSelectedBackground();
+    }, [setBackgroundImagePageNumber, resetSelectedBackground]);
     const createBoard = () => {
         const boardData = {
             name,
             backgroundImage: selectedBackground.full,
             isPublic: selectedOption.value,
         };
-        console.log(boardData);
-
         mutate(boardData);
     };
-    useEffect(() => {
-        setBackgroundImagePageNumber(true);
-        resetSelectedBackground();
-    }, [setBackgroundImagePageNumber, resetSelectedBackground]);
     const handleSelectChange = (selectedOption: any) => {
         if (selectedOption) {
             setSelectedOption(selectedOption);
@@ -85,5 +83,4 @@ const CreateBoard = () => {
         </div>
     );
 };
-
 export default CreateBoard;

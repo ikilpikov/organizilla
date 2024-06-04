@@ -98,10 +98,47 @@
     "greeting": {
         "morning": "Good morning",
         "afternoon": "Good afternoon",
-        "night": "Good evening"
+        "evening": "Good evening"
     },
     "importModal": {
         "importTitle": "Import Data",
         "description": "Please wait a moment, the loading process may take some time."
+    },
+    "notfound": {
+        "title": "Look like you're lost",
+        "description": "The page you are looking for not avaible!",
+        "back": "Go to Home"
+    },
+    "settings": {
+        "title": "Settings",
+        "appearance": {
+            "title": "System Appearance",
+            "language": {
+                "title": "Language"
+            },
+            "theme": { "title": "Theme" },
+            "systemFormat": {
+                "title": "System Font Size",
+                "size": {
+                    "small": "Small",
+                    "medium": "Medium",
+                    "large": "Large"
+                }
+            }
+        },
+        "userProfile": {
+            "title": "User Profile",
+            "username": "Username",
+            "email": "Email",
+            "logout": "Logout"
+        },
+        "headerAppearance": "Header appearance",
+        "pomodoro": {
+            "title": "Pomodoro Settings",
+            "time": {
+                "work": "Work",
+                "break": "Break"
+            }
+        }
     }
 }

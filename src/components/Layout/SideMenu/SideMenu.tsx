@@ -1,38 +1,23 @@
-import { NavLink } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FC } from 'react';
+import SideMenuLink from '../../UI/SideMenuLink/SideMenuLink';
 import { useSideMenuVisibleStore } from '../../../store';
 import styles from './SideMenu.module.scss';
-import { FC } from 'react';
 
 interface ISideMenuProps {
-    fullWidth?: boolean;
+    isView?: boolean;
 }
-const SideMenu: FC<ISideMenuProps> = ({ fullWidth }) => {
-    const { t } = useTranslation();
+const SideMenu: FC<ISideMenuProps> = ({ isView }) => {
     const sideMenuIsVisible = useSideMenuVisibleStore(state => state.sideMenuIsVisible);
 
     return (
         <aside
-            className={`${styles.sideMenu} ${sideMenuIsVisible ? styles.sideMenu__visible : styles.sideMenu__hide}  ${fullWidth ? '' : styles.sideMenu__fullWidth}`}
+            className={`${styles.sideMenu} ${sideMenuIsVisible ? styles.sideMenu__visible : styles.sideMenu__hide}  ${isView ? '' : styles.sideMenu__isView}`}
         >
-            <NavLink to={'/'} className={({ isActive }) => (isActive ? styles.active : '')}>
-                {t('sideMenu.main')}
-            </NavLink>
-            <NavLink
-                to={'/create-board'}
-                className={({ isActive }) => (isActive ? styles.active : '')}
-            >
-                {t('sideMenu.create')}
-            </NavLink>
-            <NavLink to={'/pomodoro'} className={({ isActive }) => (isActive ? styles.active : '')}>
-                {t('sideMenu.pomodoro')}
-            </NavLink>
-            <NavLink to={'/import'} className={({ isActive }) => (isActive ? styles.active : '')}>
-                {t('sideMenu.import')}
-            </NavLink>
-            <NavLink to={'/settings'} className={({ isActive }) => (isActive ? styles.active : '')}>
-                {t('sideMenu.settings')}
-            </NavLink>
+            <SideMenuLink to="/" translationKey="sideMenu.main" />
+            <SideMenuLink to="/create-board" translationKey="sideMenu.create" />
+            <SideMenuLink to="/pomodoro" translationKey="sideMenu.pomodoro" />
+            <SideMenuLink to="/import" translationKey="sideMenu.import" />
+            <SideMenuLink to="/settings" translationKey="sideMenu.settings" />
         </aside>
     );
 };

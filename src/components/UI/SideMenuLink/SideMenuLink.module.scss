@@ -1,0 +1,11 @@
+.menuLink {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
+    &__active {
+        background-color: var(--background--color-hover);
+    }
+}

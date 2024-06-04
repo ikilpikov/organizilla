@@ -12,7 +12,7 @@ const BoardView: FC<IBoardViewProps> = ({ background }) => {
 
     return (
         <div className={styles.boardView}>
-            <Layout fullWidth={true}>
+            <Layout isView={true}>
                 <div
                     className={styles.boardView__content}
                     style={{

@@ -1,20 +1,22 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import Header from './Header/Header';
 import SideMenu from './SideMenu/SideMenu';
-import styles from './Layout.module.scss';
-import { useSideMenuVisibleStore } from '../../store';
 import { ThemeProvider } from '../../context/ThemeContext';
+import { useSideMenuVisibleStore } from '../../store';
+import styles from './Layout.module.scss';
 
 interface ILayoutProps {
     children: React.ReactNode;
-    fullWidth?: boolean;
+    isView?: boolean;
 }
 
-const Layout: FC<ILayoutProps> = ({ children, fullWidth }) => {
+const Layout: FC<ILayoutProps> = ({ children, isView }) => {
     const sideMenuIsVisible = useSideMenuVisibleStore(state => state.sideMenuIsVisible);
     const containerRef = useRef<HTMLDivElement>(null);
     const [containerHeight, setContainerHeight] = useState('100vh');
+
     useEffect(() => {
+        //логика изменения высоты доски в зависимости от появления нижнего скролла
         const container = containerRef.current;
         if (!container) return;
 
@@ -33,13 +35,13 @@ const Layout: FC<ILayoutProps> = ({ children, fullWidth }) => {
     return (
         <ThemeProvider>
             <div
-                className={`${styles.layoutContainer} ${fullWidth ? styles.fullHeight : ''}`}
-                style={fullWidth ? { height: '100%' } : { height: containerHeight }}
+                className={`${styles.layoutContainer} ${isView ? styles.isView : ''}`}
+                style={isView ? { height: '100%' } : { height: containerHeight }}
                 ref={containerRef}
             >
-                <Header fullWidth={fullWidth} />
+                <Header fullWidth={isView} />
                 <div className={styles.mainContainer}>
-                    {!fullWidth && <SideMenu />}
+                    {!isView && <SideMenu />}
                     <main
                         className={`${styles.mainContent} ${!sideMenuIsVisible ? styles.fullWidth : ''}`}
                     >

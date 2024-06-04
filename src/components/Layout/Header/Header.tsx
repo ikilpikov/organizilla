@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useVisibilityStore } from '../../../store';
 import BurgerMenu from '../../UI/BurgerMenu/BurgerMenu';
 import SelectTheme from '../../SelectTheme/SelectTheme';
@@ -9,12 +11,12 @@ import profile from '../../../assets/icons/profile.svg';
 import importIcon from '../../../assets/icons/import.svg';
 import pomodoro from '../../../assets/icons/pomodoro.svg';
 import styles from './Header.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 interface IHeaderProps {
     fullWidth?: boolean;
 }
 const Header: FC<IHeaderProps> = ({ fullWidth }) => {
+    const { t } = useTranslation();
     const {
         isVisibleSearch,
         // isVisibleHotKey,
@@ -33,7 +35,9 @@ const Header: FC<IHeaderProps> = ({ fullWidth }) => {
             </div>
             <div className={styles.header__items}>
                 {isVisibleCreate && (
-                    <button onClick={() => navigator('/create-board')}>Создать</button>
+                    <button onClick={() => navigator('/create-board')}>
+                        {t('sideMenu.create')}
+                    </button>
                 )}
                 {isVisibleSearch && <Search />}
                 {isVisibleSelectTheme && <SelectTheme />}
