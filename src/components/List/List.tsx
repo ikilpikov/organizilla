@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import useListName from '../../hooks/useListName';
 import ListContainer from '../ListContainer/ListContainer';
-import styles from './List.module.scss';
-import { IList } from '../../types/entityTypes';
-import more from '../../assets/icons/more.svg';
 import ListActions from '../ListActions/ListActions';
-import { useShowActionStore } from '../../store';
 import CreateCardButton from '../CreateCard/CreateCardButton.tsx/CreateCardButton';
+import { IList } from '../../types/entityTypes';
+import { useShowActionStore } from '../../store';
+import more from '../../assets/icons/more.svg';
+import styles from './List.module.scss';
 
 interface IListProps {
     list: IList;

@@ -1,15 +1,14 @@
 import { FC, useRef, useState } from 'react';
-import { ICard } from '../../types/entityTypes';
-import pencil from '../../assets/icons/pencil.svg';
-import styles from './Card.module.scss';
-import CardActions from '../CardActions/CardActions';
-import { useShowActionStore } from '../../store';
 import { useParams } from 'react-router-dom';
 import useCard from '../../hooks/useCard';
-import useColors from '../../hooks/useColors'; // Make sure to import useColors
-import COLOR_SHADES from '../../constants/colorShades';
+import useColors from '../../hooks/useColors';
+import CardActions from '../CardActions/CardActions';
 import CardBody from '../CardBody/CardBody';
-
+import { ICard } from '../../types/entityTypes';
+import COLOR_SHADES from '../../constants/colorShades';
+import { useShowActionStore } from '../../store';
+import pencil from '../../assets/icons/pencil.svg';
+import styles from './Card.module.scss';
 interface ICardProps {
     card: ICard;
 }
@@ -68,7 +67,6 @@ const Card: FC<ICardProps> = ({ card }) => {
     const openCard = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const targetElement = event.target as HTMLElement;
         const isInsideCardActions = targetElement.closest('.cardActions');
-
         if (targetElement instanceof HTMLImageElement) {
             const imgSrc = targetElement.src;
             if (imgSrc.includes('cross.svg')) {
@@ -83,7 +81,6 @@ const Card: FC<ICardProps> = ({ card }) => {
             setShowCardBody(card.id);
         }
     };
-
     return (
         <div
             className={styles.cardContainer}
@@ -145,7 +142,6 @@ const Card: FC<ICardProps> = ({ card }) => {
                     />
                 </div>
             )}
-
             {showCardBody === card.id && data?.data && (
                 <div>
                     <CardBody card={card} description={data?.data} setIsHover={setIsHover} />

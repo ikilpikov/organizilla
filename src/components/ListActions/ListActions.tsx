@@ -1,12 +1,13 @@
 import { FC, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useDeleteList from '../../hooks/useDeleteList';
 import useClickOutside from '../../hooks/useClickOutside';
-import { useShowActionStore } from '../../store';
-import cross from '../../assets/icons/cross.svg';
-import { ICard, IList } from '../../types/entityTypes';
 import useReorderCard from '../../hooks/useReorderCard';
-import styles from './ListActions.module.scss';
 import useDeleteCard from '../../hooks/useDeleteCard';
+import { useShowActionStore } from '../../store';
+import { ICard, IList } from '../../types/entityTypes';
+import cross from '../../assets/icons/cross.svg';
+import styles from './ListActions.module.scss';
 
 interface IListActions {
     list: IList;
@@ -19,12 +20,13 @@ interface IListActions {
 const ListActions: FC<IListActions> = ({ id, boardId, cards, setListData, list }) => {
     const setShowListActions = useShowActionStore(state => state.setShowListActions);
     const setShowAddCard = useShowActionStore(state => state.setShowAddCard);
+    const { t } = useTranslation();
     const { mutate } = useDeleteList();
     const { mutate: deleteCard } = useDeleteCard();
     const { mutate: mutateCard } = useReorderCard();
     const listActionRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [sortedCards, setSortedCards] = useState(cards); // Состояние для хранения отсортированных карточек
+    const [sortedCards, setSortedCards] = useState(cards);
     useEffect(() => setIsOpen(true), []);
     useClickOutside(listActionRef, () => setShowListActions(-1), isOpen);
 
@@ -41,8 +43,8 @@ const ListActions: FC<IListActions> = ({ id, boardId, cards, setListData, list }
 
     const sortCardByLastActivity = (date: 'old' | 'new') => {
         const newSortedCards = [...sortedCards].sort((a, b) => {
-            const dateA = new Date(a.lastActivity).getTime();
-            const dateB = new Date(b.lastActivity).getTime();
+            const dateA = new Date(a.dateLastActivity).getTime();
+            const dateB = new Date(b.dateLastActivity).getTime();
             return date === 'new' ? dateB - dateA : dateA - dateB;
         });
         setSortedCards(newSortedCards);
@@ -54,20 +56,20 @@ const ListActions: FC<IListActions> = ({ id, boardId, cards, setListData, list }
             const previousCardId = index > 0 ? sortedCards[index - 1].id : null;
             const nextCardId = index < sortedCards.length - 1 ? sortedCards[index + 1].id : null;
             const cardReorder = {
-                id: card.id,
+                id: card.id.toString(),
                 previousCardId,
                 nextCardId,
-                listId: id,
+                listId: id.toString(),
             };
             mutateCard(cardReorder);
         });
-        setListData(prevState => {
+        setListData((prevState: IList[]) => {
             const updatedList = prevState.map(prevList => {
                 if (prevList.id === list.id) {
-                    // Обновляем только текущий список
+                    // Update only the current list
                     return {
                         ...prevList,
-                        cards: sortedCards, // Обновляем карточки в текущем списке
+                        cards: sortedCards, // Update cards in the current list
                     };
                 }
                 return prevList;
@@ -84,24 +86,29 @@ const ListActions: FC<IListActions> = ({ id, boardId, cards, setListData, list }
         <div className={styles.listActions}>
             <div ref={listActionRef}>
                 <div className={styles.listActions__title}>
-                    <h3>Действия со списком</h3>
+                    <h3>{t('listActions.actions.title')}</h3>
                     <img src={cross} width={20} onClick={() => setShowListActions(Number(id))} />
                 </div>
                 <div className={styles.listActions__actions}>
-                    <button onClick={() => deleteList()}>Удалить список</button>
-                    <button onClick={() => setShowAddCard(id)}>Добавить карточку</button>
+                    <button onClick={() => deleteList()}>{t('listActions.actions.delete')}</button>
+                    <button onClick={() => setShowAddCard(id)}>
+                        {t('cardActions.addCard.title')}
+                    </button>
                     <button onClick={() => sortCardByLastActivity('new')}>
-                        Сортировать по дате создания (сначала новые)
+                        {t('listActions.actions.sort.newest')}
                     </button>
                     <button onClick={() => sortCardByLastActivity('old')}>
-                        Сортировать по дате создания (сначала старые)
+                        {t('listActions.actions.sort.oldest')}
                     </button>
-                    <button onClick={() => sortCardByName()}>Сортировать по названию</button>
-                    <button onClick={() => deleteAllCards()}>Удалить все карточки в списке</button>
+                    <button onClick={() => sortCardByName()}>
+                        {t('listActions.actions.sort.name')}
+                    </button>
+                    <button onClick={() => deleteAllCards()}>
+                        {t('listActions.actions.deleteAll')}
+                    </button>
                 </div>
             </div>
         </div>
     );
 };
-
 export default ListActions;

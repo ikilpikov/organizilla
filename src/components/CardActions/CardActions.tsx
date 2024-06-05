@@ -1,9 +1,11 @@
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useDeleteCard from '../../hooks/useDeleteCard';
-import styles from './CardActions.module.scss';
-import cross from '../../assets/icons/cross.svg';
-import { useShowActionStore } from '../../store';
 import CreateNewLabel from '../CreateNewLabel/CreateNewLabel';
+import { useShowActionStore } from '../../store';
+import cross from '../../assets/icons/cross.svg';
+import styles from './CardActions.module.scss';
+
 interface ICardActionsProps {
     colors: string[];
     cardId: number;
@@ -18,6 +20,7 @@ const CardActions: FC<ICardActionsProps> = ({
     isBottom,
     setIsHover,
 }) => {
+    const { t } = useTranslation();
     const { mutate } = useDeleteCard();
     const [isVisibleLabels, setIsVisibleLabels] = useState(false);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
@@ -28,7 +31,7 @@ const CardActions: FC<ICardActionsProps> = ({
         <div className="cardActions">
             <div className={styles.cardActions}>
                 <div className={styles.cardActions__title}>
-                    <h3>Действия с карточкой</h3>
+                    <h3>{t('cardActions.actions.title')}</h3>
                     <img
                         src={cross}
                         width={20}
@@ -38,9 +41,13 @@ const CardActions: FC<ICardActionsProps> = ({
                         }}
                     />
                 </div>
-                <h4 onClick={() => setShowCardBody(cardId)}>Открыть карточку</h4>
-                <h4 onClick={() => setIsVisibleLabels(!isVisibleLabels)}>Изменить метки</h4>
-                <h4 onClick={() => mutate({ id: cardId, boardId })}>Удалить карточку</h4>
+                <h4 onClick={() => setShowCardBody(cardId)}>{t('cardActions.actions.open')}</h4>
+                <h4 onClick={() => setIsVisibleLabels(!isVisibleLabels)}>
+                    {t('cardActions.actions.change')}
+                </h4>
+                <h4 onClick={() => mutate({ id: cardId, boardId })}>
+                    {t('cardActions.actions.delete')}
+                </h4>
             </div>
             {isVisibleLabels && (
                 <div

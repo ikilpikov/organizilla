@@ -1,14 +1,14 @@
 import { useState, useEffect, FC } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import useReorderCard from '../../hooks/useReorderCard';
 import useBoardData from '../../hooks/useBoardData';
 import useReorderList from '../../hooks/useReorderList';
-import { useShowActionStore } from '../../store';
 import CreateListButton from '../CreateList/CreateListButton/CreateListButton';
 import List from '../List/List';
+import { useShowActionStore } from '../../store';
 import { IList } from '../../types/entityTypes';
-import styles from './BoardContainer.module.scss';
-import useReorderCard from '../../hooks/useReorderCard';
 import { reorderList, reorderCard } from '../../utils/reorderHelpers';
+import styles from './BoardContainer.module.scss';
 
 interface IBoardContainerProps {
     id: string;

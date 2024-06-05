@@ -1,11 +1,12 @@
 import { FC, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import useColorValue from '../../hooks/useColorValue';
 import { ILabel } from '../../types/entityTypes';
 import COLOR_SHADES from '../../constants/colorShades';
 import leftArrow from '../../assets/icons/leftArrowSmall.svg';
 import cross from '../../assets/icons/cross.svg';
 import styles from './LabelsContainer.module.scss';
-import { useParams } from 'react-router-dom';
 
 interface ILabelsContainerProps {
     labels: ILabel;
@@ -19,6 +20,7 @@ const LabelsContainer: FC<ILabelsContainerProps> = ({
     setIsCreateLabel,
     setIsHover,
 }) => {
+    const { t } = useTranslation();
     const { id } = useParams();
     const [colorName, setColorName] = useState('');
     const [viewBGColor, setViewBGColor] = useState({ HEX: '#008000', color: 'green' });
@@ -38,7 +40,7 @@ const LabelsContainer: FC<ILabelsContainerProps> = ({
         <div className={styles.labelsContainer}>
             <div className={styles.labelsContainer__title}>
                 <img src={leftArrow} width={15} onClick={() => setIsCreateLabel(false)} />
-                <h3>Создание метки</h3>
+                <h3>{t('labels.createLabel.title')}</h3>
                 <img
                     src={cross}
                     width={20}
@@ -61,10 +63,10 @@ const LabelsContainer: FC<ILabelsContainerProps> = ({
                 </div>
             </div>
             <div className={styles.labelsContainer__input}>
-                <label>Название</label>
+                <label>{t('labels.createLabel.labelName')}</label>
                 <input value={colorName} onChange={event => setColorName(event.target.value)} />
             </div>
-            <div>Цвета</div>
+            <div>{t('labels.createLabel.labelColor')}</div>
             <div className={styles.labelsContainer__color}>
                 {Object.entries(labels).length > 0 &&
                     Object.entries(labels).map(([key], index: number) => (
@@ -80,7 +82,7 @@ const LabelsContainer: FC<ILabelsContainerProps> = ({
                     ))}
             </div>
             <div className={styles.labelsContainer__button}>
-                <button onClick={() => setColor()}>Create</button>
+                <button onClick={() => setColor()}>{t('labels.createLabel.create')}</button>
             </div>
         </div>
     );

@@ -1,14 +1,16 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useClickOutside from '../../../hooks/useClickOutside';
 import useList from '../../../hooks/useList';
 import cross from '../../../assets/icons/cross.svg';
 import styles from '../CreateList.module.scss';
-import useClickOutside from '../../../hooks/useClickOutside';
+import { useTranslation } from 'react-i18next';
 
 interface ICreateListFormProps {
     setIsAddList: (isAddList: boolean) => void;
 }
 const CreateListForm: FC<ICreateListFormProps> = ({ setIsAddList }) => {
+    const { t } = useTranslation();
     const { mutate } = useList();
     const [name, setName] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -24,13 +26,13 @@ const CreateListForm: FC<ICreateListFormProps> = ({ setIsAddList }) => {
     return (
         <div className={styles.createListForm} ref={listAddRef}>
             <input
-                placeholder="Ввести имя списка"
+                placeholder={t('listActions.addList.placeholder')}
                 value={name}
                 onChange={event => setName(event.target.value)}
             />
             <div className={styles.createListForm__addClose}>
                 <button onClick={() => addList()} disabled={!name}>
-                    Добавить
+                    {t('listActions.addList.button')}
                 </button>
                 <img src={cross} width={30} onClick={() => setIsAddList(false)} />
             </div>

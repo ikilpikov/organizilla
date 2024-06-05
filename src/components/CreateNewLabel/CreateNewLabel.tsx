@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useColors from '../../hooks/useColors';
+import useCardColor from '../../hooks/useCardColor';
 import LabelsContainer from '../LabelsContainer/LabelsContainer';
 import COLOR_SHADES from '../../constants/colorShades';
 import { ILabel } from '../../types/entityTypes';
 import cross from '../../assets/icons/cross.svg';
 import styles from './CreateNewLabel.module.scss';
-
-import useCardColor from '../../hooks/useCardColor';
 
 interface ICreateNewLabelProps {
     setIsVisibleLabels: (isVisible: boolean) => void;
@@ -24,6 +24,7 @@ const CreateNewLabel: FC<ICreateNewLabelProps> = ({
     setColors,
     setIsHover,
 }) => {
+    const { t } = useTranslation();
     const { id } = useParams<{ id: string }>();
     const { data } = useColors(id!);
     const [isCreateLabel, setIsCreateLabel] = useState(false);
@@ -62,7 +63,7 @@ const CreateNewLabel: FC<ICreateNewLabelProps> = ({
         <>
             <div className={styles.createNewLabel}>
                 <div className={styles.createNewLabel__title}>
-                    <h4>Метки</h4>
+                    <h4>{t('labels.title')}</h4>
                     <img
                         src={cross}
                         width={20}
@@ -100,7 +101,7 @@ const CreateNewLabel: FC<ICreateNewLabelProps> = ({
                     onClick={() => setIsCreateLabel(true)}
                     className={styles.createNewLabel__label_button}
                 >
-                    Create label
+                    {t('labels.addLabel')}
                 </button>
             </div>
             {isCreateLabel && (

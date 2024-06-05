@@ -159,5 +159,53 @@
             "active": "Active",
             "complete": "Completed"
         }
+    },
+    "cardActions": {
+        "addCard": {
+            "title": "Add Card",
+            "placeholder": "Enter card title",
+            "button": "Add Card"
+        },
+        "actions": {
+            "title": "Card Actions",
+            "open": "Open Card",
+            "change": "Change Labels",
+            "delete": "Delete Card"
+        }
+    },
+    "listActions": {
+        "addList": {
+            "title": "Add Another List",
+            "placeholder": "Enter list name",
+            "button": "Add List"
+        },
+        "actions": {
+            "title": "List Actions",
+            "sort": {
+                "oldest": "Sort by Date (Oldest first)",
+                "newest": "Sort by Date (Newest first)",
+                "name": "Sort by Name"
+            },
+            "delete": "Delete List",
+            "deleteAll": "Delete All Cards"
+        }
+    },
+    "cardBody": {
+        "labels": "Labels",
+        "description": "Description"
+    },
+    "textEditor": {
+        "placeholder": "Write text...",
+        "button": "Save"
+    },
+    "labels": {
+        "title": "Labels",
+        "addLabel": "Add Label",
+        "createLabel": {
+            "title": "Create Label",
+            "labelName": "Name",
+            "labelColor": "Color",
+            "create": "Create"
+        }
     }
 }

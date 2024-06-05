@@ -1,14 +1,15 @@
 import { FC, useState, useEffect, useRef } from 'react';
-import { ICard } from '../../types/entityTypes';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import useColors from '../../hooks/useColors';
+import useCardName from '../../hooks/useCardName';
 import TextEditor from '../TextEditor/TextEditor';
 import { useShowActionStore } from '../../store';
+import { ICard } from '../../types/entityTypes';
+import COLOR_SHADES from '../../constants/colorShades';
 import cross from '../../assets/icons/cross.svg';
 import descriptionIcon from '../../assets/icons/description.svg';
 import styles from './CardBody.module.scss';
-import COLOR_SHADES from '../../constants/colorShades';
-import useColors from '../../hooks/useColors';
-import { useParams } from 'react-router-dom';
-import useCardName from '../../hooks/useCardName';
 
 interface IDescription {
     description: string | null;
@@ -20,6 +21,7 @@ interface ICardBodyProps {
 }
 
 const CardBody: FC<ICardBodyProps> = ({ card, description, setIsHover }) => {
+    const { t } = useTranslation();
     const { id } = useParams();
     const { data } = useColors(id!);
     const [cardName, setCardName] = useState(card.name);
@@ -45,7 +47,6 @@ const CardBody: FC<ICardBodyProps> = ({ card, description, setIsHover }) => {
             handleSave();
         }
     };
-
     useEffect(() => {
         if (isEditing) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -84,7 +85,7 @@ const CardBody: FC<ICardBodyProps> = ({ card, description, setIsHover }) => {
                 />
             </div>
             <div>
-                <h4>Метки</h4>
+                <h4>{t('cardBody.labels')}</h4>
                 <div className={styles.cardBody__labels}>
                     {data?.data &&
                         card.colors.map(color => (
@@ -107,7 +108,7 @@ const CardBody: FC<ICardBodyProps> = ({ card, description, setIsHover }) => {
                         width={30}
                         className={styles.cardBody__description_img}
                     />
-                    <h2>Описание</h2>
+                    <h2>{t('cardBody.description')}</h2>
                 </div>
                 <TextEditor description={description.description} cardId={card.id} />
             </div>
