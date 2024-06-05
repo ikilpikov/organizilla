@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createList } from '../services/workspace.service';
-import { IListPost } from '../types/basicTypes';
-import { IBoardQueryData, IList } from '../types/entityTypes';
 import { AxiosError } from 'axios';
+import { createList } from 'services/workspace.service';
+import { IListPost } from 'types/basicTypes';
+import { IBoardQueryData, IList } from 'types/entityTypes';
 
 const useList = () => {
     const queryClient = useQueryClient();

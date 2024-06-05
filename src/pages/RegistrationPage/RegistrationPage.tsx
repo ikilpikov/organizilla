@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRegisterErrorsStore } from 'store';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import useReg from '../../hooks/useReg';
-import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
-import { useRegisterErrorsStore } from '../../store';
-import { schema, UserReg } from '../../schemas/registrationSchema';
-import logo from '../../assets/logo.png';
-import openEye from '../../assets/icons/openEye.svg';
-import closeEye from '../../assets/icons/closeEye.svg';
-import styles from './RegistrationPage.module.scss';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import useReg from 'hooks/useReg';
+import ErrorMessage from 'components/UI/ErrorMessage/ErrorMessage';
+import { IUserReg, schema } from 'schemas/registrationSchema';
+import closeEye from 'assets/icons/closeEye.svg';
+import logo from 'assets/icons/logo.svg';
+import openEye from 'assets/icons/openEye.svg';
+import styles from './RegistrationPage.module.scss';
+
 const RegistrationPage = () => {
     const { t } = useTranslation();
     const error = useRegisterErrorsStore(state => state.error);
@@ -22,7 +23,7 @@ const RegistrationPage = () => {
         handleSubmit,
         formState: { errors },
         getValues,
-    } = useForm<UserReg>({ mode: 'onChange', resolver: zodResolver(schema) });
+    } = useForm<IUserReg>({ mode: 'onChange', resolver: zodResolver(schema) });
 
     const formSubmit = () => {
         const registrationData = getValues();

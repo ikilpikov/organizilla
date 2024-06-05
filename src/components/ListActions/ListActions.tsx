@@ -1,12 +1,12 @@
+import { useShowActionStore } from 'store';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useDeleteList from '../../hooks/useDeleteList';
-import useClickOutside from '../../hooks/useClickOutside';
-import useReorderCard from '../../hooks/useReorderCard';
-import useDeleteCard from '../../hooks/useDeleteCard';
-import { useShowActionStore } from '../../store';
-import { ICard, IList } from '../../types/entityTypes';
-import cross from '../../assets/icons/cross.svg';
+import useClickOutside from 'hooks/useClickOutside';
+import useDeleteCard from 'hooks/useDeleteCard';
+import useDeleteList from 'hooks/useDeleteList';
+import useReorderCard from 'hooks/useReorderCard';
+import { ICard, IList } from 'types/entityTypes';
+import cross from 'assets/icons/cross.svg';
 import styles from './ListActions.module.scss';
 
 interface IListActions {

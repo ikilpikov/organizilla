@@ -1,4 +1,5 @@
-import CreateBoard from '../../components/CreateBoard/CreateBoard';
+import CreateBoard from 'components/CreateBoard/CreateBoard';
+
 const CreateNewBoardPage = () => {
     return <CreateBoard />;
 };

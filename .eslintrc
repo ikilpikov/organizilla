@@ -44,6 +44,7 @@
                         "position": "before",
                     },
                 ],
+                "extensions": [".js", ".jsx", ".tsx", ".ts"],
             },
         ],
         "import/extensions": "off",
@@ -52,8 +53,8 @@
         "padding-line-between-statements": [
             "error",
             {
-                "blankLine": "always",
-                "prev": "*",
+                "blankLine": "never",
+                "prev": ["import"],
                 "next": "return",
             },
             {
@@ -121,7 +122,7 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".ts", ".tsx", ".js", ".jsx"],
+                "extensions": [".tsx", ".ts", ".js", ".jsx"],
                 "moduleDirectory": ["node_modules", "src/"],
             },
         },

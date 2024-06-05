@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { setCardColor } from '../services/workspace.service';
-import { removeCardColor } from '../services/workspace.service';
-import { ICardColorData } from '../types/basicTypes';
+import { setCardColor } from 'services/workspace.service';
+import { removeCardColor } from 'services/workspace.service';
+import { ICardColorData } from 'types/basicTypes';
 
 const useCardColor = () => {
     const queryClient = useQueryClient();

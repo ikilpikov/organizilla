@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Layout from '../../components/Layout/Layout';
-import Timer from '../../components/Timer/Timer';
-import SelectCard from '../../components/SelectTask/SelectTask';
+import { Link } from 'react-router-dom';
+import Layout from 'components/Layout/Layout';
+import SelectTask from 'components/SelectTask/SelectTask';
+import Timer from 'components/Timer/Timer';
 import styles from './Pomodoro.module.scss';
 
 const PomodoroPage = () => {
@@ -17,7 +17,7 @@ const PomodoroPage = () => {
                     </button>
                 </div>
                 <div className={styles.pomodoro__selectCard}>
-                    <SelectCard />
+                    <SelectTask />
                 </div>
             </div>
         </Layout>

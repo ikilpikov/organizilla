@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const clientID = import.meta.env.VITE_UNSPLASH_API_KEY;
 export const getBackgroundImages = async (pageNumber: number) => {
     const response = await axios.get(

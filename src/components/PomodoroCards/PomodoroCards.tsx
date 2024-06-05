@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import bin from 'assets/icons/bin.svg';
 import styles from './PomodoroCards.module.scss';
-import bin from '../../assets/icons/bin.svg';
 
 interface IPomodoroCard {
     name: string;

@@ -1,7 +1,7 @@
-import { useThemeContext } from '../../hooks/useThemeContext';
-import Switch from '../UI/Switch/Switch';
-import sun from '../../assets/icons/sun.svg';
-import moon from '../../assets/icons/moon.svg';
+import { useThemeContext } from 'hooks/useThemeContext';
+import Switch from 'components/UI/Switch/Switch';
+import moon from 'assets/icons/moon.svg';
+import sun from 'assets/icons/sun.svg';
 import styles from './SelectTheme.module.scss';
 
 const SelectTheme = () => {

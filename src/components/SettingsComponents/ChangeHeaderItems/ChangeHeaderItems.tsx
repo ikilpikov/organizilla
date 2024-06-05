@@ -1,6 +1,7 @@
+import { useVisibilityStore } from 'store';
 import { useTranslation } from 'react-i18next';
-import { useVisibilityStore } from '../../../store';
 import styles from './ChangeHeaderItems.module.scss';
+
 const ChangeHeaderItems = () => {
     const {
         isVisibleSearch,

@@ -1,11 +1,11 @@
+import { useShowActionStore } from 'store';
 import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import searchIcon from '../../assets/icons/search.svg';
+import useAllCards from 'hooks/useAllCards';
+import SearchContainer from 'components/SearchContainer/SearchContainer';
+import { IExtendedCard } from 'types/entityTypes';
+import searchIcon from 'assets/icons/search.svg';
 import styles from './Search.module.scss';
-import useAllCards from '../../hooks/useAllCards';
-import SearchContainer from '../SearchContainer/SearchContainer';
-import { IExtendedCard } from '../../types/entityTypes';
-import { useShowActionStore } from '../../store';
 
 const Search = () => {
     const { data: allCards = [] } = useAllCards();

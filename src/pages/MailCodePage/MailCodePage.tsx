@@ -1,12 +1,13 @@
+import { useEmailDataStore } from 'store';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import useSendConfirmCode from '../../hooks/useSendConfirmCode';
-import EmailCode from '../../components/EmailCode/EmailCode';
-import ResendCode from '../../components/ResendCode/ResendCode';
-import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
-import ArrowBack from '../../components/UI/ArrowBack/ArrowBack';
-import { useEmailDataStore } from '../../store';
+import useSendConfirmCode from 'hooks/useSendConfirmCode';
+import EmailCode from 'components/EmailCode/EmailCode';
+import ResendCode from 'components/ResendCode/ResendCode';
+import ArrowBack from 'components/UI/ArrowBack/ArrowBack';
+import ErrorMessage from 'components/UI/ErrorMessage/ErrorMessage';
 import styles from './MailCodePage.module.scss';
+
 const MailCodePage = () => {
     const { t } = useTranslation();
     const { mutate } = useSendConfirmCode();

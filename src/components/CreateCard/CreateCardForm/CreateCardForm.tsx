@@ -1,9 +1,9 @@
+import { useShowActionStore } from 'store';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useAddCard from '../../../hooks/useAddCard';
-import useClickOutside from '../../../hooks/useClickOutside';
-import { useShowActionStore } from '../../../store';
-import cross from '../../../assets/icons/cross.svg';
+import useAddCard from 'hooks/useAddCard';
+import useClickOutside from 'hooks/useClickOutside';
+import cross from 'assets/icons/cross.svg';
 import styles from '../CreateCard.module.scss';
 
 interface ICreateCardFormProps {

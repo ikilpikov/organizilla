@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import BlockOption from '../UI/BlockOption/BlockOption';
+import BlockOption from 'components/UI/BlockOption/BlockOption';
+import plus from 'assets/icons/plus.svg';
+import importImg from 'assets/import.png';
 import styles from './CreateBoardOptions.module.scss';
-import plus from '../../assets/icons/plus.svg';
-import importImg from '../../assets/import.png';
 
 const CreateBoardOptions = () => {
     const { t } = useTranslation();

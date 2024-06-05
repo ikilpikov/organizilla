@@ -1,7 +1,7 @@
 import { FC } from 'react';
+import Layout from 'components/Layout/Layout';
+import BoardSkeleton from 'components/UI/BoardSkeleton/BoardSkeleton';
 import styles from './BoardView.module.scss';
-import Layout from '../Layout/Layout';
-import BoardSkeleton from '../UI/BoardSkeleton/BoardSkeleton';
 
 interface IBoardViewProps {
     background: string;

@@ -1,8 +1,8 @@
-import { UserReg } from '../schemas/registrationSchema';
-import { UserAuth } from '../schemas/authSchema';
+import { IUserAuth } from 'schemas/authSchema';
+import { IUserReg } from 'schemas/registrationSchema';
 import { axiosInstance } from './instances';
 
-export const registration = async ({ username, email, password }: UserReg) => {
+export const registration = async ({ username, email, password }: IUserReg) => {
     const response = await axiosInstance.post('/register', {
         username,
         email,
@@ -10,7 +10,7 @@ export const registration = async ({ username, email, password }: UserReg) => {
     });
     return response;
 };
-export const authorizationByLogin = async ({ login, password }: UserAuth) => {
+export const authorizationByLogin = async ({ login, password }: IUserAuth) => {
     const response = await axiosInstance.post('/login/username', {
         username: login,
         password,
@@ -18,7 +18,7 @@ export const authorizationByLogin = async ({ login, password }: UserAuth) => {
     return response;
 };
 
-export const authorizationByEmail = async ({ login, password }: UserAuth) => {
+export const authorizationByEmail = async ({ login, password }: IUserAuth) => {
     const response = await axiosInstance.post('/login/email', {
         email: login,
         password,

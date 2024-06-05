@@ -1,14 +1,15 @@
+import { useImportModalVisibleStore } from 'store';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useTrelloBoards from '../../../hooks/useTrelloBoards';
-import useTrelloImport from '../../../hooks/useTrelloImport';
-import CustomSelect from '../../UI/CustomSelect/CustomSelect';
-import ImportDataModal from '../../UI/Modals/ImportData/ImportDataModal';
-import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
-import { getSelectedData } from '../../../services/trelloAPI.service';
-import { useImportModalVisibleStore } from '../../../store';
-import { IBoard } from '../../../types/entityTypes';
+import useTrelloBoards from 'hooks/useTrelloBoards';
+import useTrelloImport from 'hooks/useTrelloImport';
+import CustomSelect from 'components/UI/CustomSelect/CustomSelect';
+import ErrorMessage from 'components/UI/ErrorMessage/ErrorMessage';
+import ImportDataModal from 'components/UI/Modals/ImportData/ImportDataModal';
+import { getSelectedData } from 'services/trelloAPI.service';
+import { IBoard } from 'types/entityTypes';
 import styles from '../Trello.module.scss';
+
 const TrelloImport = () => {
     const { t } = useTranslation();
     const [tokenValue, setTokenValue] = useState('');

@@ -1,6 +1,7 @@
-import { useSideMenuVisibleStore } from '../../../store';
-import burgerMenu from '../../../assets/icons/burgerMenu.svg';
+import { useSideMenuVisibleStore } from 'store';
+import burgerMenu from 'assets/icons/burgerMenu.svg';
 import styles from './BurgerMenu.module.scss';
+
 const BurgerMenu = () => {
     const setSideMenuIsVisible = useSideMenuVisibleStore(state => state.setSideMenuIsVisible);
 

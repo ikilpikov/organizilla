@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import useUserData from '../../../hooks/useUserData';
-import { setAccessToken } from '../../../utils/accessTokenActions';
+import { useNavigate } from 'react-router-dom';
+import useUserData from 'hooks/useUserData';
+import { setAccessToken } from 'utils/accessTokenActions';
 import styles from './UserProfileSettings.module.scss';
+
 const UserProfileSettings = () => {
     const { data } = useUserData();
     const navigate = useNavigate();

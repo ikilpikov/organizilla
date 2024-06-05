@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
+import SelectLangugage from 'components/SelectLanguage/SelectLangugage';
+import SelectTheme from 'components/SelectTheme/SelectTheme';
 import ChangeHeaderItems from '../ChangeHeaderItems/ChangeHeaderItems';
 import ChangeSystemFormat from '../ChangeSystemFormat/ChangeSystemFormat';
 import PomodoroSettings from '../PomodoroSettings/PomodoroSettings';
-import SelectLangugage from '../../SelectLanguage/SelectLangugage';
-import SelectTheme from '../../SelectTheme/SelectTheme';
 import UserProfileSettings from '../UserProfileSettings/UserProfileSettings';
 import styles from './SettingsContainer.module.scss';
+
 const SettingsContainer = () => {
     const { t } = useTranslation();
     return (

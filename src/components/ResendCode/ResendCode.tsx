@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useSendConfirmationEmail from '../../hooks/useSendConfirmationEmail';
+import useSendConfirmationEmail from 'hooks/useSendConfirmationEmail';
 import styles from './ResendCode.module.scss';
+
 const SendCode = () => {
     const { t } = useTranslation();
     const [timer, setTimer] = useState(45);

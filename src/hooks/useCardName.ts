@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { renameCard } from '../services/workspace.service';
-import { ISetCardName } from '../types/basicTypes';
+import { renameCard } from 'services/workspace.service';
+import { ISetCardName } from 'types/basicTypes';
 
 const useCardName = () => {
     const queryClient = useQueryClient();

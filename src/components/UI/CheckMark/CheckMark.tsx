@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import checkMark from '../../../assets/animations/checkMark.gif';
-import checkMarkCompleted from '../../../assets/checkMarkCompleted.png';
+import { useEffect, useState } from 'react';
+import checkMark from 'assets/animations/checkMark.gif';
+import checkMarkCompleted from 'assets/checkMarkCompleted.png';
 import styles from './CheckMark.module.scss';
+
 const CheckMark = () => {
     const [checkMarkActive, setCheckMarkActive] = useState(true);
 

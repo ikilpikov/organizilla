@@ -1,7 +1,8 @@
+import { useEmailDataStore } from 'store';
 import { useRef } from 'react';
-import { isNotEmpty } from '../../utils/helper';
-import { useEmailDataStore } from '../../store';
+import { isNotEmpty } from 'utils/helper';
 import styles from './EmailCode.module.scss';
+
 const EmailCode = () => {
     const inputRefs = [
         useRef<HTMLInputElement>(null),

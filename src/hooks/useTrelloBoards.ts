@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getTrelloBoards } from '../services/trelloAPI.service';
+import { getTrelloBoards } from 'services/trelloAPI.service';
 
 const useTrelloBoards = (tokenValue: string) => {
     return useQuery({

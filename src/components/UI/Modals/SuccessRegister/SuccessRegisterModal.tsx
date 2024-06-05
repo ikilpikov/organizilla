@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import Confetti from '../../../Confetti/Confetti';
-import CheckMark from '../../CheckMark/CheckMark';
+import Confetti from 'components/Confetti/Confetti';
+import CheckMark from 'components/UI/CheckMark/CheckMark';
+import ContinueBtn from 'components/UI/ContinueBtn/ContinueBtn';
 import styles from './SuccessRegister.module.scss';
-import ContinueBtn from '../../ContinueBtn/ContinueBtn';
+
 const SuccessRegisterModal = () => {
     const { t } = useTranslation();
     return (

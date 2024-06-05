@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getBackgroundImages } from '../services/unsplashAPI.service';
+import { getBackgroundImages } from 'services/unsplashAPI.service';
 
 const useBackgroundImages = (pageNumber: number) => {
     return useQuery({

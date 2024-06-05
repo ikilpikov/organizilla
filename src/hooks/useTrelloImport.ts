@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
+import { useImportModalVisibleStore } from 'store';
 import { useNavigate } from 'react-router-dom';
-import { importTrelloBoard } from '../services/workspace.service';
-import { IBoard } from '../types/entityTypes';
-import { useImportModalVisibleStore } from '../store';
+import { importTrelloBoard } from 'services/workspace.service';
+import { IBoard } from 'types/entityTypes';
 
 const useTrelloImport = () => {
     const navigator = useNavigate();

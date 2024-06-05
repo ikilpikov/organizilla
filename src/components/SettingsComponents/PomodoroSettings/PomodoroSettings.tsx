@@ -1,8 +1,8 @@
-import ReactSlider from 'react-slider';
+import { usePomodoroSettingsStore } from 'store';
 import { useTranslation } from 'react-i18next';
-import { usePomodoroSettingsStore } from '../../../store';
-import soundOn from '../../../assets/icons/soundOn.svg';
-import soundOff from '../../../assets/icons/soundOff.svg';
+import ReactSlider from 'react-slider';
+import soundOff from 'assets/icons/soundOff.svg';
+import soundOn from 'assets/icons/soundOn.svg';
 import styles from './PomodoroSettings.module.scss';
 
 const PomodoroSettings = () => {

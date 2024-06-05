@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import trello from '../../../assets/icons/trello.svg';
+import trello from 'assets/icons/trello.svg';
 import styles from '../Trello.module.scss';
+
 const TrelloAuth = () => {
     const { t } = useTranslation();
     return (

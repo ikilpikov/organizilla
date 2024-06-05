@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import leftArrow from '../../../assets/icons/leftArrow.svg';
+import leftArrow from 'assets/icons/leftArrow.svg';
 import styles from './ArrowBack.module.scss';
+
 const ArrowBack = () => {
     const navigator = useNavigate();
     return (

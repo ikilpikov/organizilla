@@ -1,7 +1,8 @@
-import { capitalizeFirstLetter } from './helper';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { capitalizeFirstLetter } from './helper';
+
 const date = dayjs();
 
 export const getCurrentDate = () => {

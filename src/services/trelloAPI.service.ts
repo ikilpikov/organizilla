@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { IBoard } from 'types/entityTypes';
+import { filterTrelloData } from 'utils/filterTrelloData';
 import { axiosTrelloInstance } from './instances';
-import { IBoard } from '../types/entityTypes';
-import { filterTrelloData } from '../utils/filterTrelloData';
 
 const TRELLO_API_KEY = import.meta.env.VITE_TRELLO_API_KEY;
 

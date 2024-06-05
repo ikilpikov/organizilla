@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import playButton from '../../assets/icons/playButton.svg';
-import pauseButton from '../../assets/icons/pauseButton.svg';
+import pauseButton from 'assets/icons/pauseButton.svg';
+import playButton from 'assets/icons/playButton.svg';
 import styles from './PomodoroButton.module.scss';
 
 interface IPomodoroButtonProps {

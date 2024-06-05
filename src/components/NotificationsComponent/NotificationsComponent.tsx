@@ -1,6 +1,7 @@
-import bell from '../../assets/icons/bell.svg';
-import bellOff from '../../assets/icons/bellOff.svg';
+import bell from 'assets/icons/bell.svg';
+import bellOff from 'assets/icons/bellOff.svg';
 import styles from './NotificationComponent.module.scss';
+
 const NotificationsComponent = () => {
     return (
         <>

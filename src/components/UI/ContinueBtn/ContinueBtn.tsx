@@ -1,5 +1,5 @@
+import { useSuccessRegisterStore } from 'store';
 import { useTranslation } from 'react-i18next';
-import { useSuccessRegisterStore } from '../../../store';
 import styles from './ContinueBtn.module.scss';
 
 const ContinueBtn = () => {

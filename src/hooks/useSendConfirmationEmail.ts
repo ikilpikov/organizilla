@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 import { AxiosError } from 'axios';
-import { sendConfirmationEmail } from '../services/mail.service';
-import { useEmailDataStore } from '../store';
+import { useEmailDataStore } from 'store';
+import { useTranslation } from 'react-i18next';
+import { sendConfirmationEmail } from 'services/mail.service';
+
 const useSendConfirmationEmail = () => {
     const setEmailError = useEmailDataStore(state => state.setEmailError);
     const { t } = useTranslation();

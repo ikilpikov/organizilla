@@ -1,5 +1,5 @@
 import React, { FC, createContext } from 'react';
-import { useTheme } from '../hooks/useTheme';
+import { useTheme } from 'hooks/useTheme';
 
 interface ThemeContextType {
     theme: string;

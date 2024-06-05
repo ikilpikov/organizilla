@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { useTranslation } from 'react-i18next';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
-import { authorizationByEmail, authorizationByLogin } from '../services/auth.service';
+import { useNavigate } from 'react-router-dom';
+import { authorizationByEmail, authorizationByLogin } from 'services/auth.service';
+import { setAccessToken } from 'utils/accessTokenActions';
+import { IUserAuth } from 'schemas/authSchema';
 import { useRegisterErrorsStore } from '../store';
-import { UserAuth } from '../schemas/authSchema';
-import { setAccessToken } from '../utils/accessTokenActions';
 
 const useAuth = () => {
     const navigator = useNavigate();
@@ -15,7 +15,7 @@ const useAuth = () => {
     const setError = useRegisterErrorsStore(state => state.setError);
 
     return useMutation({
-        mutationFn: (data: UserAuth) => {
+        mutationFn: (data: IUserAuth) => {
             console.log(data);
 
             if (emailRegex.test(data.login)) return authorizationByEmail(data);

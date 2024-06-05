@@ -1,12 +1,12 @@
-import { useParams } from 'react-router-dom';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useColors from '../../hooks/useColors';
-import useCardColor from '../../hooks/useCardColor';
-import LabelsContainer from '../LabelsContainer/LabelsContainer';
-import COLOR_SHADES from '../../constants/colorShades';
-import { ILabel } from '../../types/entityTypes';
-import cross from '../../assets/icons/cross.svg';
+import { useParams } from 'react-router-dom';
+import useCardColor from 'hooks/useCardColor';
+import useColors from 'hooks/useColors';
+import LabelsContainer from 'components/LabelsContainer/LabelsContainer';
+import { ILabel } from 'types/entityTypes';
+import COLOR_SHADES from 'constants/colorShades';
+import cross from 'assets/icons/cross.svg';
 import styles from './CreateNewLabel.module.scss';
 
 interface ICreateNewLabelProps {

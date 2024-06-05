@@ -1,4 +1,4 @@
-import { ISortBoards } from '../types/entityTypes';
+import { ISortBoards } from 'types/entityTypes';
 
 const sortBoardsByActivity = (boards: ISortBoards[]): ISortBoards[] => {
     return boards.sort(

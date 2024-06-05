@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllBoards, getBoard } from '../services/workspace.service';
-
-import { IBoard, IList, IExtendedCard } from '../types/entityTypes';
+import { getAllBoards, getBoard } from 'services/workspace.service';
+import { IBoard, IExtendedCard, IList } from 'types/entityTypes';
 
 const useAllCards = () => {
     return useQuery({

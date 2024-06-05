@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import PomodoroCards from '../PomodoroCards/PomodoroCards';
-import useAllBoards from '../../hooks/useAllBoards';
-import useBoardData from '../../hooks/useBoardData';
-import { IBoard, ICard, IList } from '../../types/entityTypes';
+import useAllBoards from 'hooks/useAllBoards';
+import useBoardData from 'hooks/useBoardData';
+import PomodoroCards from 'components/PomodoroCards/PomodoroCards';
+import { IBoard, ICard, IList } from 'types/entityTypes';
 import styles from './SelectTask.module.scss';
 
 const SelectTask = () => {

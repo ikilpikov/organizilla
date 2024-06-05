@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './BoardCover.module.scss';
+
 interface IBoardCoverProps {
     background: string;
     name: string;

@@ -1,8 +1,8 @@
+import { useShowActionStore } from 'store';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import CreateCardForm from '../CreateCardForm/CreateCardForm';
-import { useShowActionStore } from '../../../store';
-import plusBlack from '../../../assets/icons/plusBlack.svg';
+import CreateCardForm from 'components/CreateCard/CreateCardForm/CreateCardForm';
+import plusBlack from 'assets/icons/plusBlack.svg';
 import styles from '../CreateCard.module.scss';
 
 interface ICreateCardButton {

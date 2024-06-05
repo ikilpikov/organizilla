@@ -1,9 +1,9 @@
+import { useSideMenuVisibleStore } from 'store';
 import React, { FC, useEffect, useRef, useState } from 'react';
+import { ThemeProvider } from 'context/ThemeContext';
 import Header from './Header/Header';
-import SideMenu from './SideMenu/SideMenu';
-import { ThemeProvider } from '../../context/ThemeContext';
-import { useSideMenuVisibleStore } from '../../store';
 import styles from './Layout.module.scss';
+import SideMenu from './SideMenu/SideMenu';
 
 interface ILayoutProps {
     children: React.ReactNode;

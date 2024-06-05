@@ -32,4 +32,4 @@ export const schema = z
         path: ['confirmPassword'],
     });
 
-export type UserReg = z.infer<typeof schema>;
+export type IUserReg = z.infer<typeof schema>;

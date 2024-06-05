@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import styles from './SelectLanguage.module.scss';
+
 const SelectLangugage = () => {
     const { i18n } = useTranslation();
     const savedLocale = localStorage.getItem('locale') ?? 'ru';

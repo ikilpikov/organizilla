@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAccessToken, setAccessToken } from '../utils/accessTokenActions';
+import { getAccessToken, setAccessToken } from 'utils/accessTokenActions';
 
 const AUTHBASE = import.meta.env.VITE_API_GETWAY_URL;
 

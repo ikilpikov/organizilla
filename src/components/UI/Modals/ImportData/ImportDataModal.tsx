@@ -1,7 +1,8 @@
-import Spinner from '../../Spinner/Spinner';
-import trello from '../../../../assets/icons/trello.svg';
-import styles from './ImportDataModal.module.scss';
 import { useTranslation } from 'react-i18next';
+import Spinner from 'components/UI/Spinner/Spinner';
+import trello from 'assets/icons/trello.svg';
+import styles from './ImportDataModal.module.scss';
+
 const ImportDataModal = () => {
     const { t } = useTranslation();
     return (

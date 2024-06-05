@@ -1,9 +1,9 @@
+import { useShowActionStore } from 'store';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useDeleteCard from '../../hooks/useDeleteCard';
-import CreateNewLabel from '../CreateNewLabel/CreateNewLabel';
-import { useShowActionStore } from '../../store';
-import cross from '../../assets/icons/cross.svg';
+import useDeleteCard from 'hooks/useDeleteCard';
+import CreateNewLabel from 'components/CreateNewLabel/CreateNewLabel';
+import cross from 'assets/icons/cross.svg';
 import styles from './CardActions.module.scss';
 
 interface ICardActionsProps {

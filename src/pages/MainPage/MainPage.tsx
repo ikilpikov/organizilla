@@ -1,12 +1,12 @@
+import { useSuccessRegisterStore } from 'store';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useAllBoards from '../../hooks/useAllBoards';
-import Layout from '../../components/Layout/Layout';
-import CurrentDate from '../../components/CurrentDate/CurrentDate';
-import SuccessRegister from '../../components/UI/Modals/SuccessRegister/SuccessRegisterModal';
-import WorkSpaces from '../../components/WorkSpaces/WorkSpaces';
-import { useSuccessRegisterStore } from '../../store';
-import { ISortBoards } from '../../types/entityTypes';
+import useAllBoards from 'hooks/useAllBoards';
+import CurrentDate from 'components/CurrentDate/CurrentDate';
+import Layout from 'components/Layout/Layout';
+import SuccessRegisterModal from 'components/UI/Modals/SuccessRegister/SuccessRegisterModal';
+import WorkSpaces from 'components/WorkSpaces/WorkSpaces';
+import { ISortBoards } from 'types/entityTypes';
 import styles from './MainPage.module.scss';
 
 const MainPage = () => {
@@ -39,7 +39,7 @@ const MainPage = () => {
                     </>
                 )}
 
-                {successRegisterVisible && <SuccessRegister />}
+                {successRegisterVisible && <SuccessRegisterModal />}
             </Layout>
         </>
     );

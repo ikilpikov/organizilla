@@ -1,6 +1,6 @@
+import { useSideMenuVisibleStore } from 'store';
 import { FC } from 'react';
-import SideMenuLink from '../../UI/SideMenuLink/SideMenuLink';
-import { useSideMenuVisibleStore } from '../../../store';
+import SideMenuLink from 'components/UI/SideMenuLink/SideMenuLink';
 import styles from './SideMenu.module.scss';
 
 interface ISideMenuProps {

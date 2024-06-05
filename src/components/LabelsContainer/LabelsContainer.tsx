@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import useColorValue from '../../hooks/useColorValue';
-import { ILabel } from '../../types/entityTypes';
-import COLOR_SHADES from '../../constants/colorShades';
-import leftArrow from '../../assets/icons/leftArrowSmall.svg';
-import cross from '../../assets/icons/cross.svg';
+import { useParams } from 'react-router-dom';
+import useColorValue from 'hooks/useColorValue';
+import { ILabel } from 'types/entityTypes';
+import COLOR_SHADES from 'constants/colorShades';
+import cross from 'assets/icons/cross.svg';
+import leftArrow from 'assets/icons/leftArrowSmall.svg';
 import styles from './LabelsContainer.module.scss';
 
 interface ILabelsContainerProps {

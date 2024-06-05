@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePomodoroSettingsStore } from 'store';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import PomodoroButton from '../PomodoroButton/PomodoroButton';
-import { usePomodoroSettingsStore } from '../../store';
-import pomodoroAlarm from '../../assets/sounds/pomodoroAlarm.mp3';
 import 'react-circular-progressbar/dist/styles.css';
+import PomodoroButton from 'components/PomodoroButton/PomodoroButton';
+import pomodoroAlarm from 'assets/sounds/pomodoroAlarm.mp3';
+
 const red = '#f54e4e';
 const green = '#4aec8c';
 

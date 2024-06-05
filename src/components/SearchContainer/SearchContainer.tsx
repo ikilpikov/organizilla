@@ -1,8 +1,9 @@
+import { useShowActionStore } from 'store';
 import { FC } from 'react';
-import { IExtendedCard } from '../../types/entityTypes';
 import { useNavigate } from 'react-router-dom';
-import { useShowActionStore } from '../../store';
+import { IExtendedCard } from 'types/entityTypes';
 import styles from './SearchContainer.module.scss';
+
 interface ISearchContainerProps {
     cards: IExtendedCard[];
     setSearchValue: (searchValue: string) => void;

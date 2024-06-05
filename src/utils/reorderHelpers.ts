@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { DraggableLocation } from 'react-beautiful-dnd';
-import { ICardReorder, IList, IListReorder } from '../types/entityTypes';
+import { ICardReorder, IList, IListReorder } from 'types/entityTypes';
 
 export const reorderList = (
     source: DraggableLocation,

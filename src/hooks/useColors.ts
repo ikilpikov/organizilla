@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllColors } from '../services/workspace.service';
+import { getAllColors } from 'services/workspace.service';
 
 const useColors = (id: string) => {
     return useQuery({

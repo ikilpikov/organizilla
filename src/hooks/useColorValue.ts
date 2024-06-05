@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { setColorValue } from '../services/workspace.service';
-import { ISetColor } from '../types/basicTypes';
 import { AxiosError } from 'axios';
+import { setColorValue } from 'services/workspace.service';
+import { ISetColor } from 'types/basicTypes';
 
 const useColorValue = () => {
     const queryClient = useQueryClient();

@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import Select, { MultiValue } from 'react-select';
 import { useTranslation } from 'react-i18next';
-import { IOptions } from '../../../types/basicTypes';
+import Select, { MultiValue } from 'react-select';
+import { IOptions } from 'types/basicTypes';
 import styles from './CustomSelect.module.scss';
+
 interface ICustomSelectProps {
     options: IOptions[];
     selectedOptions: string[];

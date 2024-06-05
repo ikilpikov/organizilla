@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import useBackgroundImages from '../../hooks/useBackgroundImages';
-import { IBackgroundImage, IURL } from '../../types/entityTypes';
+import { useBackgroundImageStore } from 'store';
+import React, { useEffect, useState } from 'react';
+import useBackgroundImages from 'hooks/useBackgroundImages';
+import { IBackgroundImage, IURL } from 'types/entityTypes';
+import { resizeImage } from 'utils/helper';
 import styles from './SelectBackground.module.scss';
-import { useBackgroundImageStore } from '../../store';
-import { resizeImage } from '../../utils/helper';
 
 const SelectBackground = React.memo(() => {
     const backgroundImagePageNumber = useBackgroundImageStore(

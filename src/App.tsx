@@ -1,16 +1,16 @@
-import { Routes, Route } from 'react-router-dom';
-import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
-import MailCodePage from './pages/MailCodePage/MailCodePage';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
 import AuthPage from './pages/AuthPage/AuthPage';
-import MainPage from './pages/MainPage/MainPage';
-import ImportDataPage from './pages/ImportDataPage/ImportDataPage';
+import BoardPage from './pages/BoardPage/BoardPage';
 import CreateBoardPage from './pages/CreateBoardPage/CreateBoardPage';
 import CreateNewBoardPage from './pages/CreateNewBoardPage/CreateNewBoardPage';
-import BoardPage from './pages/BoardPage/BoardPage';
-import SettingsPage from './pages/SettingsPage/SettingsPage';
+import ImportDataPage from './pages/ImportDataPage/ImportDataPage';
+import MailCodePage from './pages/MailCodePage/MailCodePage';
+import MainPage from './pages/MainPage/MainPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import './App.css';
 import PomodoroPage from './pages/PomodoroPage/PomodoroPage';
+import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
 
 function App() {
     return (

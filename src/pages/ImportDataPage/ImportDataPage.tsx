@@ -1,6 +1,7 @@
-import Layout from '../../components/Layout/Layout';
-import TrelloImport from '../../components/Trello/TrelloImport/TrelloImport';
-import TrelloAuth from '../../components/Trello/TrelloAuth/TrelloAuth';
+import Layout from 'components/Layout/Layout';
+import TrelloAuth from 'components/Trello/TrelloAuth/TrelloAuth';
+import TrelloImport from 'components/Trello/TrelloImport/TrelloImport';
+
 const ImportDataPage = () => {
     return (
         <Layout>

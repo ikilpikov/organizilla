@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { createBoard } from '../services/workspace.service';
-import { IBoardPost } from '../types/basicTypes';
 import { useNavigate } from 'react-router-dom';
+import { createBoard } from 'services/workspace.service';
+import { IBoardPost } from 'types/basicTypes';
+
 const useBoard = () => {
     const navigator = useNavigate();
     return useMutation({

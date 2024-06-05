@@ -1,4 +1,4 @@
-import { IBoard, ICheckList, IList, ICard, ICheckItem, ILabel } from '../types/entityTypes';
+import { IBoard, ICard, ICheckItem, ICheckList, ILabel, IList } from 'types/entityTypes';
 
 export const filterTrelloData = (
     board: IBoard,

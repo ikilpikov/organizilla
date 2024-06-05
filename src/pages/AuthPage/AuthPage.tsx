@@ -1,16 +1,16 @@
-import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRegisterErrorsStore } from 'store';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import useAuth from '../../hooks/useAuth';
-import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
-import { useRegisterErrorsStore } from '../../store';
-import { schema, UserAuth } from '../../schemas/authSchema';
-import logo from '../../assets/logo.png';
-import openEye from '../../assets/icons/openEye.svg';
-import closeEye from '../../assets/icons/closeEye.svg';
-import styles from '../../pages/RegistrationPage/RegistrationPage.module.scss';
+import { Link } from 'react-router-dom';
+import useAuth from 'hooks/useAuth';
+import styles from 'pages/RegistrationPage/RegistrationPage.module.scss';
+import ErrorMessage from 'components/UI/ErrorMessage/ErrorMessage';
+import { IUserAuth, schema } from 'schemas/authSchema';
+import closeEye from 'assets/icons/closeEye.svg';
+import openEye from 'assets/icons/openEye.svg';
+import logo from 'assets/logo.png';
 
 const AuthPage = () => {
     const { t } = useTranslation();
@@ -23,7 +23,7 @@ const AuthPage = () => {
         handleSubmit,
         formState: { errors },
         getValues,
-    } = useForm<UserAuth>({ mode: 'onChange', resolver: zodResolver(schema) });
+    } = useForm<IUserAuth>({ mode: 'onChange', resolver: zodResolver(schema) });
 
     const formSubmit = () => {
         const authData = getValues();

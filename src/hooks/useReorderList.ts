@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { reorderList } from '../services/workspace.service';
-import { IListReorder } from '../types/entityTypes';
 import { AxiosError } from 'axios';
+import { reorderList } from 'services/workspace.service';
+import { IListReorder } from 'types/entityTypes';
+
 const useReorderList = () => {
     return useMutation({
         mutationFn: (listReorderData: IListReorder) => {

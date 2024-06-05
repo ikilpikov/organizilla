@@ -1,14 +1,15 @@
+import { useShowActionStore } from 'store';
 import { FC, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useCard from '../../hooks/useCard';
-import useColors from '../../hooks/useColors';
-import CardActions from '../CardActions/CardActions';
-import CardBody from '../CardBody/CardBody';
-import { ICard } from '../../types/entityTypes';
-import COLOR_SHADES from '../../constants/colorShades';
-import { useShowActionStore } from '../../store';
-import pencil from '../../assets/icons/pencil.svg';
+import useCard from 'hooks/useCard';
+import useColors from 'hooks/useColors';
+import CardActions from 'components/CardActions/CardActions';
+import CardBody from 'components/CardBody/CardBody';
+import { ICard } from 'types/entityTypes';
+import COLOR_SHADES from 'constants/colorShades';
+import pencil from 'assets/icons/pencil.svg';
 import styles from './Card.module.scss';
+
 interface ICardProps {
     card: ICard;
 }

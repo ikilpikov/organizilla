@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { setDescription } from '../services/workspace.service';
-import { ISetDescription } from '../types/basicTypes';
 import { AxiosError } from 'axios';
+import { setDescription } from 'services/workspace.service';
+import { ISetDescription } from 'types/basicTypes';
 
 const useDescription = () => {
     const queryClient = useQueryClient();

@@ -1,7 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom';
-import useBoardData from '../../hooks/useBoardData';
-import Layout from '../../components/Layout/Layout';
-import BoardContainer from '../../components/BoardContainer/BoardContainer';
+import useBoardData from 'hooks/useBoardData';
+import BoardContainer from 'components/BoardContainer/BoardContainer';
+import Layout from 'components/Layout/Layout';
 import styles from './BoardPage.module.scss';
 
 const BoardPage = () => {

@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import ReactConfetti from 'react-confetti';
-import { useState, useEffect } from 'react';
+
 const Confetti = () => {
     const [windowDimesion, setWindowDimension] = useState({
         width: window.innerWidth,

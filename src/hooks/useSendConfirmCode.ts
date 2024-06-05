@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { AxiosError } from 'axios';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
+import { useEmailDataStore, useSuccessRegisterStore } from 'store';
 import { useNavigate } from 'react-router-dom';
-import { confirmEmail } from '../services/mail.service';
-import { IConfirmData } from '../services/mail.service';
-import { useEmailDataStore, useSuccessRegisterStore } from '../store';
-import { setAccessToken } from '../utils/accessTokenActions';
+import { confirmEmail } from 'services/mail.service';
+import { IConfirmData } from 'services/mail.service';
+import { setAccessToken } from 'utils/accessTokenActions';
 
 const useSendConfirmCode = () => {
     const navigator = useNavigate();

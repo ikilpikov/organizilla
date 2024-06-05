@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { getCurrentDate, getGreeting } from '../../utils/date';
+import { getCurrentDate, getGreeting } from 'utils/date';
 import styles from './CurrentDate.module.scss';
 
 const CurrentDate = () => {

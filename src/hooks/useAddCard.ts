@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addCard } from '../services/workspace.service';
 import { AxiosError } from 'axios';
+import { addCard } from 'services/workspace.service';
 
 interface ICardPost {
     name: string;

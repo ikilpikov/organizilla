@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import Card from '../Card/Card';
-import { ICard } from '../../types/entityTypes';
+import Card from 'components/Card/Card';
+import { ICard } from 'types/entityTypes';
 import styles from './ListContainer.module.scss';
 
 interface IListContainerProps {

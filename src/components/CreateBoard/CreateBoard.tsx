@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import Select from 'react-select';
+import { useBackgroundImageStore } from 'store';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useBoard from '../../hooks/useBoard';
-import SelectBackground from '../SelectBackground/SelectBackground';
-import BoardView from '../BoardView/BoardView';
-import ArrowBack from '../UI/ArrowBack/ArrowBack';
-import { useBackgroundImageStore } from '../../store';
+import Select from 'react-select';
+import useBoard from 'hooks/useBoard';
+import BoardView from 'components/BoardView/BoardView';
+import SelectBackground from 'components/SelectBackground/SelectBackground';
+import ArrowBack from 'components/UI/ArrowBack/ArrowBack';
 import styles from './CreateBoard.module.scss';
 
 const CreateBoard = () => {

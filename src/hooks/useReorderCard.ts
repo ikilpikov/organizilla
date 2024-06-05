@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { reorderCard } from '../services/workspace.service';
-import { ICardReorder } from '../types/entityTypes';
 import { AxiosError } from 'axios';
+import { reorderCard } from 'services/workspace.service';
+import { ICardReorder } from 'types/entityTypes';
 
 const useReorderCard = () => {
     // const queryClient = useQueryClient();

@@ -1,6 +1,6 @@
+import { useFontSizeStore } from 'store';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useFontSizeStore } from '../../../store';
 import styles from './ChangeSystemFormat.module.scss';
 
 const ChangeSystemFormat = () => {

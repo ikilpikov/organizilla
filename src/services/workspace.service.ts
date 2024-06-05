@@ -1,11 +1,5 @@
-import {
-    IBoardPost,
-    IListPost,
-    ISetCardColor,
-    ISetColor,
-    ISetDescription,
-} from '../types/basicTypes';
-import { ICard, IList, IListReorder, ICardReorder, IBoard } from '../types/entityTypes';
+import { IBoardPost, IListPost, ISetCardColor, ISetColor, ISetDescription } from 'types/basicTypes';
+import { IBoard, ICard, ICardReorder, IList, IListReorder } from 'types/entityTypes';
 import { axiosInstanceWithToken } from './instances';
 
 export const createBoard = async ({ name, backgroundImage, isPublic }: IBoardPost) => {

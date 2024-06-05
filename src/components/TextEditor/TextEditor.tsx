@@ -1,10 +1,11 @@
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../../hooks/useTheme'; // Подключаем хук useTheme
-import useDescription from '../../hooks/useDescription';
-import { modules, formats } from '../../constants/textEditor';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+// Подключаем хук useTheme
+import useDescription from 'hooks/useDescription';
+import { useTheme } from 'hooks/useTheme';
+import { formats, modules } from 'constants/textEditor';
 import './TextEditor.scss';
 
 interface ITextEditorProps {

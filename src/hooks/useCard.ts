@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCard } from '../services/workspace.service';
+import { getCard } from 'services/workspace.service';
 
 const useCard = (id: number) => {
     return useQuery({

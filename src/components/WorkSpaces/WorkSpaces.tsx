@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import BoardCover from '../BoardCover/BoardCover';
-import { getRecentBoards, sortBoardsByName } from '../../utils/sortBoard';
-import { ISortBoards } from '../../types/entityTypes';
+import BoardCover from 'components/BoardCover/BoardCover';
+import { ISortBoards } from 'types/entityTypes';
+import { getRecentBoards, sortBoardsByName } from 'utils/sortBoard';
 import styles from './WorkSpaces.module.scss';
 
 interface IWorkSpacesProps {

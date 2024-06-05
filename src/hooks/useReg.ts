@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
+import { useEmailDataStore, useRegisterErrorsStore } from 'store';
+import { useNavigate } from 'react-router-dom';
+import { registration } from 'services/auth.service';
+import { IUserReg } from 'schemas/registrationSchema';
 import useSendConfirmationEmail from './useSendConfirmationEmail';
-import { registration } from '../services/auth.service';
-import { useRegisterErrorsStore, useEmailDataStore } from '../store';
-import { UserReg } from '../schemas/registrationSchema';
 
 const useReg = () => {
     const navigator = useNavigate();
@@ -12,7 +12,7 @@ const useReg = () => {
     const setEmail = useEmailDataStore(state => state.setEmail);
     const { mutate } = useSendConfirmationEmail();
     return useMutation({
-        mutationFn: (data: UserReg) => registration(data),
+        mutationFn: (data: IUserReg) => registration(data),
         onSuccess: (_, variables) => {
             navigator('/registration/mail');
             setEmail(variables.email); //необходимо для повторной отправки

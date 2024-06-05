@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import CreateListForm from '../CreateListForm.tsx/CreateListForm';
-import plusBlack from '../../../assets/icons/plusBlack.svg';
-import styles from '../CreateList.module.scss';
 import { useTranslation } from 'react-i18next';
+import CreateListForm from 'components/CreateList/CreateListForm/CreateListForm';
+import plusBlack from 'assets/icons/plusBlack.svg';
+import styles from '../CreateList.module.scss';
 
 const CreateListButton = () => {
     const [isAddList, setIsAddList] = useState(false);

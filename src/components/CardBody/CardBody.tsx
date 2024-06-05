@@ -1,14 +1,14 @@
-import { FC, useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useShowActionStore } from 'store';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useColors from '../../hooks/useColors';
-import useCardName from '../../hooks/useCardName';
-import TextEditor from '../TextEditor/TextEditor';
-import { useShowActionStore } from '../../store';
-import { ICard } from '../../types/entityTypes';
-import COLOR_SHADES from '../../constants/colorShades';
-import cross from '../../assets/icons/cross.svg';
-import descriptionIcon from '../../assets/icons/description.svg';
+import { useParams } from 'react-router-dom';
+import useCardName from 'hooks/useCardName';
+import useColors from 'hooks/useColors';
+import TextEditor from 'components/TextEditor/TextEditor';
+import { ICard } from 'types/entityTypes';
+import COLOR_SHADES from 'constants/colorShades';
+import cross from 'assets/icons/cross.svg';
+import descriptionIcon from 'assets/icons/description.svg';
 import styles from './CardBody.module.scss';
 
 interface IDescription {
@@ -85,7 +85,7 @@ const CardBody: FC<ICardBodyProps> = ({ card, description, setIsHover }) => {
                 />
             </div>
             <div>
-                <h4>{t('cardBody.labels')}</h4>
+                <h4>{t('cardBody.')}</h4>
                 <div className={styles.cardBody__labels}>
                     {data?.data &&
                         card.colors.map(color => (
