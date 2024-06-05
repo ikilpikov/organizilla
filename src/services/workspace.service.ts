@@ -131,7 +131,7 @@ export const importTrelloBoard = async (boards: IBoard[]) => {
 
     const response = await axiosInstanceWithToken.post(`/workspace/board/import`, jsonData, {
         headers: {
-            'Content-Type': 'application/json', // Установка заголовка Content-Type на application/json
+            'Content-Type': 'application/json',
         },
     });
     return response;

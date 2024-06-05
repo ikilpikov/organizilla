@@ -57,15 +57,15 @@ export interface IURL {
     thumb: string;
 }
 export interface IListReorder {
-    id: number | null;
+    id: string | null;
     previousListId: number | null;
     nextListId: number | null;
 }
 export interface ICardReorder {
-    id: number | null;
+    id: string | null;
     previousCardId: number | null;
     nextCardId: number | null;
-    listId: number;
+    listId: string;
 }
 export interface IBoardQueryData {
     data: IBoard;

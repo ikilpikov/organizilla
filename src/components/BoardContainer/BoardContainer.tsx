@@ -1,17 +1,19 @@
 import { useState, useEffect, FC } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import useBoardData from '../../hooks/useBoardData';
 import useReorderList from '../../hooks/useReorderList';
 import { useShowActionStore } from '../../store';
 import CreateListButton from '../CreateList/CreateListButton/CreateListButton';
 import List from '../List/List';
-import { IListReorder, IList, ICardReorder } from '../../types/entityTypes';
+import { IList } from '../../types/entityTypes';
 import styles from './BoardContainer.module.scss';
 import useReorderCard from '../../hooks/useReorderCard';
+import { reorderList, reorderCard } from '../../utils/reorderHelpers';
 
 interface IBoardContainerProps {
     id: string;
 }
+
 const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
     const [listData, setListData] = useState<IList[]>([]);
     const { data } = useBoardData(id || '');
@@ -20,91 +22,28 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
     const setShowListActions = useShowActionStore(state => state.setShowListActions);
     const setShowAddCard = useShowActionStore(state => state.setShowAddCard);
     const setShowCardActions = useShowActionStore(state => state.setShowCardActions);
+
     useEffect(() => {
         if (data) {
             setListData(data.data.lists);
         }
     }, [data]);
 
-    const handleDragDrop = results => {
+    const handleDragDrop = (results: DropResult) => {
         const { source, destination, type, draggableId } = results;
+        console.log(results);
 
-        if (!destination) return;
-
-        if (source.droppableId === destination.droppableId && source.index === destination.index)
+        if (
+            !destination ||
+            (source.droppableId === destination.droppableId && source.index === destination.index)
+        ) {
             return;
+        }
 
         if (type === 'group') {
-            const listReorder: IListReorder = {
-                id: draggableId,
-                previousListId: null,
-                nextListId: null,
-            };
-            const reorderedLists = [...listData];
-            const sourceIndex = source.index;
-            const destinationIndex = destination.index;
-            const [removedList] = reorderedLists.splice(sourceIndex, 1);
-            reorderedLists.splice(destinationIndex, 0, removedList);
-
-            const previousListId =
-                destinationIndex > 0 ? reorderedLists[destinationIndex - 1].id : null;
-            const nextListId =
-                destinationIndex < reorderedLists.length - 1
-                    ? reorderedLists[destinationIndex + 1].id
-                    : null;
-
-            listReorder.previousListId = previousListId;
-            listReorder.nextListId = nextListId;
-
-            setListData(reorderedLists);
-            mutate(listReorder);
+            reorderList(source, destination, draggableId, listData, setListData, mutate);
         } else if (type === 'card') {
-            const itemSourceIndex = source.index;
-            const itemDestinationIndex = destination.index;
-
-            const listSourceIndex = listData.findIndex(store => store.id == source.droppableId);
-            const listDestinationIndex = listData.findIndex(
-                store => store.id == destination.droppableId,
-            );
-
-            const newSourceItems = [...listData[listSourceIndex].cards];
-            const newDestinationItems =
-                source.droppableId != destination.droppableId
-                    ? [...listData[listDestinationIndex].cards]
-                    : newSourceItems;
-
-            const [deletedItem] = newSourceItems.splice(itemSourceIndex, 1);
-            newDestinationItems.splice(itemDestinationIndex, 0, deletedItem);
-
-            const newLists = [...listData];
-
-            newLists[listSourceIndex] = {
-                ...listData[listSourceIndex],
-                cards: newSourceItems,
-            };
-            newLists[listDestinationIndex] = {
-                ...listData[listDestinationIndex],
-                cards: newDestinationItems,
-            };
-            const cardReorder: ICardReorder = {
-                id: draggableId,
-                previousCardId: null,
-                nextCardId: null,
-                listId: destination.droppableId,
-            };
-
-            const [selectedList] = listData.filter(state => state.id == destination.droppableId);
-
-            const previousCardId =
-                itemDestinationIndex > 0 ? selectedList?.cards[itemDestinationIndex - 1]?.id : null;
-            const nextListId =
-                itemDestinationIndex < newLists.length - 1
-                    ? selectedList?.cards[itemDestinationIndex]?.id
-                    : null;
-            cardReorder.previousCardId = previousCardId;
-            cardReorder.nextCardId = nextListId;
-            setListData(newLists);
-            mutateCard(cardReorder);
+            reorderCard(source, destination, draggableId, listData, setListData, mutateCard);
         }
     };
 
@@ -113,9 +52,13 @@ const BoardContainer: FC<IBoardContainerProps> = ({ id }) => {
         setShowAddCard(-1);
         setShowCardActions(-1);
     };
+
     return (
         <div className={styles.boardContainer}>
-            <DragDropContext onDragEnd={handleDragDrop} onDragStart={handleDragStart}>
+            <DragDropContext
+                onDragEnd={event => handleDragDrop(event)}
+                onDragStart={handleDragStart}
+            >
                 <div className={styles.lists}>
                     <Droppable droppableId="ROOT" type="group" direction="horizontal">
                         {provided => (

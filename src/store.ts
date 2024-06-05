@@ -219,12 +219,13 @@ export const useShowActionStore = create<IShowActionStore>((set, get) => ({
         }));
     },
 }));
-interface IThemeState {
+
+interface IThemeStore {
     theme: string;
     setTheme: (theme: string) => void;
 }
 
-export const useThemeStore = create<IThemeState>(set => ({
+export const useThemeStore = create<IThemeStore>(set => ({
     theme: 'light',
     setTheme: theme => set({ theme }),
 }));
@@ -333,7 +334,7 @@ export const useFontSizeStore = create(
     ),
 );
 
-interface IPomodoroSettings {
+interface IPomodoroSettingsStore {
     workTime: number;
     breakTime: number;
     isAlarmSound: boolean;
@@ -354,7 +355,7 @@ export const usePomodoroSettingsStore = create(
         }),
         {
             name: 'pomodoro-settings',
-            partialize: (state: IPomodoroSettings) => ({
+            partialize: (state: IPomodoroSettingsStore) => ({
                 workTime: state.workTime,
                 breakTime: state.breakTime,
                 isAlarmSound: state.isAlarmSound,
