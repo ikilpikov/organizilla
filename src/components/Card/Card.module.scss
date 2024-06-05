@@ -25,18 +25,15 @@
             display: flex;
             gap: 4px;
             margin-bottom: 8px;
-            flex-wrap: wrap; // Allow the colors to wrap to the next line
+            flex-wrap: wrap;
         }
 
         &__colorBlock {
-            position: relative;
             min-width: 20px;
             width: fit-content;
             height: 16px;
             border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
             font-size: 11px;
             padding: 2px;
             overflow: hidden;
