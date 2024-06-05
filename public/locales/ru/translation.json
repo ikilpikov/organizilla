@@ -137,7 +137,26 @@
             "time": {
                 "work": "Работа",
                 "break": "Перерыв"
+            },
+            "sound": {
+                "alarm": "Звуковое уведомление"
             }
+        }
+    },
+    "selectTask": {
+        "selectBoard": "Выберите доску",
+        "selectList": {
+            "title": "Выберите список",
+            "notFound": "Не содержит списков"
+        },
+        "selectCard": {
+            "title": "Выберите карточку",
+            "notFound": "Не содержит карточек"
+        },
+        "pomodoroCards": {
+            "title": "Список дел",
+            "active": "Активные",
+            "complete": "Выполненные"
         }
     }
 }

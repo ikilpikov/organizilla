@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import PomodoroCards from '../PomodoroCards/PomodoroCards';
 import useAllBoards from '../../hooks/useAllBoards';
 import useBoardData from '../../hooks/useBoardData';
 import { IBoard, ICard, IList } from '../../types/entityTypes';
-import PomodoroCards from '../PomodoroCards/PomodoroCards';
-import styles from './SelectCard.module.scss';
+import styles from './SelectTask.module.scss';
 
-const SelectCard = () => {
+const SelectTask = () => {
     const [selectedBoard, setSelectedBoard] = useState('');
+    const { t } = useTranslation();
     const { data, isSuccess } = useAllBoards();
     const { data: dataBoard, isSuccess: isDataBoardSuccess } = useBoardData(selectedBoard);
     const [listIndex, setListIndex] = useState(-1);
@@ -19,16 +21,16 @@ const SelectCard = () => {
     };
 
     return (
-        <div className={styles.selectCard}>
+        <div className={styles.selectTask}>
             {isSuccess && (
                 <>
                     <div>
-                        <h3>Выберите доску</h3>
+                        <h3>{t('selectTask.selectBoard')}</h3>
                         <select
                             onChange={event => setSelectedBoard(event.target.value)}
                             value={selectedBoard}
                         >
-                            <option value="">Выберите доску</option>
+                            <option value="">{t('selectTask.selectBoard')}</option>
                             {data?.data.map((board: IBoard) => (
                                 <option key={board.id} value={board.id}>
                                     {board.name}
@@ -39,14 +41,16 @@ const SelectCard = () => {
                             <div>
                                 {dataBoard?.data.lists.length > 0 ? (
                                     <div>
-                                        <h3>Выберите список</h3>
+                                        <h3>{t('selectTask.selectList.title')}</h3>
                                         <select
                                             onChange={event =>
                                                 setListIndex(Number(event.target.value))
                                             }
                                             value={listIndex}
                                         >
-                                            <option value={-1}>Выберите список</option>
+                                            <option value={-1}>
+                                                {t('selectTask.selectList.title')}
+                                            </option>
                                             {dataBoard?.data.lists.map(
                                                 (list: IList, index: number) => (
                                                     <option key={list.id} value={index}>
@@ -57,7 +61,7 @@ const SelectCard = () => {
                                         </select>
                                     </div>
                                 ) : (
-                                    <p>Не содержит списков</p>
+                                    <p>{t('selectTask.selectList.notFound')}</p>
                                 )}
                             </div>
                         )}
@@ -68,11 +72,13 @@ const SelectCard = () => {
                                 <div>
                                     {dataBoard?.data.lists[listIndex].cards.length > 0 ? (
                                         <div>
-                                            <h3>Выберите карточку</h3>
+                                            <h3>{t('selectTask.selectCard.title')}</h3>
                                             <select
                                                 onChange={event => selectCard(event.target.value)}
                                             >
-                                                <option value="">Выберите карточку</option>
+                                                <option value="">
+                                                    {t('selectTask.selectCard.title')}
+                                                </option>
                                                 {dataBoard?.data.lists[listIndex].cards.map(
                                                     (card: ICard) => (
                                                         <option key={card.id} value={card.name}>
@@ -83,7 +89,7 @@ const SelectCard = () => {
                                             </select>
                                         </div>
                                     ) : (
-                                        <p>Не содержит карточек</p>
+                                        <p>{t('selectTask.selectCard.notFound')}</p>
                                     )}
                                 </div>
                             )}
@@ -97,4 +103,4 @@ const SelectCard = () => {
     );
 };
 
-export default SelectCard;
+export default SelectTask;

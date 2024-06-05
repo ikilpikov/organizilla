@@ -336,8 +336,10 @@ export const useFontSizeStore = create(
 interface IPomodoroSettings {
     workTime: number;
     breakTime: number;
+    isAlarmSound: boolean;
     setWorkTime: (time: number) => void;
     setBreakTime: (time: number) => void;
+    setIsAlarmSound: (isAlarmSound: boolean) => void;
 }
 
 export const usePomodoroSettingsStore = create(
@@ -345,14 +347,17 @@ export const usePomodoroSettingsStore = create(
         set => ({
             workTime: 25,
             breakTime: 5,
+            isAlarmSound: true,
             setWorkTime: (time: number) => set({ workTime: time }),
             setBreakTime: (time: number) => set({ breakTime: time }),
+            setIsAlarmSound: (isAlarmSound: boolean) => set({ isAlarmSound: isAlarmSound }),
         }),
         {
             name: 'pomodoro-settings',
             partialize: (state: IPomodoroSettings) => ({
                 workTime: state.workTime,
                 breakTime: state.breakTime,
+                isAlarmSound: state.isAlarmSound,
             }),
         },
     ),

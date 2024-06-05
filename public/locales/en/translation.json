@@ -138,7 +138,26 @@
             "time": {
                 "work": "Work",
                 "break": "Break"
+            },
+            "sound": {
+                "alarm": "Sound notification"
             }
+        }
+    },
+    "selectTask": {
+        "selectBoard": "Select Board",
+        "selectList": {
+            "title": "Select List",
+            "notFound": "No lists found"
+        },
+        "selectCard": {
+            "title": "Select Card",
+            "notFound": "No cards found"
+        },
+        "pomodoroCards": {
+            "title": "To-Do List",
+            "active": "Active",
+            "complete": "Completed"
         }
     }
 }
