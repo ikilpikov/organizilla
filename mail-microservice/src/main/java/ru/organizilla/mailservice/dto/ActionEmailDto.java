@@ -1,4 +1,4 @@
-package ru.organizilla.dto;
+package ru.organizilla.mailservice.dto;
 
 import jakarta.validation.constraints.Email;
 import lombok.Getter;

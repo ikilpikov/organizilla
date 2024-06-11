@@ -1,4 +1,4 @@
-package ru.organizilla.service.impl;
+package ru.organizilla.mailservice.service.impl;
 
 import jakarta.mail.internet.MimeMessage;
 import lombok.SneakyThrows;
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import ru.organizilla.enums.MailSubject;
-import ru.organizilla.service.EmailService;
+import ru.organizilla.mailservice.enums.MailSubject;
+import ru.organizilla.mailservice.service.EmailService;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -35,7 +35,7 @@ public class EmailServiceImpl implements EmailService {
         helper = new MimeMessageHelper(message, true);
         helper.setTo(recipientAddress);
 
-        helper.setText("<h1>wassup " + username +  " code " + code + "</h1>", true);
+        helper.setText("<h1>Hello, " + username +  " code " + code + "</h1>", true);
         sender.send(message);
     }
 }

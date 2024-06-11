@@ -1,10 +1,10 @@
-package ru.organizilla.controller;
+package ru.organizilla.mailservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.organizilla.dto.ActionEmailDto;
-import ru.organizilla.service.impl.EmailServiceImpl;
+import ru.organizilla.mailservice.dto.ActionEmailDto;
+import ru.organizilla.mailservice.service.impl.EmailServiceImpl;
 
 import static org.springframework.http.ResponseEntity.ok;
 

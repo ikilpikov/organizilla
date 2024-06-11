@@ -1,4 +1,4 @@
-package ru.organizilla.util;
+package ru.organizilla.api.gateway.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

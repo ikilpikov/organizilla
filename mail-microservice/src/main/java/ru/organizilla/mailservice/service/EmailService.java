@@ -1,4 +1,4 @@
-package ru.organizilla.service;
+package ru.organizilla.mailservice.service;
 
 public interface EmailService {
 

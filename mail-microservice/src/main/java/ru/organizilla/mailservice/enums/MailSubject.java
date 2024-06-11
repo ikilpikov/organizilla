@@ -1,4 +1,4 @@
-package ru.organizilla.enums;
+package ru.organizilla.mailservice.enums;
 
 public enum MailSubject {
 
