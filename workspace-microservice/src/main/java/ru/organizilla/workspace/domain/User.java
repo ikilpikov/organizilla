@@ -1,14 +1,16 @@
 package ru.organizilla.workspace.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import ru.organizilla.workspace.domain.enums.AccountStatus;
 import ru.organizilla.workspace.domain.enums.Role;
 
 
 @Entity
 @Table(name = "\"user\"")
-@Data
+@Getter
+@Setter
 public class User {
 
     @Id

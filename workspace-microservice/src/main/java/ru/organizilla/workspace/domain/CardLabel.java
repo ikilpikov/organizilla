@@ -1,11 +1,13 @@
 package ru.organizilla.workspace.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "card_label")
-@Data
+@Getter
+@Setter
 public class CardLabel {
 
     @Id

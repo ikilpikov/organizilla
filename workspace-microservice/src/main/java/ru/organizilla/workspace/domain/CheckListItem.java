@@ -1,11 +1,13 @@
 package ru.organizilla.workspace.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "check_list_item")
-@Data
+@Getter
+@Setter
 public class CheckListItem {
 
     @Id

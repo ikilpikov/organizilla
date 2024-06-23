@@ -1,12 +1,14 @@
 package ru.organizilla.workspace.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import ru.organizilla.workspace.domain.enums.Color;
 
 @Entity
 @Table(name = "label_color")
-@Data
+@Getter
+@Setter
 public class LabelColor {
 
     @Id
