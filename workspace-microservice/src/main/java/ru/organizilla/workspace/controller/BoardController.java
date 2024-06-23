@@ -65,7 +65,9 @@ public class BoardController {
     @PostMapping("/import")
     public ResponseEntity<String> importTrelloBoard(@RequestHeader(USERNAME_HEADER) String username,
                                                                @RequestBody List<ImportBoardDto> boardDtos) {
-        boardDtos.forEach(x -> boardService.importTrelloBoard(username, x));
+        for (var boardDto : boardDtos) {
+            boardService.importTrelloBoard(username, boardDto);
+        }
         return ok().body("ok");
     }
 }
